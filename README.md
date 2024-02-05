@@ -35,7 +35,7 @@
 
 2. **Planering**
 - Vi som grupp har kommit överens som att köra sky color pallet i tailwind. 
-![Sky color pallet](image.png)
+![Sky color palet](./images/image1.png)
 - Måndag 5/2-24 kl-11:00 möte. Fixa github classroom projects.
 - Tills Tisdag 6/2-24 kl-13.00 möte angående att göra high-fidelty:
 Alla gör en index High-fidelity sedan gör 
