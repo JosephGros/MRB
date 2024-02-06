@@ -87,137 +87,98 @@ Vi som grupp går igenom våra high fidelitys och kommer överens om den fastst�
 
 ### Navbar:
 
-**Mobil Logged in**
+**Mobil Logged in  |  Mobil Logged out**
 <br>
-<img src="./images/navbar.png" width=50%;> 
-<br>
-
-**Mobil Logged out**
-<br>
-<img src="./images/navbarMobileLoggedOut.png" width=50%;>
+<img src="./images/navbar.png" width=40%;> <img src="./images/navbarMobileLoggedOut.png" width=40%;>
 <br>
 
-**Desktop Logged in**
+**Desktop Logged in  |  Desktop Logged out**
 <br>
-<img src="./images/navbarDesktopLoggedIn.png" width=50%;>
-<br>
-
-**Desktop Logged out**
-<br>
-<img src="./images/navbarDesktopLoggedOut.png" width=50%;>
+<img src="./images/navbarDesktopLoggedIn.png" width=40%;> <img src="./images/navbarDesktopLoggedOut.png" width=40%;>
 <br>
 
 ### Footer:
 
-**Desktop Footer**
+**Desktop Footer  |  Mobil Footer**
 <br>
-<img src="./images/footerDesktop.png" width=50%;>
-<br>
-
-**Mobil Footer**
-<br>
-<img src="./images/footerMobile.png" width=50%;>
+<img src="./images/footerDesktop.png" width=60%;> <img src="./images/footerMobile.png" width=60%;>
 <br>
 
 ### Index:
 
-**Desktop Index**
+**Desktop Index  |  Mobil Index**
 <br>
-<img src="./images/desktopIndex.png" width=80%;>
+<img src="./images/desktopIndex.png" width=60%;>
 <br>
-
-**Mobil Index**
-<br>
-<img src="./images/indexMobile.png" width=50%;>
+<img src="./images/indexMobile.png" width=40%; height=30%>
 <br>
 
 ### Display:
 <br>
 
-**Desktop display**
+**Desktop display  |  Mobil display**
 <br>
-<img src="./images/desktopDisplay.png" width=80%;>
+<img src="./images/desktopDisplay.png" width=60%;>
 <br>
-
-**Mobil display**
-<br>
-<img src="./images/mobileDisplay.png" width=50%;>
+<img src="./images/mobileDisplay.png" width=40%;>
 <br>
 
 ### Contact us:
 <br>
 
-**Desktop contact**
+**Desktop contact  |  Mobil contact**
 <br>
-<img src="./images/desktopContact.png" width=80%;>
+<img src="./images/desktopContact.png" width=60%;>
 <br>
-
-**Mobil contact**
-<br>
-<img src="./images/mobileContact.png" width=50%;>
+<img src="./images/mobileContact.png" width=40%;>
 <br>
 
 ### Profile:
 <br>
 
-**Desktop profile**
+**Desktop profile  |  Mobil profile**
 <br>
-<img src="./images/desktopProfil.png" width=80%;>
+<img src="./images/desktopProfil.png" width=60%;>
 <br>
-
-**Mobil profile**
-<br>
-<img src="./images/mobileProfil.png" width=50%;>
+<img src="./images/mobileProfil.png" width=40%;>
 <br>
 
 ### Login Choice:
 <br>
 
-**Desktop Login Choice**
+**Desktop Login Choice  |  Mobil Login Choice**
 <br>
-<img src="./images/desktopLoginChoice.png" width=80%;>
+<img src="./images/desktopLoginChoice.png" width=60%;>
 <br>
-
-**Mobil Login Choice**
-<br>
-<img src="./images/mobileLoginChoice.png" width=50%;>
+<img src="./images/mobileLoginChoice.png" width=40%;>
 <br>
 
 ### Login:
 <br>
 
-**Desktop Login**
+**Desktop Login  |  Mobil Login**
 <br>
-<img src="./images/desktopLogin.png" width=80%;>
+<img src="./images/desktopLogin.png" width=60%;>
 <br>
-
-**Mobil Login**
-<br>
-<img src="./images/mobileLogin.png" width=50%;>
+<img src="./images/mobileLogin.png" width=40%;>
 <br>
 
 ### Create account:
 <br>
 
-**Desktop Create account**
+**Desktop Create account  |  Mobil Create account**
 <br>
-<img src="./images/desktopCreateAcc.png" width=80%;>
+<img src="./images/desktopCreateAcc.png" width=60%;>
 <br>
-
-**Mobil Create account**
-<br>
-<img src="./images/mobileCreateAcc.png" width=50%;>
+<img src="./images/mobileCreateAcc.png" width=40%;>
 <br>
 
 ### About us:
 <br>
 
-**Desktop About us**
+**Desktop About us  |  Mobil About us**
 <br>
-<img src="./images/desktopAbout.png" width=80%;>
+<img src="./images/desktopAbout.png" width=60%;>
 <br>
-
-**Mobil About us**
-<br>
-<img src="./images/mobileAbout.png" width=50%;>
+<img src="./images/mobileAbout.png" width=40%;>
 <br>
