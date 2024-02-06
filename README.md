@@ -18,7 +18,7 @@
 
 ## Vecka 5
 
-**Första mötet fredag - 2024-02-02 kl-10.00 - 12:40**
+**Första mötet Fredag - 2024-02-02 kl-10.00 - 12:40**
 **Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
 
 1. **Hemsidan**
@@ -57,8 +57,167 @@ Där vi sedan visar upp våra high-fidelity och kommer fram till en fastställd 
 
 ## Vecka 6
 
-**Möte 2 måndag - 2024-02-05 kl-11.00 - 11.30**
+**Möte 2 Måndag - 2024-02-05 kl-11.00 - 11.30**
 **Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
 
 Idag kollade vi mest läget efter helgen. Med tanke på att vi påbörjade detta projekt i fredags så har det ju inte hänt jättemycket. Men vi har alla påbörjat och är nästintill klara med våra high-fidelitys i figma. Vilket vi ska på tisdagsmötet gå igenom och fastställa vår design. Idag har vi startat vårt github classrom clonat ner den och skapat en docker container och installerat laravel. Mer än det hade vi inte för dagens möte. 
 Screenshot för nuvarande figma måndag 05/02-24: [Länk till Screenshot](screenshotsDoc.md)
+
+
+**Möte 3 Tisdag - 2024-02-05 kl-13.00 -**
+**Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
+
+Vi som grupp går igenom våra high fidelitys och kommer överens om den fastställda designen. Vi är överens och kommit fram till detta. Vi har delat idéer och slagit ihop våra designer med varandra och kommit fram till en stilren design. Vi har också ett ER-Diagram som Matilda har fixat vi kommer att fin justera lite beroende på vad som går att göra och inte. Vilket vi inte kan veta förens vi ska börja bygga databasen för att veta hur vi ska göra med bilder och trailers. 
+
+
+**Vad vi kommit överens om:**
+
+- [Navbar](#navbar)
+- [Footer](#footer)
+- [Index](#index)
+- [Display](#display)
+- [Contact us](#contact-us)
+- [Profile](#profile)
+- [Login Choice](#login-choice)
+- [Login](#login)
+- [Create Account](#create-account)
+- [About us](#about-us)
+
+<br>
+
+### Navbar:
+
+**Mobil Logged in**
+<br>
+<img src="./images/navbar.png" width=50%;> 
+<br>
+
+**Mobil Logged out**
+<br>
+<img src="./images/navbarMobileLoggedOut.png" width=50%;>
+<br>
+
+**Desktop Logged in**
+<br>
+<img src="./images/navbarDesktopLoggedIn.png" width=50%;>
+<br>
+
+**Desktop Logged out**
+<br>
+<img src="./images/navbarDesktopLoggedOut.png" width=50%;>
+<br>
+
+### Footer:
+
+**Desktop Footer**
+<br>
+<img src="./images/footerDesktop.png" width=50%;>
+<br>
+
+**Mobil Footer**
+<br>
+<img src="./images/footerMobile.png" width=50%;>
+<br>
+
+### Index:
+
+**Desktop Index**
+<br>
+<img src="./images/desktopIndex.png" width=80%;>
+<br>
+
+**Mobil Index**
+<br>
+<img src="./images/indexMobile.png" width=50%;>
+<br>
+
+### Display:
+<br>
+
+**Desktop display**
+<br>
+<img src="./images/desktopDisplay.png" width=80%;>
+<br>
+
+**Mobil display**
+<br>
+<img src="./images/mobileDisplay.png" width=50%;>
+<br>
+
+### Contact us:
+<br>
+
+**Desktop contact**
+<br>
+<img src="./images/desktopContact.png" width=80%;>
+<br>
+
+**Mobil contact**
+<br>
+<img src="./images/mobileContact.png" width=50%;>
+<br>
+
+### Profile:
+<br>
+
+**Desktop profile**
+<br>
+<img src="./images/desktopProfil.png" width=80%;>
+<br>
+
+**Mobil profile**
+<br>
+<img src="./images/mobileProfil.png" width=50%;>
+<br>
+
+### Login Choice:
+<br>
+
+**Desktop Login Choice**
+<br>
+<img src="./images/desktopLoginChoice.png" width=80%;>
+<br>
+
+**Mobil Login Choice**
+<br>
+<img src="./images/mobileLoginChoice.png" width=50%;>
+<br>
+
+### Login:
+<br>
+
+**Desktop Login**
+<br>
+<img src="./images/desktopLogin.png" width=80%;>
+<br>
+
+**Mobil Login**
+<br>
+<img src="./images/mobileLogin.png" width=50%;>
+<br>
+
+### Create account:
+<br>
+
+**Desktop Create account**
+<br>
+<img src="./images/desktopCreateAcc.png" width=80%;>
+<br>
+
+**Mobil Create account**
+<br>
+<img src="./images/mobileCreateAcc.png" width=50%;>
+<br>
+
+### About us:
+<br>
+
+**Desktop About us**
+<br>
+<img src="./images/desktopAbout.png" width=80%;>
+<br>
+
+**Mobil About us**
+<br>
+<img src="./images/mobileAbout.png" width=50%;>
+<br>
