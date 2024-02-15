@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+    public function index()
+    {
+        return view('contact');
+    }
     // Visa kontaktformuläret
     public function create()
     {
@@ -19,7 +23,7 @@ class ContactController extends Controller
         // Exempel: Kontrollerar ifall rätt data är inmatad
         $validated = $request->validate([
             'firstname' => 'required',
-            'lastname' => 'required' ,
+            'lastname' => 'required',
             'email' => 'required|email',
             'message' => 'required',
         ]);
