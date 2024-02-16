@@ -16,12 +16,6 @@ return new class extends Migration
             $table->text('review');
             $table->foreignId('movie_id')->constrained()->nullable()->onDelete('cascade');
             $table->foreignId('serie_id')->constrained()->nullable()->onDelete('cascade');
-
-            $table->index(['movie_id', 'serie_id']);
-            $table->where(function ($query){
-                $query->whereNotNull('movie_id');
-                $query->orWhereNotNull('serie_id');
-            });
             $table->timestamps();
         });
     }

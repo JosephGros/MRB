@@ -17,13 +17,6 @@ return new class extends Migration
             $table->foreignId('movie_id')->constrained()->nullable()->onDelete('cascade');
             $table->foreignId('serie_id')->constrained()->nullable()->onDelete('cascade');
             $table->foreignId('episode_id')->constrained()->nullable()->onDelete('cascade');
-
-            $table->index(['movie_id', 'serie_id', 'episode_id']);
-            $table->where(function ($query){
-                $query->whereNotNull('movie_id');
-                $query->orWhereNotNull('serie_id');
-                $query->orWhereNotNull('episode_id');
-            });
             $table->timestamps();
         });
     }
