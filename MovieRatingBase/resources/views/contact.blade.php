@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="bg-sky-950 min-h-screen flex flex-col items-center justify-center">
-    <!---Image-->
+    <!---Image--->
     <div class="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded overflow-hidden ">
         <img src="{{ asset('/images/LogoMRB.png')}}" alt="logo" class="w-full h-full py-5">
     </div>
