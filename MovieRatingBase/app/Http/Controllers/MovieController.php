@@ -13,8 +13,8 @@ class MovieController extends Controller
     public function index()
     {
         // Returns all movies in JSON format to be displayed in dashboard
-        $movies = Movie::get()->toJson(JSON_PRETTY_PRINT);
-        return response($movies, 200);
+        $movies = Movie::all();
+        return view('dashboard', ['movies' => $movies]);
     }
 
     /**
@@ -50,11 +50,10 @@ class MovieController extends Controller
         
         if($movie->save())
         {
-            return response()->json(['message' => 'Movie created Successfully'
-            ], 201);
-        } 
-            return response()->json(['message' => 'Something went wrong'
-            ], 500);
+            return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
+        } else {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
@@ -62,7 +61,14 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $movie = Movie::find($id);
+
+        if(!$movie) 
+        {
+            return redirect()->route('dashboard')->with('error', 'Movie not found');
+        }
+
+        return view('movies.dashboard', ['Movies' => $movie]);
     }
 
     /**
@@ -70,7 +76,7 @@ class MovieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Return movie edit form for admin
     }
 
     /**
