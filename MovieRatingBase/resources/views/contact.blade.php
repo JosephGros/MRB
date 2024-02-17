@@ -1,46 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-sky-950 min-h-screen flex flex-col items-center justify-center">
-    <!---Image--->
-    <div class="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded overflow-hidden ">
-        <img src="{{ asset('/images/LogoMRB.png')}}" alt="logo" class="w-full h-full py-5">
-    </div>
+<div class="bg-sky-950 min-h-full flex justify-center items-center">
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-10 p-4">
 
-    <div class="flex items-center justify-center space-x-4 mb-4 py-2">
-        <h1 class="text-[53px] font-extrabold text-sky-50">Contact us</h1>
-    </div>
+        <!-- Contact Form & Logo -->
+        <div class=" bg-opacity-75 bg-sky-800 p-8 rounded-lg shadow-lg w-full lg:w-1/2 max-w-md">
+            <div class="text-center">
+                <img src="{{ asset('/images/LogoMRB.png') }}" alt="logo" class="mb-6 w-50 h-50 ">
+                <h2 class="text-4xl text-sky-950 font-bold mb-6">Contact us</h2>
+            </div>
+            <form action="{{ route('contact.store') }}" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label for="name" class="text-lg mb-2 block">Name</label>
+                    <input type="text" id="name" name="name" placeholder="First and last name" class="w-full p-4 rounded-md border-2 border-sky-200 ">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="text-lg mb-2 block">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email here..." class="w-full p-4 rounded-md border-2 border-sky-200">
+                </div>
+                <div class="mb-8">
+                    <label for="message" class="text-lg mb-2 block">Description</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." class="w-full p-4 rounded-md border-2 border-sky-200"></textarea>
+                </div>
+                <button type="submit" class="bg-sky-600 text-white p-4 rounded-lg w-full">Send Message</button>
+            </form>
+        </div>
 
+        <!-- Right Section for Contact Image and Text -->
+        <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+            <div class="w-full max-w-md">
+                <img src="{{ asset('/images/contact-us.webp') }}" alt="Contact Us" class="rounded-lg shadow-lg mb-4">
+                <h2 class="text-xl lg:text-2xl text-sky-50 font-semibold mb-4 shadow-md p-4 bg-opacity-35 bg-sky-800 rounded-lg border border-sky-900 w-full">
+                    Reach out to us at MRB for expert solutions tailored to your needs. Our dedicated team is ready to assist with any inquiries, offer advice, or discuss collaborative opportunities to enhance your business.
+                </h2>
+            </div>
+        </div>
 
-    <div class="bg-sky-800 text-white p-8 rounded-lg shadow-lg w-full max-w-xs">
-
-        <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
-            @csrf
-            <div>
-                <label for="name" class="block text-sm font-semibold text-sky-50 text-[23px] pb-5 text-center">Name</label>
-                <input type="text" id="name" name="name" class="w-full p-2 rounded-md bg-white border border-blue focus:border-blue-500 focus:outline-none text-black" placeholder="First and last name" required>
-            </div>
-            <div>
-                <label for="email" class="block text-sm font-semibold text-sky-50 text-[23px] pb-5 text-center">Email</label>
-                <input type="email" id="email" name="email" class="w-full p-2 rounded-md bg-white border border-blue focus:border-blue-500 focus:outline-none text-black" placeholder="Your email here..." required>
-            </div>
-            <div>
-                <label for="message" class="block text-sm font-semibold text-sky-50 text-[23px] pb-5 text-center">Description</label>
-                <textarea id="message" name="message" rows="4" class="w-full p-2 rounded-md bg-white border border-blue focus:border-blue-500 focus:outline-none text-black" placeholder="Enter your message here..." required></textarea>
-            </div>
-            <div class="flex justify-center">
-
-                <button type="submit" class="bg-sky-950 p-3 rounded-md hover:bg-sky-700 transition-colors">Send</button>
-            </div>
-            <!---Image-->
-            <div class="w-42 h-42 md:w-58 md:h-58 lg:w-64 lg:h-64 rounded-md overflow-hidden">
-                <img src="{{ asset('/images/contact-us.webp')}}" alt="logo" class="w-full h-full ">
-            </div>
-        </form>
     </div>
 </div>
-
-</div>
-
-
 @endsection
