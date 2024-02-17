@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -11,7 +12,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        // Returns all movies in JSON format to be displayed in dashboard
+        $movies = Movie::get()->toJson(JSON_PRETTY_PRINT);
+        return response($movies, 200);
     }
 
     /**
@@ -19,7 +22,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        // Return movie create form for admin
     }
 
     /**
@@ -27,7 +30,31 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required|string',
+                'poster' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
+                'release' => 'required|date_format:Y',
+                'runtime' => 'required|string',
+                'description' => 'required|text',
+            ]);
+        
+        $path = $request->file('poster')->store('posters', 'public');
+
+        $movie = new Movie();
+        $movie->name = $request->name;
+        $movie->poster = $path;
+        $movie->release = $request->release;
+        $movie->runtime = $request->runtime;
+        $movie->description = $request->description;
+        
+        if($movie->save())
+        {
+            return response()->json(['message' => 'Movie created Successfully'
+            ], 201);
+        } 
+            return response()->json(['message' => 'Something went wrong'
+            ], 500);
     }
 
     /**
