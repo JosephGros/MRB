@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-sky-950 min-h-full flex justify-center items-center">
     <div class="flex flex-col lg:flex-row items-center justify-center gap-10 p-4">
-
+        
         <!-- Contact Form & Logo -->
         <div class=" bg-opacity-75 bg-sky-800 p-8 rounded-lg shadow-lg w-full lg:w-1/2 max-w-md">
             <div class="text-center">
