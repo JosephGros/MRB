@@ -1,5 +1,4 @@
 <nav x-data="{ open: false }" class="static w-screen text-50 bg-nav">
-<!-- <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100  selection:text-white"> -->
        
     <!-- Navigation not logged in -->
     <div class="max-w-7xl mx-auto py-4 lg:py-6 px-4 sm:px-6 text-sm md:text-base">
@@ -27,7 +26,6 @@
 
 
                         <!-- Navigation  -->
-                        <!-- <div class="flex items-center justify-between py-6 fixed top-0 left-0 right-0"> -->
                             <div class="flex items-center py-2 sm:py-6 fixed top-1 left-0 sm:right-0 mt-2 ml-3 sm:ml-0 font-inter">
 
                                 <!-- Logo -->
@@ -79,14 +77,10 @@
                                 </svg>
                             </button>
                         </div>
-
-
                        
             </div>
             </div> 
     </div>
-    <!-- </div> -->
-
 
 
     <!-- Responsive Navigation Menu -->
