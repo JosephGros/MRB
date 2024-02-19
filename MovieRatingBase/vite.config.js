@@ -11,7 +11,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'dist',
-    },
 });

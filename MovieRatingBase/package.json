@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "laravel build --output public"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
