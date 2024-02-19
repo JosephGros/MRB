@@ -50,6 +50,11 @@ class MovieController extends Controller
         
         if($movie->save())
         {
+            $movie->genres()->sync($request->genres);
+            $movie->actors()->sync($request->actors);
+            $movie->directors()->sync($request->directors);
+            $movie->writers()->sync($request->writers);
+            
             return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
         } else {
             return redirect()->back()->with('error', 'Something went wrong');
@@ -61,14 +66,26 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        $movie = Movie::find($id);
+        $movie = Movie::with(['ratings', 'actors', 'writers', 'reviews', 'genres', 'directors'])->find($id);
 
-        if(!$movie) 
+        if (!$movie) 
         {
             return redirect()->route('dashboard')->with('error', 'Movie not found');
         }
 
-        return view('movies.dashboard', ['Movies' => $movie]);
+        $similarMovies = Movie::whereHas('genres', function ($query) use ($movie)
+        {
+            $query->whereIn('id', $movie->genres->pluck('id'));
+        })->where('id', '!=', $id)->take(5)->get();
+
+        $latestReview = $movie->review()->latest()->first();
+
+        return view('dashboard', 
+        [
+            'movie' => $movie,
+            'similarMovies' => $similarMovies,
+            'latestReview' => $latestReview,
+        ]);
     }
 
     /**
@@ -84,7 +101,52 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'sometimes|string',
+            'poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
+            'release' => 'sometimes|date_format:Y',
+            'runtime' => 'sometimes|string',
+            'description' => 'sometimes|string'
+        ]);
+    
+        if(Movie::where('id', $id)->exists()){
+            $movie = Movie::find($id);
+            $movie->name = $request->input('name', $movie->name);
+            $movie->release = $request->input('release', $movie->release);
+            $movie->runtime = $request->input('runtime', $movie->runtime);
+            $movie->description = $request->input('description', $movie->description);
+    
+            if ($request->hasFile('poster')) {
+                $path = $request->file('poster')->store('posters', 'public');
+                $movie->poster = $path;
+            }
+    
+            $movie->save();
+
+            if($request->has('genres'))
+            {
+                $movie->genres()->sync($request->genres);
+            }
+
+            if($request->has('actors'))
+            {
+                $movie->actors()->sync($request->actors);
+            }
+
+            if($request->has('directors'))
+            {
+                $movie->directors()->sync($request->directors);
+            }
+
+            if($request->has('writers'))
+            {
+                $movie->writers()->sync($request->writers);
+            }
+    
+            return redirect()->route('movies.dashboard', $movie->id)->with('success', 'Movie updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Movie not found');
+        }
     }
 
     /**
@@ -92,6 +154,14 @@ class MovieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Movie::where('id', $id)->exists()){
+
+            $movie = Movie::find($id);
+            $movie->delete();
+
+            return redirect()->route('movies.dashboard', $movie->id)->with('success', 'Movie deleted successfully');
+        } else {
+            return redirect()->back()-with('error', 'Movie not found');
+        }
     }
 }
