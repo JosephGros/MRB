@@ -4,6 +4,12 @@
     "functions": {
     "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
+    "builds": [
+        {
+          "src": "public/build/manifest.json", 
+          "use": "@vercel/node" 
+        }
+      ],
     "routes": [{
     "src": "/(.*)",
     "dest": "/api/index.php"
