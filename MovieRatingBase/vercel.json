@@ -22,5 +22,5 @@
     "LOG_CHANNEL": "stderr",
     "SESSION_DRIVER": "cookie"
     },
-    "outputDirectory": "/resource"
+    "outputDirectory": "/public/build"
 } 
