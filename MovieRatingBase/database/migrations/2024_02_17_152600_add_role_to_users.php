@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('serie_creator', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('serie_id')->constrained()->onDelete('cascade');
-            $table->foreignId('creator_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role')->default(1);
         });
     }
 
@@ -24,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('serie__creators');
+        if(Schema::hasColumn('users', 'role'))
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 };

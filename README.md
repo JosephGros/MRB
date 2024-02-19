@@ -74,7 +74,7 @@ Vi som grupp går igenom våra high fidelitys och kommer överens om den fastst�
 
 [För mer detaljerade bilder där man ser sida för sida](screenshotsDoc.md)
 
-<img src="./images/fullFigma.png">
+<img src="../images/fullFigma.png">
 
 
 **Möte 4 Torsdag - 2024-02-08 kl-14.30**
