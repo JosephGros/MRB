@@ -80,4 +80,4 @@ Vi som grupp går igenom våra high fidelitys och kommer överens om den fastst�
 **Möte 4 Torsdag - 2024-02-08 kl-14.30**
 **Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
 
-Vi tittar över Er-Diagramet och kommit överens om att vi ska göra issues och se till att allt är klart för denna vecka och samt planera nästa vecka imorgon Fredag 2024-02-09. Mötet Fredag blir 14:00.
+Vi tittar över Er-Diagramet och kommit överens om att vi ska göra issues och se till att allt är klart för denna vecka och samt planera nästa vecka imorgon Fredag 2024-02-09. Mötet Fredag blir 14:00. 
