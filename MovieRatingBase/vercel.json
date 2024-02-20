@@ -43,7 +43,7 @@
           }
         ],
         "minimumCacheTTL": 60,
-        "formats": ["image/webp","image/gif","image/png","image/jpeg"],
+        "formats": ["image/webp","image/avif","image/png","image/jpeg"],
         "dangerouslyAllowSVG": false,
         "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
         "contentDispositionType": "inline"
