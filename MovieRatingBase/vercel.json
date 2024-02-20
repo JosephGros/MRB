@@ -4,19 +4,20 @@
     "functions": {
     "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
-    "outputDirectory": "public",
-    "routes": [{
-    "src": "/(.*)",
-    "dest": "/api/index.php"
-    },
-    {
-        "src": "/build/(.*)",
-        "dest": "/build/"
-    }],
+    "routes": [
+        {
+            "src": "/build/(.*)",
+            "dest": "public/build/"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
+    ],
     "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "true",
-    "APP_URL": "https://movieratingbase.vercel.app/",
+    "APP_URL": "https://mrb-beta.vercel.app/",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
