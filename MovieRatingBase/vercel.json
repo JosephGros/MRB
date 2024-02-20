@@ -6,7 +6,8 @@
     },
     "routes": [
         { 
-            "handle": "filesystem" , "src": "/images/(.*)" , "dest": "/images/$1" 
+            "src": "/images/(.*)" , 
+            "dest": "/images/$1" 
         },
         {
             "src": "/build/(.*)",
