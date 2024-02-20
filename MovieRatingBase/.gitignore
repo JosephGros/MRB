@@ -1,9 +1,6 @@
 /.phpunit.cache
 /node_modules
-
-/public/hot
-
-
+/public
 /vendor
 .env
 .env.backup

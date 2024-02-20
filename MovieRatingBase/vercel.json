@@ -4,19 +4,14 @@
     "functions": {
     "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
-    "builds": [
-        {
-          "src": "public/build/manifest.json", 
-          "use": "@vercel/node" 
-        },
-        {
-            "src": "public/build/assets/*",
-            "use": "@vercel/node"
-        }
-      ],
+    "outputDirectory": "public",
     "routes": [{
     "src": "/(.*)",
     "dest": "/api/index.php"
+    },
+    {
+        "src": "/build/(.*)",
+        "dest": "/build/$1"
     }],
     "env": {
     "APP_ENV": "production",
