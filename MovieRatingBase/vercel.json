@@ -11,7 +11,7 @@
     },
     {
         "src": "/build/(.*)",
-        "dest": "/public/build/"
+        "dest": "/build/"
     }],
     "env": {
     "APP_ENV": "production",
