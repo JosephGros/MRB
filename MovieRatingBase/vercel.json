@@ -10,8 +10,8 @@
     "dest": "/api/index.php"
     },
     {
-        "src": "/build/(.*)",
-        "dest": "/build/$1"
+        "src": "/build/assets/(.*)",
+        "dest": "/build/assets/$1"
     }],
     "env": {
     "APP_ENV": "production",
