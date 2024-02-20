@@ -1,6 +1,5 @@
 /.phpunit.cache
 /node_modules
-/public
 /vendor
 .env
 .env.backup
