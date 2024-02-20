@@ -33,4 +33,9 @@ Route::get('/contact', [ContactController::class, 'create'])->name('contact.crea
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ContactController::class, 'index']);
 
+
+//About us controller Route
+Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
+
+
 require __DIR__.'/auth.php';
