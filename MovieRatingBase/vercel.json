@@ -8,6 +8,10 @@
         {
           "src": "public/build/manifest.json", 
           "use": "@vercel/node" 
+        },
+        {
+            "src": "public/build/assets/*",
+            "use": "@vercel/node"
         }
       ],
     "routes": [{
