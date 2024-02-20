@@ -31,5 +31,21 @@
     "CACHE_DRIVER": "array",
     "LOG_CHANNEL": "stderr",
     "SESSION_DRIVER": "cookie"
-    }
+    },
+    "images": {
+        "sizes": [256, 640, 1080, 2048, 3840],
+        "remotePatterns": [
+          {
+            "protocol": "https",
+            "hostname": "example.com",
+            "port": "",
+            "pathname": "/account123/**"
+          }
+        ],
+        "minimumCacheTTL": 60,
+        "formats": ["image/webp/gif/png/jfif/jpg/jpeg"],
+        "dangerouslyAllowSVG": false,
+        "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+        "contentDispositionType": "inline"
+      }
 } 
