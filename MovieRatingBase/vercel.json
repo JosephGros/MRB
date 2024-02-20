@@ -10,6 +10,10 @@
             "dest": "public/build/"
         },
         {
+            "src": "images/(.*)",
+            "dest": "images/"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
