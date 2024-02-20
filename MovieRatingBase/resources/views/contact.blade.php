@@ -7,7 +7,7 @@
         <!-- Contact Form & Logo -->
         <div class=" bg-opacity-75 bg-sky-800 p-8 rounded-lg shadow-lg w-full lg:w-1/2 max-w-md">
             <div class="text-center">
-                <img src="/images/LogoMRB.png" alt="logo" class="mb-6 w-50 h-50 ">
+                <img src="{{ asset('/images/LogoMRB.png') }}" alt="logo" class="mb-6 w-50 h-50 ">
                 <h2 class="text-4xl text-sky-950 font-bold mb-6">Contact us</h2>
             </div>
             <form action="{{ route('contact.store') }}" method="POST">
