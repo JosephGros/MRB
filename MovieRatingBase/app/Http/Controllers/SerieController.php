@@ -13,7 +13,7 @@ class SerieController extends Controller
     public function index()
     {
         $series = Serie::all();
-        return view('dashboard', ['series$series' => $series]);
+        return view('dashboard', ['series' => $series]);
     }
 
     /**
@@ -72,6 +72,12 @@ class SerieController extends Controller
             return redirect()->route('dashboard')->with('error', 'Serie not found');
         }
 
+        $totalRatings = $serie->ratings->count();
+        $sumRatings = $serie->ratings->sum('rating');
+        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+        $averageRating = max(1, min(10, $averageRating));
+
         $similarSeries = Serie::whereHas('genres', function ($query) use ($serie)
         {
             $query->whereIn('id', $serie->genres->pluck('id'));
@@ -84,6 +90,7 @@ class SerieController extends Controller
             'serie' => $serie,
             'similarSeries' => $similarSeries,
             'latestReview' => $latestReview,
+            'averageRating' => $averageRating,
         ]);
     }
 
