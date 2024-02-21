@@ -126,7 +126,7 @@ class SerieController extends Controller
                 $path = $request->file('poster')->store('posters', 'public');
                 $series->poster = $path;
             }
-    
+
             $series->save();
 
             if($request->has('genres'))
