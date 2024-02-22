@@ -14,7 +14,7 @@
                  <!-- Logo -->
                 <div class="ml-[130px] sm:ml-8">
                     <a href="#">
-                         <img class="h-18 w-30 sm:w-40" src="{{ Vite::asset('resources/images/image.png') }}" alt="MRB logo">
+                         <img class="h-18 w-30 sm:w-40" src="{{ Vite::asset('images/LogoMRB.png') }}" alt="MRB logo">
                     </a>
                 </div>
 
@@ -50,7 +50,7 @@
                             <div class="text-50">{{ Auth::user()->name }}</div>
 
                             <div class="ms-3">
-                                <img src="{{ Vite::asset('resources/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-12 border-solid border-4 border-sky-600">
+                                <img src="{{ Vite::asset('images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-12 border-solid border-4 border-sky-600">
                             </div>
                         </button>
                     </x-slot>
