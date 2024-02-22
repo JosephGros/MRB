@@ -1,3 +1,5 @@
+
+
 <?php
 
 use App\Http\Controllers\ProfileController;
@@ -9,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
+
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
@@ -31,11 +34,11 @@ Route::middleware('auth')->group(function () {
 // Kontaktformulär Routes
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/contact', [ContactController::class, 'index']);
+// Kontaktformulär Routes index
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
 
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
-
 
 require __DIR__.'/auth.php';
