@@ -14,12 +14,14 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-inter bg-backgc bg-sky-950 text-50 antialiased">
-        <div class="min-h-screen flex flex-col justify-center items-center">
+    <body class="bg-backgc antialiased">
+    
+    <div class="min-h-screen flex justify-center items-center text-50 font-inter">
 
-            <div class="sm:w-full sm:max-w-md px-6 bg-nav shadow-md overflow-hidden font-meduim">
-                {{ $slot }}
-            </div>
+        <div class="sm:w-full sm:max-w-md px-6 bg-nav shadow-md overflow-hidden font-meduim">
+            {{ $slot }}
+
         </div>
-    </body>
-</html>
+
+    </div>
+</body>
