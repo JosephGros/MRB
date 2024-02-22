@@ -14,7 +14,7 @@
                  <!-- Logo -->
                 <div class="ml-[130px] sm:ml-8">
                     <a href="#">
-                         <img class="h-18 w-30 sm:w-40" src="{{ Vite::asset('images/LogoMRB.png') }}" alt="MRB logo">
+                         <img class="h-18 w-30 sm:w-40" src="{{ asset('/images/LogoMRB.png') }}" alt="MRB logo">
                     </a>
                 </div>
 
