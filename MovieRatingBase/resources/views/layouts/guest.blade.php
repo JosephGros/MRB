@@ -20,6 +20,7 @@
 
         <div class="sm:w-full sm:max-w-md px-6 bg-nav shadow-md overflow-hidden font-meduim">
             {{ $slot }}
+
         </div>
 
     </div>
