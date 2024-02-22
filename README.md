@@ -18,7 +18,7 @@
 
 ## Vecka 5
 
-**Första mötet fredag - 2024-02-02 kl-10.00 - 12:40**
+**Första mötet Fredag - 2024-02-02 kl-10.00 - 12:40**
 **Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
 
 1. **Hemsidan**
@@ -57,8 +57,27 @@ Där vi sedan visar upp våra high-fidelity och kommer fram till en fastställd 
 
 ## Vecka 6
 
-**Möte 2 måndag - 2024-02-05 kl-11.00 - 11.30**
+**Möte 2 Måndag - 2024-02-05 kl-11.00 - 11.30**
 **Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
 
 Idag kollade vi mest läget efter helgen. Med tanke på att vi påbörjade detta projekt i fredags så har det ju inte hänt jättemycket. Men vi har alla påbörjat och är nästintill klara med våra high-fidelitys i figma. Vilket vi ska på tisdagsmötet gå igenom och fastställa vår design. Idag har vi startat vårt github classrom clonat ner den och skapat en docker container och installerat laravel. Mer än det hade vi inte för dagens möte. 
 Screenshot för nuvarande figma måndag 05/02-24: [Länk till Screenshot](screenshotsDoc.md)
+
+
+**Möte 3 Tisdag - 2024-02-05 kl-13.00 -**
+**Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
+
+Vi som grupp går igenom våra high fidelitys och kommer överens om den fastställda designen. Vi är överens och kommit fram till detta. Vi har delat idéer och slagit ihop våra designer med varandra och kommit fram till en stilren design. Vi har också ett ER-Diagram som Matilda har fixat vi kommer att fin justera lite beroende på vad som går att göra och inte. Vilket vi inte kan veta förens vi ska börja bygga databasen för att veta hur vi ska göra med bilder och trailers. 
+
+
+**Vad vi kommit överens om gällande design:**
+
+[För mer detaljerade bilder där man ser sida för sida](screenshotsDoc.md)
+
+<img src="../images/fullFigma.png">
+
+
+**Möte 4 Torsdag - 2024-02-08 kl-14.30**
+**Närvarande: Joseph Gros, Ahmed Almasri, Matilda Källström.**
+
+Vi tittar över Er-Diagramet och kommit överens om att vi ska göra issues och se till att allt är klart för denna vecka och samt planera nästa vecka imorgon Fredag 2024-02-09. Mötet Fredag blir 14:00. 
