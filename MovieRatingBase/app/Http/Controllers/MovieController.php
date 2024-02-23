@@ -73,6 +73,12 @@ class MovieController extends Controller
             return redirect()->route('dashboard')->with('error', 'Movie not found');
         }
 
+        $totalRatings = $movie->ratings->count();
+        $sumRatings = $movie->ratings->sum('rating');
+        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+        $averageRating = max(1, min(10, $averageRating));
+
         $similarMovies = Movie::whereHas('genres', function ($query) use ($movie)
         {
             $query->whereIn('id', $movie->genres->pluck('id'));
@@ -85,6 +91,7 @@ class MovieController extends Controller
             'movie' => $movie,
             'similarMovies' => $similarMovies,
             'latestReview' => $latestReview,
+            'averageRating' => $averageRating,
         ]);
     }
 
