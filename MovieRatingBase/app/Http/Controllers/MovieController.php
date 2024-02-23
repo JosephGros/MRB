@@ -14,7 +14,7 @@ class MovieController extends Controller
     {
         // Returns all movies in JSON format to be displayed in dashboard
         $movies = Movie::all();
-        return view('dashboard', ['movies' => $movies]);
+        return view('dashboard', ['movies' => $movies]); 
     }
 
     /**
