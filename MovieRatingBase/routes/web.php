@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Kontaktformulär Routes
-Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::get('/contact/create', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 // Kontaktformulär Routes index
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
