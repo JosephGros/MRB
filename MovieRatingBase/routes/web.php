@@ -2,6 +2,7 @@
 
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController; 
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 
 //About us controller Route
-Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 
 require __DIR__.'/auth.php';
