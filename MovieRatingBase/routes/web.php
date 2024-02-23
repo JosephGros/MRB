@@ -38,8 +38,8 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // Kontaktformulär Routes index
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
-
 //About us controller Route
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
+
 
 require __DIR__.'/auth.php';
