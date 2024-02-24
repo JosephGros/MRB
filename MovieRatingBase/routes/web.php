@@ -37,5 +37,8 @@ Route::get('/contact', [ContactController::class, 'index']);
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
+Route::get('/display', function (){
+    return view('display');
+});
 
 require __DIR__.'/auth.php';
