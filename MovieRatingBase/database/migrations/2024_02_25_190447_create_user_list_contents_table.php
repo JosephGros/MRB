@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('media_type');
             $table->timestamps();
 
-            $table->index('user_id');
+            $table->index('user_lists_id');
             $table->index(['media_id', 'media_type']);
         });
     }
