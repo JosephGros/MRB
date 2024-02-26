@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-sky-950 min-h-full flex justify-center items-center">
+<div class="bg-sky-950 min-h-screen flex justify-center items-center">
     <div class="flex flex-col lg:flex-row items-center justify-center gap-10 p-4">
         
         <!-- Contact Form & Logo -->
