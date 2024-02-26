@@ -9,7 +9,12 @@ class Movie extends Model
 {
     use HasFactory;
     protected $table = "movies";
-    protected $fillable = ["name", "poster", "release", "runtime", "description"];
+    protected $fillable = ["name", "poster", "release", "runtime", "description", "trailer"];
+
+    public function watchlists()
+    {
+        return $this->morphMany(Watchlist::class, 'media');
+    }
 
     public function genres()
     {
