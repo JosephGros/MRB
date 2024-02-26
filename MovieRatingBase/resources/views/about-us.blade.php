@@ -5,7 +5,7 @@
     <div class="w-full mx-auto py-6 px-6 lg:px-8 sm:w-11/12 md:max-w-7xl">
         <div class="text-center pt-24">
             <h1 class="font-extrabold text-4xl text-white mb-4">
-                About us at <img src="{{ asset('/images/LogoMRB.png') }}" alt="Logo" class="inline h-20 md:h-32 md:w-32">
+                About us at <img src="{{ asset('/images/LogoMRB.png') }}" alt="Logo" class="inline h-20 md:h-32">
             </h1>
         </div>
         <div class="mt-10 sm:mt-0 bg-sky-700 rounded-lg shadow overflow-hidden">
