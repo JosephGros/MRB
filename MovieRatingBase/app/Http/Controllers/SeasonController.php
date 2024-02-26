@@ -111,9 +111,9 @@ class SeasonController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|string',
-            'number_of_episodes' => 'required|string',
-            'series_id' => 'required|exists:series_id',
+            'name' => 'sometimes|string',
+            'number_of_episodes' => 'sometimes|string',
+            'series_id' => 'sometimes|exists:series_id',
         ]);
     
         if(Season::where('id', $id)->exists()){

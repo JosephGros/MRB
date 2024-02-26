@@ -68,12 +68,12 @@ class EpisodeController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'episode_count' => 'required|string', // Ep1, Ep2, Ep 3 and so on.
-            'name' => 'required|string',
-            'runtime' => 'required|string',
-            'description' => 'required|text',
-            'season_id' => 'required|exists:seasons,id',
-            'release_date' => 'required|date',
+            'episode_count' => 'sometimes|string', // Ep1, Ep2, Ep 3 and so on.
+            'name' => 'sometimes|string',
+            'runtime' => 'sometimes|string',
+            'description' => 'sometimes|text',
+            'season_id' => 'sometimes|exists:seasons,id',
+            'release_date' => 'sometimes|date',
         ]);
     
         if(Episode::where('id', $id)->exists()){

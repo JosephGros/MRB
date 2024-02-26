@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Writer;
 use Illuminate\Http\Request;
 
 class WriterController extends Controller
@@ -11,7 +12,8 @@ class WriterController extends Controller
      */
     public function index()
     {
-        //
+        $writer = Writer::all();
+        return view('dashboard', ['writer' => $writer]);
     }
 
     /**
@@ -19,7 +21,7 @@ class WriterController extends Controller
      */
     public function create()
     {
-        //
+        // create writer view for admin
     }
 
     /**
@@ -27,7 +29,30 @@ class WriterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'require|string',
+                'profile_picture' => 'require|image|mimes:jpeg,png,jpg,gif,jfif',
+                'birth_date' => 'require|string',
+                'death_date' => 'nullable|date',
+            ]
+            );
+
+        $path = $request->file('profile_pictrue')->store('profilePic', 'public');
+
+        $writer = new Writer();
+        $writer->name = $request->name;
+        $writer->profile_picture = $path;
+        $writer->birth_date = $request->birth_date;
+        $writer->death_date = $request->death_date;
+
+        if($writer->save())
+        {
+            return redirect()->route('dashboard')->with('success', 'Writer created successfully');
+        } else
+        {
+            return redirect()->back()->with('Error', 'Something went wrong');
+        }
     }
 
     /**
@@ -35,7 +60,16 @@ class WriterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Making the function but might not be used depending on how much time we have.
+
+        $writer = Writer::with(['movies', 'series'])->find($id);
+
+        if(!$writer)
+        {
+            return redirect()->route('dashboard')->with('Error', 'Writer not found');
+        }
+
+        return view('dashboard', ['writer' => $writer]);
     }
 
     /**
@@ -43,7 +77,7 @@ class WriterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Edit view for admin
     }
 
     /**
@@ -51,7 +85,35 @@ class WriterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'sometimes|string',
+                'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
+                'birth_date' => 'sometimes|string',
+                'death_date' => 'nullable|date',
+            ]
+            );
+
+            if(Writer::where('id', $id)->exists())
+            {
+                $writer = new Writer();
+                $writer->name = $request->input('name', $writer->name);
+                $writer->birth_date = $request->input('birth_date', $writer->birth_date);
+                $writer->death_date = $request->input('death_date', $writer->death_date);
+
+                if ($request->hasFile('profile_picture'))
+                {
+                    $path = $request->file('profile_picture')->store('profilePic', 'public');
+                    $writer->profile_picture = $path;
+                }
+
+                $writer->save();
+
+                return redirect()->route('dashboard')->with('success', 'Writer updated successfully');
+            } else
+            {
+                return redirect()->back()->with('Error', 'Could not update actor');
+            }
     }
 
     /**
@@ -59,6 +121,14 @@ class WriterController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Writer::where('id', $id)->exists()){
+
+            $writer = Writer::find($id);
+            $writer->delete();
+
+            return redirect()->route('writer.dashboard', $writer->id)->with('success', 'Writer deleted successfully');
+        } else {
+            return redirect()->back()-with('error', 'Could not delete writer');
+        }
     }
 }

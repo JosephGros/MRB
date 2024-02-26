@@ -11,6 +11,11 @@ class Movie extends Model
     protected $table = "movies";
     protected $fillable = ["name", "poster", "release", "runtime", "description"];
 
+    public function watchlists()
+    {
+        return $this->morphMany(Watchlist::class, 'media');
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class);

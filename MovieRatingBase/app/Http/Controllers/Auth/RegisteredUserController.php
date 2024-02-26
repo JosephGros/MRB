@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Watchlist;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -44,6 +45,13 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'role' => 1,
         ]);
+
+        Watchlist::create(
+            [
+                'user_id' => $user->id,
+                'name' => 'Watchlist',
+            ]
+            );
 
         event(new Registered($user));
 
