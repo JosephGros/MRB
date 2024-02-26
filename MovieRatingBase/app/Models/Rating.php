@@ -9,20 +9,25 @@ class Rating extends Model
 {
     use HasFactory;
     protected $table = "ratings";
-    protected $fillable = ["user_id", "movie_id", "serie_id", "episode_id"];
+    protected $fillable = ["rating","user_id", "movie_id", "serie_id", "episode_id"];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function movies()
     {
-        return $this->belongsToMany(Movie::class);
+        return $this->belongsTo(Movie::class, 'movie_id');
     }
 
     public function series()
     {
-        return $this->belongsTo(Serie::class);
+        return $this->belongsTo(Serie::class, 'serie_id');
     }
 
     public function episode()
     {
-        return $this->belongsTo(Episode::class);
+        return $this->belongsTo(Episode::class, 'episode_id');
     }
 }

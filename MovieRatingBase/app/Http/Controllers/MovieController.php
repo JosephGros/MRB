@@ -37,6 +37,7 @@ class MovieController extends Controller
                 'release' => 'required|date_format:Y',
                 'runtime' => 'required|string',
                 'description' => 'required|text',
+                'trailer' => 'required|string',
             ]);
         
         $path = $request->file('poster')->store('posters', 'public');
@@ -47,6 +48,7 @@ class MovieController extends Controller
         $movie->release = $request->release;
         $movie->runtime = $request->runtime;
         $movie->description = $request->description;
+        $movie->trailer = $request->trailer;
         
         if($movie->save())
         {
@@ -73,6 +75,12 @@ class MovieController extends Controller
             return redirect()->route('dashboard')->with('error', 'Movie not found');
         }
 
+        $totalRatings = $movie->ratings->count();
+        $sumRatings = $movie->ratings->sum('rating');
+        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+        $averageRating = max(1, min(10, $averageRating));
+
         $similarMovies = Movie::whereHas('genres', function ($query) use ($movie)
         {
             $query->whereIn('id', $movie->genres->pluck('id'));
@@ -85,6 +93,7 @@ class MovieController extends Controller
             'movie' => $movie,
             'similarMovies' => $similarMovies,
             'latestReview' => $latestReview,
+            'averageRating' => $averageRating,
         ]);
     }
 
@@ -106,7 +115,8 @@ class MovieController extends Controller
             'poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
             'release' => 'sometimes|date_format:Y',
             'runtime' => 'sometimes|string',
-            'description' => 'sometimes|string'
+            'description' => 'sometimes|string',
+            'trailer' => 'sometimes|string',
         ]);
     
         if(Movie::where('id', $id)->exists()){
@@ -115,6 +125,7 @@ class MovieController extends Controller
             $movie->release = $request->input('release', $movie->release);
             $movie->runtime = $request->input('runtime', $movie->runtime);
             $movie->description = $request->input('description', $movie->description);
+            $movie->trailer = $request->input('trailer', $movie->trailer);
     
             if ($request->hasFile('poster')) {
                 $path = $request->file('poster')->store('posters', 'public');
