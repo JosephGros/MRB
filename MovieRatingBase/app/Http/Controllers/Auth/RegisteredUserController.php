@@ -46,12 +46,16 @@ class RegisteredUserController extends Controller
             'role' => 1,
         ]);
 
-        Watchlist::create(
-            [
-                'user_id' => $user->id,
-                'name' => 'Watchlist',
-            ]
-            );
+        if($user)
+        {
+            $watchlist = Watchlist::create(
+                [
+                    'user_id' => $user->id,
+                    'name' => 'Watchlist',
+                ]
+                );
+        }
+        
 
         event(new Registered($user));
 
