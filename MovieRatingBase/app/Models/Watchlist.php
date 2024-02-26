@@ -10,7 +10,7 @@ class Watchlist extends Model
 {
     use HasFactory;
 
-    protected $table = 'watchlist';
+    protected $table = 'watchlists';
     protected $fillable = ['user_id', 'media_id', 'media_type'];
 
     public function user()
