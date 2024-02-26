@@ -8,7 +8,7 @@
                 About us at <img src="{{ asset('/images/LogoMRB.png') }}" alt="Logo" class="inline h-20 md:h-32">
             </h1>
         </div>
-        <div class="mt-10 sm:mt-0 bg-sky-700 rounded-lg shadow overflow-hidden">
+        <div class="mt-10 sm:mt-0 bg-sky-700 rounded-xl shadow overflow-hidden">
             <div class="">
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-0">
@@ -16,7 +16,7 @@
                         <p class="text-2xl mt-1 text-white text-center">
                             Learn more about the people behind MRB.
                         </p>
-                        <h2 class="text-lg font-medium leading-6 text-white mt-6 text-center">Welcome to MRB (Movie Rating Base), the brainchild of three passionate programmers who share a common love for movies and series. As part of our assignment, we decided to channel our programming skills into creating a dynamic movie rating website application that reflects our enthusiasm for cinematic experiences.</h2>
+                        <h2 class="text-base font-medium leading-6 text-white mt-8 text-center">Welcome to MRB (Movie Rating Base), the brainchild of three passionate programmers who share a common love for movies and series. As part of our assignment, we decided to channel our programming skills into creating a dynamic movie rating website application that reflects our enthusiasm for cinematic experiences.</h2>
                     </div>
                 </div>
 
