@@ -18,10 +18,11 @@
     
     <div class="min-h-screen flex justify-center items-center text-50 font-inter">
 
-        <div class="sm:w-full sm:max-w-md px-6 bg-nav shadow-md overflow-hidden font-meduim">
+        <div>
             {{ $slot }}
 
         </div>
 
     </div>
 </body>
+</html>

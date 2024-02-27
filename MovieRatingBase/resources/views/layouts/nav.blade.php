@@ -52,8 +52,9 @@
                                         </li>
 
                                         <li class="ml-10 sm:ml-6">
-                                            <input type="text" class="ml-10 bg-200 rounded-md text-sm sm:text-xl w-64 px-4 pl-4 py-1
+                                            <x-text-input type="text" class="ml-10 bg-200 rounded-md text-sm sm:text-xl w-64 px-4 pl-4 py-1
                                             focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search">
+                                            </x-text-input>
                                         </li>
                                     </ul>
                                 </div> 
