@@ -59,9 +59,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserListContent::class, userList::class);
     }
-
-    public function adminOrModerator()
-    {
-        return $this->role === 0 || $this->role === 1;
-    }
 }

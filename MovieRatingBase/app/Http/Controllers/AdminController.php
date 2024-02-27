@@ -12,101 +12,76 @@ use App\Models\Serie;
 use App\Models\User;
 use App\Models\Writer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index($type)
+    public function dashboard()
     {
-        switch ($type)
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
         {
-            case 'movies':
-                $items = Movie::all();
-                break;
-            case 'series':
-                $items = Serie::all();
-                break;
-            case 'genres':
-                $items = Genre::all();
-                break;
-            case 'actors':
-                $items = Actor::all();
-                break;
-            case 'directors':
-                $items = Director::all();
-                break;
-            case 'creators':
-                $items = Creator::all();
-                break;
-            case 'writers':
-                $items = Writer::all();
-                break;
-            case 'users':
-                $items = User::all();
-                break;
-            case 'reviews':
-                $items = Review::all();
-                break;
-            default:
-                $items = [];
+            return view('admin.admin-dashboard');
+        }
+    }
+
+    public function admin($type)
+    {
+        $items = [];
+
+        if (Auth::user()->role === 0)
+        {
+            $items =  User::all();
+            $items = $items->sortByDesc('created_at');
+            
+            return view('admin.userView', compact('items', 'type'));
+        }
+        
+        return redirect()->back()->with('error', 'You are not authorized to do this.');
+    }
+
+
+    public function moderator($type)
+    {
+        $items = [];
+
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            switch ($type)
+            {
+                case 'movies':
+                    $items = Movie::all();
+                    break;
+                case 'series':
+                    $items = Serie::all();
+                    break;
+                case 'genres':
+                    $items = Genre::all();
+                    break;
+                case 'actors':
+                    $items = Actor::all();
+                    break;
+                case 'directors':
+                    $items = Director::all();
+                    break;
+                case 'creators':
+                    $items = Creator::all();
+                    break;
+                case 'writers':
+                    $items = Writer::all();
+                    break;
+                case 'reviews':
+                    $items = Review::all();
+                    break;    
+                default:
+                    
+            }
+
+            $items = $items->sortByDesc('created_at');
+            return view('admin.index', compact('items', 'type'));
+
         }
 
-        usort($items, function ($a, $b)
-        {
-            return strcmp($b->created_at, $a->created_at);
-        });
-        
+        return redirect()->back()->with('error', 'You are not authorized to do this.');
 
-        return view('admin.index', compact('items', 'type'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
