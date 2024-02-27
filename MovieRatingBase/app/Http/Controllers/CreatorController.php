@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Creator;
 use Illuminate\Http\Request;
 
 class CreatorController extends Controller
@@ -11,7 +12,8 @@ class CreatorController extends Controller
      */
     public function index()
     {
-        //
+        $creator = Creator::all();
+        return view('dashboard', ['creator' => $creator]);
     }
 
     /**
@@ -19,7 +21,7 @@ class CreatorController extends Controller
      */
     public function create()
     {
-        //
+        // create view for admin
     }
 
     /**
@@ -27,7 +29,30 @@ class CreatorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'require|string',
+                'profile_picture' => 'require|image|mimes:jpeg,png,jpg,gif,jfif',
+                'birth_date' => 'require|string',
+                'death_date' => 'nullable|date',
+            ]
+            );
+
+        $path = $request->file('profile_pictrue')->store('profilePic', 'public');
+
+        $creator = new Creator();
+        $creator->name = $request->name;
+        $creator->profile_picture = $path;
+        $creator->birth_date = $request->birth_date;
+        $creator->death_date = $request->death_date;
+
+        if($creator->save())
+        {
+            return redirect()->route('dashboard')->with('success', 'Creator created successfully');
+        } else
+        {
+            return redirect()->back()->with('Error', 'Something went wrong');
+        }
     }
 
     /**
@@ -35,7 +60,16 @@ class CreatorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Making the function but might not be used depending on how much time we have.
+
+        $creator = Creator::with(['movies', 'series'])->find($id);
+
+        if(!$creator)
+        {
+            return redirect()->route('dashboard')->with('Error', 'Creator not found');
+        }
+
+        return view('dashboard', ['creator' => $creator]);
     }
 
     /**
@@ -43,7 +77,7 @@ class CreatorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // edit view for admin
     }
 
     /**
@@ -51,7 +85,35 @@ class CreatorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'sometimes|string',
+                'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
+                'birth_date' => 'sometimes|string',
+                'death_date' => 'nullable|date',
+            ]
+            );
+
+            if(Creator::where('id', $id)->exists())
+            {
+                $creator = new Creator();
+                $creator->name = $request->input('name', $creator->name);
+                $creator->birth_date = $request->input('birth_date', $creator->birth_date);
+                $creator->death_date = $request->input('death_date', $creator->death_date);
+
+                if ($request->hasFile('profile_picture'))
+                {
+                    $path = $request->file('profile_picture')->store('profilePic', 'public');
+                    $creator->profile_picture = $path;
+                }
+
+                $creator->save();
+
+                return redirect()->route('dashboard')->with('success', 'Creator updated successfully');
+            } else
+            {
+                return redirect()->back()->with('Error', 'Could not update actor');
+            }
     }
 
     /**
@@ -59,6 +121,14 @@ class CreatorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Creator::where('id', $id)->exists()){
+
+            $creator = Creator::find($id);
+            $creator->delete();
+
+            return redirect()->route('creator.dashboard', $creator->id)->with('success', 'Creator deleted successfully');
+        } else {
+            return redirect()->back()-with('error', 'Could not delete creator');
+        }
     }
 }

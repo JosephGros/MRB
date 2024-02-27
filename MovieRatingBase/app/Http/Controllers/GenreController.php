@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class GenreController extends Controller
@@ -9,9 +10,32 @@ class GenreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = $request->input('filter', 'all');
+
+        $genres = Genre::all();
+        $latestInGenre = [];
+
+        foreach ($genres as $genre)
+        {
+            switch ($filter)
+            {
+                case 'movies':
+                    $latest = $genre->movies()->latest()->take(20)->get();
+                    break;
+                case 'series':
+                    $latest = $genre->series()->latest()->take(20)->get();
+                    break;
+                default:
+                    $latest = $genre->items()->latest()->take(20)->get();
+                    break;
+            }
+
+            $latestInGenre[$genre->name] = $latest;
+        }
+
+        return view('dashboard', compact('latestInGenre'));
     }
 
     /**
@@ -19,7 +43,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        // Create view for genre admin
     }
 
     /**
@@ -27,7 +51,21 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+        [
+            'name' => 'required|string',
+        ]);
+
+        $genre = new Genre();
+        $genre->name = $request->name;
+
+        if($genre->save())
+        {
+            return redirect()->route('dashboard')->with('success', 'Genre created successfully!');
+        } else 
+        {
+            return redirect()->back()->with('Error', 'Something went wrong.');
+        }
     }
 
     /**
@@ -35,7 +73,12 @@ class GenreController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $genre = Genre::findOrFail($id);
+
+        $allGenreContent = $genre->movies->merge($genre->series);
+        $allGenreContent = $allGenreContent->sortByDesc('created_at');
+
+        return view('dashboard', compact('genre', 'allGenreContent'));
     }
 
     /**
@@ -43,7 +86,7 @@ class GenreController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Genre edit view for admin
     }
 
     /**
@@ -51,7 +94,21 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'sometimes|string',
+            ]);
+
+        if(Genre::where('id', $id)->exists()){
+            $genre = Genre::find($id);
+            $genre->name = $request->input('name', $genre->name);
+
+            $genre->save();
+    
+            return redirect()->route('genre.dashboard', $genre->id)->with('success', 'Genre updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Genre not found');
+        }
     }
 
     /**
@@ -59,6 +116,14 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(Genre::where('id', $id)->exists()){
+
+            $genre = Genre::find($id);
+            $genre->delete();
+
+            return redirect()->route('genre.dashboard', $genre->id)->with('success', 'Genre deleted successfully');
+        } else {
+            return redirect()->back()-with('error', 'Genre not found');
+        }
     }
 }

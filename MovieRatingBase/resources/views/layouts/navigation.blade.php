@@ -40,7 +40,7 @@
                         </li>
                     </ul>
                 </x-nav-link>
-            </div>
+            </div> 
 
               <!-- Settings Dropdown -->
               <div class="fixed flex top-0 right-0 sm:p-6 text-right z-10 mt-3 sm:mt-3">
