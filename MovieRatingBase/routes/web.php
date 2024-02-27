@@ -12,6 +12,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SerieController;
+use App\Http\Controllers\UserListContentController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
@@ -135,14 +136,14 @@ Route::middleware(['admin', 'moderator', 'auth'])->group(function () {
     Route::delete('/watchlist/delete/{user}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
     //User Lists
     Route::get('/userlists/{user}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
-    Route::get('/userlists/list/{user}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list will all content
+    Route::get('/userlists/list/{user}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
     Route::post('/userlists/create/{user}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button
     Route::patch('/userlists/update/{user}', [UserListController::class, 'update'])->name('userlists.update'); //Update list name
     Route::delete('/userlists/delete/{user}', [UserListController::class, 'destroy'])->name('userlists.destroy'); //Userlists- button
     //UserListContent
-    Route::get('/userListContent/{user}', [UserListController::class, 'index'])->name('userListContent.index'); //All lists displayed for the user to add content to one or several lists
-    Route::post('/userListContent/create/{user}', [UserListController::class, 'store'])->name('userListContent.store'); //Add button will be displayed if not in list
-    Route::delete('/userListContent/delete/{user}', [UserListController::class, 'destroy'])->name('userListContent.destroy'); //Remove button will be displayed if it exists in the list
+    Route::get('/userListContent/{user}', [UserListContentController::class, 'index'])->name('userListContent.index'); //All lists displayed for the user to add content to one or several lists
+    Route::post('/userListContent/create/{user}', [UserListContentController::class, 'store'])->name('userListContent.store'); //Add button will be displayed if not in list
+    Route::delete('/userListContent/delete/{user}', [UserListContentController::class, 'destroy'])->name('userListContent.destroy'); //Remove button will be displayed if it exists in the list
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
