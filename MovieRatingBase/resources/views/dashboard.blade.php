@@ -6,17 +6,17 @@
 
                 <!-- Img for movie -->
                 <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
-                    <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ Vite::asset('/images/insideOut.jpg') }}" alt="Inside out">
+                    <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ asset('/images/insideOut.jpg') }}" alt="Inside out">
                     <div class="text-xs text-sky-50 font-inter font-light mt-4 mb-2 mr-2 md:text-lg md:font-light md:ml-4">Action | Adventure | Drama</div>
                         <div class="flex">
                             <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">2003 | 3h 21m | 9.0/10</div>
-                            <img class="h-6 w-auto md:h-8" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo">
+                            <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                         </div>
                 </div>
     
                 <!-- Trailer for movie -->
                 <div class="basis-1/2 md:basis-none md:w-1/2">
-                    <img class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{ Vite::asset('/images/insideOut1.jpg') }}" alt="Inside out">
+                    <img class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{ asset('/images/insideOut1.jpg') }}" alt="Inside out">
                 </div>
 
             </div>
@@ -27,7 +27,7 @@
                         <x-primary-button class="mb-2">Watchlist +</x-primary-button>
                         <x-primary-button>List +</x-primary-button>
                         <x-primary-button> 
-                            <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo">
+                            <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                        </x-primary-button>
                     </div>
             </div>
@@ -41,7 +41,7 @@
                 <!-- Movie 1 -->
                 <div class="md:mt-2 md:w-1/3">
                     <div class="rounded-lg flex ml-2 mr-2 mb-4">
-                            <img src="{{ Vite::asset('images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-l-lg w-auto h-auto">
+                            <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-l-lg w-auto h-auto">
 
                         <div class="bg-sky-700 rounded-r-lg">
 
@@ -53,14 +53,14 @@
                             <!-- Genre, Time, Year and Rating -->
                             <div class="flex justify-center">
                                 <div class="text-sm text-sky-50 font-inter mt-2">2003 | 3h 21m | 9.0/10</div>
-                                <img class="h-4 w-auto md:h-8" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo">
+                                <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </div>
                             <div class="text-center text-sm text-sky-50 font-inter mb-2">Action | Adventure | Drama</div>
 
                             <div class="flex ml-2 mt-2 md:justify-center">
                                 <x-button-dark>Watch</x-button-dark>
                                 <x-button-dark>Watchlist +</x-button-dark>
-                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
+                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
                             </div>
 
                         </div>
@@ -71,7 +71,7 @@
                     <div class="rounded-lg flex ml-2 mr-2 mb-4 ">
 
                         <!-- Movie image -->
-                        <img src="{{ Vite::asset('images/oppenheimer.jpg') }}" alt="Profil bild" class="rounded-l-lg w-auto h-auto">
+                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Profil bild" class="rounded-l-lg w-auto h-auto">
 
                         <!-- Movie description -->
                         <div class="bg-sky-700 rounded-r-lg">
@@ -82,14 +82,14 @@
                             <!-- Genre, Time, Year and Rating -->
                             <div class="flex justify-center">
                                 <div class="text-sm text-sky-50 font-inter mt-2">2003 | 3h 21m | 9.0/10</div>
-                                <img class="h-4 w-auto md:h-8" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo">
+                                <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </div>
                             <div class="text-center text-sm text-sky-50 font-inter mb-2">Action | Adventure | Drama</div>
 
                             <div class="flex ml-2 mt-2 md:justify-center md:end-px">
                                 <x-button-dark>Watch</x-button-dark>
                                 <x-button-dark>Watchlist +</x-button-dark>
-                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
+                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
                 <!-- Movie 3 -->
                 <div class="md:mt-2 md:w-1/3">
                     <div class="rounded-lg flex ml-2 mr-2 mb-4 ">
-                        <img src="{{ Vite::asset('images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-l-lg w-auto h-auto">
+                        <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-l-lg w-auto h-auto">
 
 
                         <div class="bg-sky-700 rounded-r-lg">
@@ -110,14 +110,14 @@
                             <!-- Genre, Time, Year and Rating -->
                             <div class="flex justify-center">
                                 <div class="text-sm text-sky-50 font-inter mt-2">2003 | 3h 21m | 9.0/10</div>
-                                <img class="h-4 w-auto md:h-8" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo">
+                                <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </div>
                             <div class="text-center text-sm text-sky-50 font-inter mb-2">Action | Adventure | Drama</div>
 
                             <div class="flex ml-2 mt-2 md:justify-center">
                                 <x-button-dark>Watch</x-button-dark>
                                 <x-button-dark>Watchlist +</x-button-dark>
-                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ Vite::asset('images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
+                                <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
                             </div>
  
                         </div>
@@ -148,9 +148,9 @@
             <div>
               <a href="#"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
                 <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ Vite::asset('images/insideOut.jpg') }}" alt="Inside out">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/overTheHedge.jpg') }}" alt="Over the hedge">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spiderman3.jpg') }}" alt="Spiderman 3">
+                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/insideOut.jpg') }}" alt="Inside out">
+                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over the hedge">
+                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
                 </div>
             </div>
         </div>
@@ -162,9 +162,9 @@
                 <div>
                    <a href="#"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Action</h2></a>
                     <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ Vite::asset('images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spiderman3.jpg') }}" alt="Spiderman 3">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
                     </div>
                 </div>
 
@@ -174,9 +174,9 @@
                 <div>
                    <a href="#"></a> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Drama</h2></a>
                     <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ Vite::asset('images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spiderman3.jpg') }}" alt="Spiderman 3">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset(/images/deadpool.jpg') }}" alt="Deadpool">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
                     </div>
                 </div>
 
@@ -187,9 +187,9 @@
                 <div>
                    <a href="#"></a> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Comedy</h2></a>
                     <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ Vite::asset('images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ Vite::asset('images/spiderman3.jpg') }}" alt="Spiderman 3">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
                     </div>
                 </div>
             </div>
