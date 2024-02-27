@@ -96,7 +96,7 @@ class ReviewController extends Controller
         $validated = $request->validate(
             [
                 'review' => 'nullable|string',
-            ]);
+            ]); 
 
         $review->update($validated);
 
