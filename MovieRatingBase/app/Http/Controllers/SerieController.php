@@ -13,7 +13,7 @@ class SerieController extends Controller
     public function index()
     {
         $series = Serie::all();
-        return view('dashboard', ['series$series' => $series]);
+        return view('dashboard', ['series' => $series]);
     }
 
     /**
@@ -36,6 +36,7 @@ class SerieController extends Controller
                 'release' => 'required|date_format:Y',
                 'runtime' => 'required|string',
                 'description' => 'required|text',
+                'trailer' => 'required|string',
             ]);
         
         $path = $request->file('poster')->store('posters', 'public');
@@ -46,6 +47,7 @@ class SerieController extends Controller
         $series->release = $request->release;
         $series->runtime = $request->runtime;
         $series->description = $request->description;
+        $series->trailer = $request->trailer;
         
         if($series->save())
         {
@@ -72,6 +74,12 @@ class SerieController extends Controller
             return redirect()->route('dashboard')->with('error', 'Serie not found');
         }
 
+        $totalRatings = $serie->ratings->count();
+        $sumRatings = $serie->ratings->sum('rating');
+        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+        $averageRating = max(1, min(10, $averageRating));
+
         $similarSeries = Serie::whereHas('genres', function ($query) use ($serie)
         {
             $query->whereIn('id', $serie->genres->pluck('id'));
@@ -84,6 +92,7 @@ class SerieController extends Controller
             'serie' => $serie,
             'similarSeries' => $similarSeries,
             'latestReview' => $latestReview,
+            'averageRating' => $averageRating,
         ]);
     }
 
@@ -105,7 +114,8 @@ class SerieController extends Controller
             'poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
             'release' => 'sometimes|date_format:Y',
             'runtime' => 'sometimes|string',
-            'description' => 'sometimes|string'
+            'description' => 'sometimes|text',
+            'trailer' => 'sometimes|string',
         ]);
     
         if(Serie::where('id', $id)->exists()){
@@ -114,12 +124,13 @@ class SerieController extends Controller
             $series->release = $request->input('release', $series->release);
             $series->runtime = $request->input('runtime', $series->runtime);
             $series->description = $request->input('description', $series->description);
+            $series->trailer = $request->input('trailer', $series->trailer);
     
             if ($request->hasFile('poster')) {
                 $path = $request->file('poster')->store('posters', 'public');
                 $series->poster = $path;
             }
-    
+
             $series->save();
 
             if($request->has('genres'))

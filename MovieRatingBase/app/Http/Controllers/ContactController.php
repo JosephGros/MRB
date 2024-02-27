@@ -21,7 +21,7 @@ class ContactController extends Controller
     {
         // Validera och processa data här
         // Exempel: Kontrollerar ifall rätt data är inmatad
-        $validated = $request->validate([
+         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|email',
