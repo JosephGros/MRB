@@ -12,6 +12,16 @@ class Serie extends Model
     protected $fillable = ["name", "poster", "release", "runtime", "description"];
 
 
+    public function watchlists()
+    {
+        return $this->morphMany(Watchlist::class, 'media');
+    }
+    
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class);

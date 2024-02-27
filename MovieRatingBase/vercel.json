@@ -5,13 +5,13 @@
     "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
     "routes": [
+        { 
+            "src": "/images/(.*)" , 
+            "dest": "/images/$1" 
+        },
         {
             "src": "/build/(.*)",
             "dest": "public/build/"
-        },
-        {
-            "src": "images/(.*)",
-            "dest": "/images/"
         },
         {
             "src": "/(.*)",
@@ -31,21 +31,5 @@
     "CACHE_DRIVER": "array",
     "LOG_CHANNEL": "stderr",
     "SESSION_DRIVER": "cookie"
-    },
-    "images": {
-        "sizes": [256, 640, 1080, 2048, 3840],
-        "remotePatterns": [
-          {
-            "protocol": "https",
-            "hostname": "example.com",
-            "port": "",
-            "pathname": "/account123/**"
-          }
-        ],
-        "minimumCacheTTL": 60,
-        "formats": ["image/webp","image/avif","image/png","image/jpeg"],
-        "dangerouslyAllowSVG": false,
-        "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
-        "contentDispositionType": "inline"
-      }
+    }
 } 
