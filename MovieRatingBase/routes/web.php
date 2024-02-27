@@ -100,11 +100,11 @@ Route::middleware(['admin', 'moderator'])->group(function (){
 
 
     //Genre Routes
-    Route::get('/admin/writers/create', [WriterController::class, 'create'])->name('admin.writers.create');
-    Route::post('/admin/writers', [WriterController::class, 'store'])->name('admin.writers.store');
-    Route::get('/admin/writers/{writer}/edit', [WriterController::class, 'edit'])->name('admin.writers.edit');
-    Route::patch('/admin/writers/{writer}/update', [WriterController::class, 'update'])->name('admin.writers.update');
-    Route::delete('/admin/writers/{writer}/delete', [WriterController::class, 'destroy'])->name('admin.writers.destroy');
+    Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
+    Route::post('/admin/genres', [GenreController::class, 'store'])->name('admin.genres.store');
+    Route::get('/admin/genres/{genre}/edit', [GenreController::class, 'edit'])->name('admin.genres.edit');
+    Route::patch('/admin/genres/{genre}/update', [GenreController::class, 'update'])->name('admin.genres.update');
+    Route::delete('/admin/genres/{genre}/delete', [GenreController::class, 'destroy'])->name('admin.genres.destroy');
 
 });
 
