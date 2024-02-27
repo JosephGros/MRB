@@ -27,6 +27,15 @@
             </header>
         @endif
 
+        @if (isset($choiceButtons))
+            <nav>
+                <div class="mt-14">
+                    {{ $choiceButtons }}
+                </div>
+            </nav>
+        @endif
+     
+
         <!-- If watchlist exist show, if not don't show this list -->
         @if (isset($watchlistExist))
             <div class="bg-sky-700 md:mx-20 md:rounded-lg">
@@ -37,9 +46,8 @@
         @endif
 
         <!-- Page Content -->
-        <main class="md:mx-20 md:rounded-lg">
-            <!-- @yield('content') -->
-            {{ $content }}
+        <main class="md:mx-20">
+            @yield('content')
         </main>
     </div>
 </body>
