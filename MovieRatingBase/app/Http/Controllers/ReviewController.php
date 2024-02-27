@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,7 +73,7 @@ class ReviewController extends Controller
     {
         $review = Review::findOrFail($id);
 
-        if (Auth::id() !== $review->user_id && Auth::user()->role !== 0)
+        if (!(Auth::user()->role === 0 || Auth::user()->role === 1) || Auth::id() !== $review->user_id)
         {
             return redirect()->back()->with('Error', 'You are not authorized to edit this review.');
         }
@@ -87,7 +88,7 @@ class ReviewController extends Controller
     {
         $review = Review::findOrFail($id);
 
-        if (Auth::id() !== $review->user_id)
+        if (!(Auth::user()->role === 0 || Auth::user()->role === 1) || Auth::id() !== $review->user_id)
         {
             return redirect()->back()->with('Error', 'You are not authorized to edit this review.');
         }
@@ -109,7 +110,7 @@ class ReviewController extends Controller
     {
         $review = Review::findOrFail($id);
 
-        if (Auth::id() !== $review->user_id && Auth::user()->role !== 0)
+        if (!(Auth::user()->role === 0 || Auth::user()->role === 1) || Auth::id() !== $review->user_id)
         {
             return redirect()->back()->with('Error', 'You are not authorized to delete this review.');
         }

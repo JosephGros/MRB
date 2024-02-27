@@ -30,33 +30,52 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
+        $validated = $request->validate(
             [
                 'name' => 'required|string',
                 'poster' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
                 'release' => 'required|date_format:Y',
                 'runtime' => 'required|string',
-                'description' => 'required|text',
+                'description' => 'required|string',
                 'trailer' => 'required|string',
+                'actors' => 'required|array',
+                'actors.*.id' => 'required|exists:actors,id',
+                'actors.*.role' => 'required|string',
+                'genres' => 'required|array',
+                'genres.*' => 'required|exists:genres,id',
+                'directors' => 'required|array',
+                'directors.*' => 'required|exists:directors,id',
+                'writers' => 'required|array',
+                'writers.*' => 'required|exists:writers,id',
             ]);
         
         $path = $request->file('poster')->store('posters', 'public');
 
-        $movie = new Movie();
-        $movie->name = $request->name;
-        $movie->poster = $path;
-        $movie->release = $request->release;
-        $movie->runtime = $request->runtime;
-        $movie->description = $request->description;
-        $movie->trailer = $request->trailer;
+        $movie = new Movie([
+            'name' => $validated['name'],
+            'poster' => $path,
+            'release' => $validated['release'],
+            'runtime' => $validated['runtime'],
+            'description' => $validated['description'],
+            'trailer' => $validated['trailer'],
+        ]);
         
         if($movie->save())
         {
-            $movie->genres()->sync($request->genres);
-            $movie->actors()->sync($request->actors);
-            $movie->directors()->sync($request->directors);
-            $movie->writers()->sync($request->writers);
+            foreach ($validated['actors'] as $actor)
+            {
+                $actorId = $actor['id'];
+                $role = $actor['role'];
+                $movie->actors()->attach($actorId, ['role' => $role]);
+            }
+
+            $movie->genres()->attach($validated['genres']);
+
+            $movie->directors()->attach($validated['directors']);
+
+            $movie->writers()->attach($validated['writers']);
             
+
             return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
         } else {
             return redirect()->back()->with('error', 'Something went wrong');
@@ -117,6 +136,15 @@ class MovieController extends Controller
             'runtime' => 'sometimes|string',
             'description' => 'sometimes|string',
             'trailer' => 'sometimes|string',
+            'actors' => 'sometimes|array',
+            'actors.*.id' => 'sometimes|exists:actors,id',
+            'actors.*.role' => 'sometimes|string',
+            'genres' => 'sometimes|array',
+            'genres.*' => 'sometimes|exists:genres,id',
+            'directors' => 'sometimes|array',
+            'directors.*' => 'sometimes|exists:directors,id',
+            'writers' => 'sometimes|array',
+            'writers.*' => 'sometimes|exists:writers,id',
         ]);
     
         if(Movie::where('id', $id)->exists()){
@@ -141,6 +169,12 @@ class MovieController extends Controller
 
             if($request->has('actors'))
             {
+                $actors = [];
+
+                foreach ($request->input('actors') as $actorId)
+                {
+                    $actors[$actorId] = ['role' => $request->input('actor_roles.'.$actorId)];
+                }
                 $movie->actors()->sync($request->actors);
             }
 

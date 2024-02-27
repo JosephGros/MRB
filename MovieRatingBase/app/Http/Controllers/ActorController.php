@@ -33,7 +33,7 @@ class ActorController extends Controller
             [
                 'name' => 'require|string',
                 'profile_picture' => 'require|image|mimes:jpeg,png,jpg,gif,jfif',
-                'birth_date' => 'require|string',
+                'birth_date' => 'require|date',
                 'death_date' => 'nullable|date',
             ]
             );
@@ -89,14 +89,14 @@ class ActorController extends Controller
             [
                 'name' => 'sometimes|string',
                 'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
-                'birth_date' => 'sometimes|string',
+                'birth_date' => 'sometimes|date',
                 'death_date' => 'nullable|date',
             ]
             );
 
             if(Actor::where('id', $id)->exists())
             {
-                $actor = new Actor();
+                $actor = Actor::find($id);
                 $actor->name = $request->input('name', $actor->name);
                 $actor->birth_date = $request->input('birth_date', $actor->birth_date);
                 $actor->death_date = $request->input('death_date', $actor->death_date);

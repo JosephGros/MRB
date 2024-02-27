@@ -34,6 +34,7 @@ class SerieController extends Controller
                 'name' => 'required|string',
                 'poster' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
                 'release' => 'required|date_format:Y',
+                'end' => 'nullable|date_format:Y',
                 'runtime' => 'required|string',
                 'description' => 'required|text',
                 'trailer' => 'required|string',
@@ -45,6 +46,7 @@ class SerieController extends Controller
         $series->name = $request->name;
         $series->poster = $path;
         $series->release = $request->release;
+        $series->end = $request->end;
         $series->runtime = $request->runtime;
         $series->description = $request->description;
         $series->trailer = $request->trailer;
@@ -113,6 +115,7 @@ class SerieController extends Controller
             'name' => 'sometimes|string',
             'poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
             'release' => 'sometimes|date_format:Y',
+            'end' => 'nullable|date_format:Y',
             'runtime' => 'sometimes|string',
             'description' => 'sometimes|text',
             'trailer' => 'sometimes|string',
@@ -123,6 +126,7 @@ class SerieController extends Controller
             $series->name = $request->input('name', $series->name);
             $series->release = $request->input('release', $series->release);
             $series->runtime = $request->input('runtime', $series->runtime);
+            $series->end = $request->input('end', $series->end);
             $series->description = $request->input('description', $series->description);
             $series->trailer = $request->input('trailer', $series->trailer);
     
