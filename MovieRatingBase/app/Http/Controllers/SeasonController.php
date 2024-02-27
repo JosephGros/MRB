@@ -94,7 +94,7 @@ class SeasonController extends Controller
             return redirect()->route('dashboard')->with('error', 'Season not found');
         }
 
-        return view('dashboard', ['seasons' => $seasons,]);
+        return view('season-view', ['seasons' => $seasons,]);
     }
 
     /**

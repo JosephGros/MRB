@@ -104,7 +104,7 @@ class GenreController extends Controller
         $allGenreContent = $genre->movies->merge($genre->series);
         $allGenreContent = $allGenreContent->sortByDesc('created_at');
 
-        return view('dashboard', compact('genre', 'allGenreContent'));
+        return view('content-view', compact('genre', 'allGenreContent'));
     }
 
     /**

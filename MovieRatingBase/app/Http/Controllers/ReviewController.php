@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+
+    public function create()
+    {
+        if(Auth::user())
+        {
+            return view('contentViews.review-edit');
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -16,7 +24,7 @@ class ReviewController extends Controller
     {
         if(!Auth::check())
         {
-            return redirect()->back()->with('Error', 'You need to be logged in to review!');
+            return redirect()->route('review.show')->with('Error', 'You need to be logged in to review!');
         }
 
         $validated = $request->validate(
@@ -34,7 +42,7 @@ class ReviewController extends Controller
 
         $rating = Review::create($validated);
 
-        return redirect()->route('display')->with('success', 'Thanks for your review!');
+        return redirect()->back()->with('success', 'Thanks for your review!');
     }
 
     private function validateOnlyOne($data)
@@ -63,7 +71,7 @@ class ReviewController extends Controller
             ->orderBy('created_at', 'desc')->get();
         }
 
-        return view('reviews.show', ['review' => $review, 'relatedReviews' => $relatedReviews]);
+        return view('contentViews.reviews-view', ['review' => $review, 'relatedReviews' => $relatedReviews]);
     }
 
     /**
@@ -78,7 +86,7 @@ class ReviewController extends Controller
             return redirect()->back()->with('Error', 'You are not authorized to edit this review.');
         }
 
-        return view('reviews.edit', ['review' => $review]);
+        return view('contentViews.reviews-edit', ['review' => $review]);
     }
 
     /**
@@ -100,7 +108,7 @@ class ReviewController extends Controller
 
         $review->update($validated);
 
-        return redirect()->back()->with('success', 'Review updated successfully!');
+        return redirect()->route('review.show')->with('success', 'Review updated successfully!');
     }
 
     /**

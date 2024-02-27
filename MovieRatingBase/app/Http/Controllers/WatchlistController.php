@@ -16,7 +16,7 @@ class WatchlistController extends Controller
     public function index()
     {
         $media = $this->fetchWatchlist();
-        return view('watchlist.index', compact('media'));
+        return view('contentViews.content-view', compact('media'));
     }
 
     public function dashboardWatchlist()
@@ -24,7 +24,7 @@ class WatchlistController extends Controller
         $media = $this->fetchWatchlist();
         $limit = array_slice($media, 0, 20);
 
-        return view('dashboard.index', compact('limit'));
+        return view('dashboard', compact('limit'));
     }
 
     private function fetchWatchlist()

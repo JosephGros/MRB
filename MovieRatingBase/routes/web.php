@@ -46,7 +46,7 @@ Route::get('/admin/users', [AdminController::class, 'admin'])->name('admin.only'
 Route::middleware(['admin', 'moderator'])->group(function (){
 
     //Admin and Moderator Routes
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/movies', [AdminController::class, 'store'])->name('admin.movie.store');
 
     //Movie Routes
@@ -122,6 +122,7 @@ Route::middleware(['admin', 'moderator', 'auth'])->group(function () {
 
     //CRUD Review Routes
     Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::get('/display/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
     Route::patch('/display/reviews/{review}/update', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/display/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
@@ -156,7 +157,7 @@ Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movie.sho
 Route::get('/series/{serie}', [SerieController::class, 'show'])->name('serie.show');
 //Side views from Display
 Route::get('/reviews', [ReviewController::class, 'show'])->name('review.show');
-Route::get('/seasons/{season}/show', [SeasonController::class, 'show'])->name('seasons.show');
+Route::get('/seasons/{season}', [SeasonController::class, 'show'])->name('seasons.show');
 //RANDOM 3 at start
 Route::get('/dashboard/random', [GenreController::class, 'randomDashboard'])->name('genres.randomDashboard');
 
@@ -171,14 +172,11 @@ Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.sh
 // Kontaktformulär Routes
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/contact', [ContactController::class, 'index']);
 
 
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
-Route::get('/display', function (){
-    return view('display');
-});
 
 require __DIR__.'/auth.php';

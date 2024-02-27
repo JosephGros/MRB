@@ -12,7 +12,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        // Returns all movies in JSON format to be displayed in dashboard
+        
         $movies = Movie::all();
         return view('dashboard', ['movies' => $movies]); 
     }
@@ -107,7 +107,7 @@ class MovieController extends Controller
 
         $latestReview = $movie->review()->latest()->first();
 
-        return view('dashboard', 
+        return view('display', 
         [
             'movie' => $movie,
             'similarMovies' => $similarMovies,

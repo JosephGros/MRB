@@ -117,7 +117,7 @@ class SerieController extends Controller
 
         $latestReview = $serie->review()->latest()->first();
 
-        return view('dashboard', 
+        return view('display', 
         [
             'serie' => $serie,
             'similarSeries' => $similarSeries,
