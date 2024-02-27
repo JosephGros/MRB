@@ -32,7 +32,7 @@
                                     <!-- Logo -->
                                     <div class="ml-[130px] sm:ml-8">
                                         <a href="#">
-                                            <img class="h-10 w-30 md:h-20 md:w-40" src="{{ Vite::asset('images/LogoMRB.png') }}" alt="MRB logo">
+                                            <img class="h-10 w-30 md:h-20 md:w-40" src="{{ asset('/images/LogoMRB.png') }}" alt="MRB logo">
                                         </a>
                                     </div>
 
