@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController; 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 // Kontaktformulär Routes
@@ -38,4 +40,9 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 
+
+//User profile blade route
+Route::get('/user-profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+
 require __DIR__.'/auth.php';
+
