@@ -171,11 +171,14 @@ Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.sh
 // Kontaktformulär Routes
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
 
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
+Route::get('/display', function (){
+    return view('display');
+});
 
 require __DIR__.'/auth.php';
