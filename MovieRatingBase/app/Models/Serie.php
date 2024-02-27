@@ -9,14 +9,14 @@ class Serie extends Model
 {
     use HasFactory;
     protected $table = "series";
-    protected $fillable = ["name", "poster", "release", "runtime", "description"];
+    protected $fillable = ["name", "poster", "release", "end", "runtime", "description", "trailer"];
 
 
     public function watchlists()
     {
         return $this->morphMany(Watchlist::class, 'media');
     }
-    
+
     public function seasons()
     {
         return $this->hasMany(Season::class);
