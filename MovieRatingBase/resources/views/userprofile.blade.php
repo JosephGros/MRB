@@ -12,12 +12,12 @@
                 <div class="flex-shrink-0 mb-4 md:mb-0 text-center">
                     <img src="{{ asset('/images/profileimage.png') }}" alt="Profile image" id="profileImage" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full border-4 border-blue-300 object-cover mb-2 mx-auto">
                     <button class="bg-blue-500 text-white rounded-full px-2 py-1 text-xs" onclick="document.getElementById('imageInput').click();">Edit</button>
-
+                    
                     <!-- Dolt filinput-element -->
                     <input type="file" id="imageInput" style="display: none;" onchange="previewImage();" accept="image/*">
                 </div>
                 <!-- Höger sida med detaljer -->
-                <div class="flex-grow text-white">
+                <div class="flex-grow text-white"> 
                     <div class="mb-3">
                         <div class="text-lg font-bold">
                             <h3>Username:</h3>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-3">
                         <div class="text-lg font-bold">
-                            <h3>Member since:</h3>
+                           <h3>Member since:</h3>
                         </div>
                         <p>06 - 02 - 2024</p>
                     </div>
@@ -51,5 +51,21 @@
     </div>
 </div>
 
+<script>
+function previewImage() {
+    var file = document.getElementById('imageInput').files[0];
+    var reader = new FileReader();
+    
+    reader.onloadend = function() {
+        document.getElementById('profileImage').src = reader.result;
+    }
+    
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        document.getElementById('profileImage').src = "{{ asset('/images/profileimage.png') }}";
+    }
+}
+</script>
 
 @endsection
