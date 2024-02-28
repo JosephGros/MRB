@@ -40,22 +40,24 @@
 
                 <!-- Movie 1 -->
                 <div class="md:mt-2 md:w-1/3">
-                    <div class="rounded-lg flex ml-2 mr-2 mb-4">
-                            <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-l-lg w-auto h-auto">
+                    @foreach($movie as $movie)
+                    <div class="rounded-lg flex ml-2 mr-2 mb-4" value="{{ $movie->id }}">
+                            <img src="{{ $movie->poster }}" alt="Lord of the rings - The return of the king" class="rounded-l-lg w-auto h-auto">
 
                         <div class="bg-sky-700 rounded-r-lg">
 
-                            <p class="text-sky-50 text-center md:text-base 2xl:text-xl">Lord of The Rings <br> <span class="md:text-sm 2xl:text-base md:font-light 2xl:font-light">The return of the king</span></p>    
+                            <p class="text-sky-50 text-center md:text-base 2xl:text-xl"> {{ $movie->name }}</p>    
 
                                 <p class="text-sky-50 text-center font-inter p-2 md:text-sm 2xl:text-base">
-                                    Gandalf and Aragorn lead the World of Men against Sauron's 
-                                    army to draw his gaze from Frodo and Sam.</p>
+                                {{ $movie->description}}
+                                </p>
                             <!-- Genre, Time, Year and Rating -->
                             <div class="flex justify-center">
-                                <div class="text-sm text-sky-50 font-inter mt-2">2003 | 3h 21m | 9.0/10</div>
+                                <div class="text-sm text-sky-50 font-inter mt-2"> {{ $movie->releas | $movie->runtime | $movie->rating}} </div>
                                 <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </div>
-                            <div class="text-center text-sm text-sky-50 font-inter mb-2">Action | Adventure | Drama</div>
+                            @foreach($genre as $moviegenre)
+                            <div class="text-center text-sm text-sky-50 font-inter mb-2">{{$moviegenre}} | {{$moviegenre}} | {{$moviegenre}}</div>
 
                             <div class="flex ml-2 mt-2 md:justify-center">
                                 <x-button-dark>Watch</x-button-dark>
@@ -65,6 +67,7 @@
 
                         </div>
                     </div>
+                    @endforeach
                 </div>
                 <!-- Movie 2 -->
                 <div class="md:mt-2 md:w-1/3">
@@ -148,6 +151,7 @@
             <div>
               <a href="#"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
                 <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+                    @foreach ( $watchlist as $item)
                     <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/insideOut.jpg') }}" alt="Inside out">
                     <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over the hedge">
                     <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
