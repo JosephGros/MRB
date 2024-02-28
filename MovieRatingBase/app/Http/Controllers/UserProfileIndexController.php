@@ -8,24 +8,24 @@ use App\Models\userList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserProfileController extends Controller
+class UserProfileIndexController extends Controller
 {
     public function index(Request $request)
     {
-        $userLists = $this->userList();
+        $allUserLists = $this->userList();
         $limit = $this->dashboardWatchlist();
 
-        return view('dashboard', compact('userLists', 'limit'));
+        return view('userprofile', compact('allUserLists', 'limit'));
     }
 
     public function userList()
     {
-        $userLists = Auth::user()->userLists;
+        $userLists = Auth::user()->userLists->latest()->get();
         $allUserLists = [];
 
         foreach($userLists as $userList)
         {
-            $listContent = $this->fetchListContent($userList->id);
+            $listContent = $this->fetchListContent($userList->id)->sortByDesc('created_at');
             $recent = array_slice($listContent, 0, 20);
             $allUserLists[] = [
                 'list' => $userList,
@@ -33,26 +33,14 @@ class UserProfileController extends Controller
             ];
         }
 
-        usort($allUserLists, function ($a, $b)
-        {
-            return $a['list']->created_at <=> $b['list']->created_at;
-        });
-
-        return view('profile', compact('allUserLists'));
+        return $allUserLists;
     }
 
     private function fetchListContent($listId)
     {
-        $userId = Auth::id();
-        $listContent = userList::where('user_id', $userId)->findOrFail($listId);
-        $userList = $listContent->userListContent;
+        $list = Auth::user()->userList()->findOrFail($listId);
 
-        usort($userList, function ($a, $b)
-        {
-            return $a->added <=> $b->added;
-        });
-
-        return $userList;
+        return $list->contents()->latest()->get();
     }
 
 
@@ -67,7 +55,7 @@ class UserProfileController extends Controller
     private function fetchWatchlist()
     {
         $user = Auth::user();
-        $watchlist = [$user->watchlist];
+        $watchlist = $user->watchlist;
         $media = [];
 
         foreach ($watchlist as $content) 

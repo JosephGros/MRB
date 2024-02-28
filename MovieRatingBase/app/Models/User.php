@@ -57,6 +57,6 @@ class User extends Authenticatable
 
     public function userListContent()
     {
-        return $this->hasMany(UserListContent::class, userList::class);
+        return $this->hasMany(UserListContent::class, 'user_lists-id');
     }
 }
