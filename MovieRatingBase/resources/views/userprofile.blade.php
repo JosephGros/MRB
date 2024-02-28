@@ -66,124 +66,40 @@
             <div class="">
                 <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
                 <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="watchlistCarousel">&#10094;</button>
-                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="watchlistCarousel">&#10095;</button>
+                    <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="watchlistCarousel">&#10094;</button>
+                    <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="watchlistCarousel">&#10095;</button>
                     <div id="watchlistCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
-                       @foreach ()
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                            <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                            <span class="block text-center mt-2">Lord of the rings</span>
+                        @foreach ($limit as $watchList)
+                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                            <img src="{{ $watchList->poster}}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                            <span class="block text-center mt-2">{{$watchList->name}}</span>
                         </div>
-                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                            <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full ">
-                            <span class="block text-center mt-2">The Hunger Games</span>
-                        </div>
-                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                            <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
-                            <span class="block text-center mt-2">Oppenheimer</span>
-                        </div>
-                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                            <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full ">
-                            <span class="block text-center mt-2">InsideOut</span>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
 
                 <div>
 
+
                     <!-- Seen Section -->
-                    <h2 class="text-2xl font-bold mb-4">Seen</h2>
+                    @foreach ($allUserLists as $userList)
+                    <h2 class="text-2xl font-bold mb-4">{{$userList['list']->name}}</h2>
                     <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                    <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="seenCarousel">&#10094;</button>
+                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="seenCarousel">&#10094;</button>
                         <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="seenCarousel">&#10095;</button>
                         <div id="seenCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
+                            @foreach ($userList['content'] as $content)
                             <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
-                                <span class="block text-center mt-2">Over The Hedge</span>
+                                <img src="{{ $content->poster }}" alt="Over The Hedge" class="rounded-lg w-full">
+                                <span class="block text-center mt-2">{{$content->name}}</span>
                             </div>
-                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                                <span class="block text-center mt-2">Spiderman 3</span>
-                            </div>
-                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                                <span class="block text-center mt-2">InsideOut</span>
-                            </div>
-                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                                <span class="block text-center mt-2">Lord of the rings </span>
-                            </div>
-                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                                <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
-                                <span class="block text-center mt-2">Oppenheimer</span>
-                            </div>
+                            @endforeach
+                            @endforeach
+
                         </div>
                     </div>
-                    <div>
 
-                        <!-- Favorite Section -->
-                        <h2 class="text-2xl font-bold mb-4">Favorite</h2>
-                        <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="favoriteCarousel">&#10094;</button>
-                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="favoriteCarousel">&#10095;</button>
-                            <div id="favoriteCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Over The Hedge</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Spiderman 3</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Inside Out</span>
-                                </div>
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Lord of the rings</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">The Hunger Games</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Oppenheimer</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Spiderman 3</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Inside Out</span>
-                                </div>
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Lord of the rings</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">The Hunger Games</span>
-                                </div>
-
-                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
-                                    <span class="block text-center mt-2">Oppenheimer</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
             </div>
@@ -205,23 +121,23 @@
 
                 // Specifika scroll-funktioner för varje karusell
                 document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.carousel-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const carouselId = this.getAttribute('data-carousel');
-                const direction = parseInt(this.getAttribute('data-direction'), 10);
-                scrollCarousel(carouselId, direction);
-            });
-        });
-    });
+                    document.querySelectorAll('.carousel-button').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const carouselId = this.getAttribute('data-carousel');
+                            const direction = parseInt(this.getAttribute('data-direction'), 10);
+                            scrollCarousel(carouselId, direction);
+                        });
+                    });
+                });
 
-    function scrollCarousel(carouselId, direction) {
-        let container = document.getElementById(carouselId);
-        let scrollAmount = container.clientWidth / 2 * direction;
-        container.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    }
+                function scrollCarousel(carouselId, direction) {
+                    let container = document.getElementById(carouselId);
+                    let scrollAmount = container.clientWidth / 2 * direction;
+                    container.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
             </script>
 
             @endsection

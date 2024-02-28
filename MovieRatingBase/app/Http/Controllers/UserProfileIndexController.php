@@ -9,14 +9,14 @@ use App\Models\userList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserProfileController extends Controller
+class UserProfileIndexController extends Controller
 {
     public function index(Request $request)
     {
-        $userLists = $this->userList();
+        $allUserLists = $this->userList();
         $limit = $this->dashboardWatchlist();
 
-        return view('dashboard', compact('userLists', 'limit'));
+        return view('user-profile', compact('allUserLists', 'limit'));
     }
 
     public function userList()
@@ -39,7 +39,7 @@ class UserProfileController extends Controller
             return $a['list']->created_at <=> $b['list']->created_at;
         });
 
-        return view('profile', compact('allUserLists'));
+        return $allUserLists;
     }
 
     private function fetchListContent($listId)

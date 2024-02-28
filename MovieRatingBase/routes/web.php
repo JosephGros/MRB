@@ -16,10 +16,11 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\UserListContentController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\UserProfileIndexController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ use App\Http\Controllers\UserProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -38,17 +40,17 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Only admin routes
-Route::middleware('admin')->group(function (){
-//User view
-Route::get('/admin/users', [AdminController::class, 'adminAll'])->name('admin.users.all'); //Get all users in created latest order
-Route::get('/admin/users/{user}', [AdminController::class, 'viewUser'])->name('admin.user'); //Get the chosen users info and display
-Route::patch('/admin/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('admin.promote'); //Promote user to moderator or admin
-Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.delete'); //Delete user with password and admin authentication
+Route::middleware('admin')->group(function () {
+    //User view
+    Route::get('/admin/users', [AdminController::class, 'adminAll'])->name('admin.users.all'); //Get all users in created latest order
+    Route::get('/admin/users/{user}', [AdminController::class, 'viewUser'])->name('admin.user'); //Get the chosen users info and display
+    Route::patch('/admin/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('admin.promote'); //Promote user to moderator or admin
+    Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.delete'); //Delete user with password and admin authentication
 
 });
 
 // Only admin and moderator routes
-Route::middleware(['admin', 'moderator'])->group(function (){
+Route::middleware(['admin', 'moderator'])->group(function () {
 
     //Admin and Moderator Routes
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -115,43 +117,39 @@ Route::middleware(['admin', 'moderator'])->group(function (){
 
     //REGULAR USER ROUTES ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-     //CRUD Rating Routes
-     Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
-     Route::patch('/display/ratings/{id}/update', [RatingController::class, 'update'])->name('ratings.update');
-     Route::delete('/display/ratings/{id}/delete', [RatingController::class, 'destroy'])->name('ratings.destroy');
- 
-     //CRUD Review Routes
-     Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-     Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-     Route::get('/display/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
-     Route::patch('/display/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
-     Route::delete('/display/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
- 
-     //Everything for user lists and watchlist
-     //Watchlist
-     Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
-     Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
-     Route::post('/watchlist/add/{id}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
-     Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
-     //User Lists
-     Route::get('/userlists/{id}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
-     Route::get('/userlists/list/{id}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
-     Route::post('/userlists/create/{id}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button
-     Route::patch('/userlists/update/{id}', [UserListController::class, 'update'])->name('userlists.update'); //Update list name
-     Route::delete('/userlists/delete/{id}', [UserListController::class, 'destroy'])->name('userlists.destroy'); //Userlists- button
-     //UserListContent
-     Route::get('/userListContent/{id}', [UserListContentController::class, 'index'])->name('userListContent.index'); //All lists displayed for the user to add content to one or several lists
-     Route::post('/userListContent/create/{id}', [UserListContentController::class, 'store'])->name('userListContent.store'); //Add button will be displayed if not in list
-     Route::delete('/userListContent/delete/{id}', [UserListContentController::class, 'destroy'])->name('userListContent.destroy'); //Remove button will be displayed if it exists in the list
- 
-     //Profile
-     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //CRUD Rating Routes
+    Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
+    Route::patch('/display/ratings/{id}/update', [RatingController::class, 'update'])->name('ratings.update');
+    Route::delete('/display/ratings/{id}/delete', [RatingController::class, 'destroy'])->name('ratings.destroy');
 
-     //User profile
-     Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user.profile');
-     
+    //CRUD Review Routes
+    Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::get('/display/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::patch('/display/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/display/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+    //Everything for user lists and watchlist
+    //Watchlist
+    Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
+    Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
+    Route::post('/watchlist/add/{id}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
+    Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
+    //User Lists
+    Route::get('/userlists/{id}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
+    Route::get('/userlists/list/{id}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
+    Route::post('/userlists/create/{id}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button
+    Route::patch('/userlists/update/{id}', [UserListController::class, 'update'])->name('userlists.update'); //Update list name
+    Route::delete('/userlists/delete/{id}', [UserListController::class, 'destroy'])->name('userlists.destroy'); //Userlists- button
+    //UserListContent
+    Route::get('/userListContent/{id}', [UserListContentController::class, 'index'])->name('userListContent.index'); //All lists displayed for the user to add content to one or several lists
+    Route::post('/userListContent/create/{id}', [UserListContentController::class, 'store'])->name('userListContent.store'); //Add button will be displayed if not in list
+    Route::delete('/userListContent/delete/{id}', [UserListContentController::class, 'destroy'])->name('userListContent.destroy'); //Remove button will be displayed if it exists in the list
+
+    //Profile
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // Route::middleware()->group(function (){
@@ -196,6 +194,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //User profile
+    Route::get('/user-profile', [UserProfileIndexController::class, 'index'])->name('user.profile');
 });
 
 //ROUTES FOR DISPLAYING IN DIFFERENT VIEWS FOR ALL THAT ENTERS THE WEBSITE.
@@ -233,7 +233,7 @@ Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index']
 
 
 //User profile blade route
-Route::get('/user-profile', [UserProfileController::class, 'show'])->name('user.profile.show');
 
-require __DIR__.'/auth.php';
+// Route::get('/user-profile', [UserProfileIndexController::class, 'show'])->name('user.profile.show');
 
+require __DIR__ . '/auth.php';
