@@ -58,7 +58,7 @@
     <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 gap-8">
             <!-- Watchlist Section -->
-            
+
             <div>
                 <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
                 <div class="flex flex-row flex-wrap justify-start items-center gap-4 overflow-x-auto">
@@ -88,6 +88,34 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Seen Section -->
+            <h2 class="text-2xl font-bold mb-4">Seen</h2>
+            <div class="flex flex-row flex-wrap justify-start items-center gap-4 overflow-x-auto">
+                <div class="w-1/6 flex-none">
+                    <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">Over The Hedge</span>
+                </div>
+
+                <div class="w-1/6 flex-none">
+                        <img src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman  No way home" class="rounded-lg w-full">
+                        <span class="block text-center mt-2">Spiderman  No way home</span>
+                    </div>
+
+                    <div class="w-1/6 flex-none">
+                        <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
+                        <span class="block text-center mt-2">Spiderman  3</span>
+                    </div>
+
+                    <div class="w-1/6 flex-none">
+                        <img src="{{ asset('/images/insideOut1.jpg') }}" alt="Inside Out" class="rounded-lg w-full">
+                        <span class="block text-center mt-2">Inside Out</span>
+                    </div>
+
+
+            </div>
+          
 
 
 
