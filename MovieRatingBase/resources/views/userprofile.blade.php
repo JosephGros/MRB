@@ -18,7 +18,7 @@
                     <input type="file" id="imageInput" style="display: none;" onchange="previewImage();" accept="image/*">
                 </div>
                 <!-- Right side -->
-                <div class="flex-grow text-white">
+                <div class="flex-grow text-white pl-5">
                     <div class="mb-3">
                         <div class="text-lg font-bold">
                             <h3>Username:</h3>
