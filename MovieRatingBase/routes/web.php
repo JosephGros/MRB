@@ -15,6 +15,7 @@ use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\UserListContentController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
@@ -146,6 +147,10 @@ Route::middleware(['admin', 'moderator'])->group(function (){
      Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+     //User profile
+     Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user.profile');
+     
 });
 
 // Route::middleware()->group(function (){
@@ -201,6 +206,10 @@ Route::get('/reviews', [ReviewController::class, 'show'])->name('review.show');
 Route::get('/seasons/{season}', [SeasonController::class, 'show'])->name('seasons.show');
 //RANDOM 3 at start
 Route::get('/dashboard/random', [GenreController::class, 'randomDashboard'])->name('genres.randomDashboard');
+
+//Filter Route
+Route::get('/dashboard/movies', [DashboardController::class, 'filter'])->name('genres.movies');
+Route::get('/dashboard/series', [DashboardController::class, 'filter'])->name('genres.series');
 
 
 //Dashboard Routes for all to see. (Fetching Genres with movies and series)
