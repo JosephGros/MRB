@@ -22,20 +22,35 @@ class GenreController extends Controller
 
         foreach ($genres as $genre)
         {
-            switch ($filter)
+            if ($filter === 'movies')
             {
-                case 'movies':
-                    $latest = $genre->movies()->latest()->take(20)->get();
-                    break;
-                case 'series':
-                    $latest = $genre->series()->latest()->take(20)->get();
-                    break;
-                default:
-                    $latest = $genre->items()->latest()->take(20)->get();
-                    break;
+                $movies = $genre->movies()->latest()->take(20)->get();
+                $latestInGenre[] = [
+                    'id' => $genre->id,
+                    'name' => $genre->name,
+                    'items' => $movies,
+                ];
+            } elseif ($filter === 'series')
+            {
+                $series = $genre->series()->latest()->take(20)->get();
+                $latestInGenre[] = [
+                    'id' => $genre->id,
+                    'name' => $genre->name,
+                    'items' => $series,
+                ];
+            } else 
+            {
+                $latestMovies = $genre->movies()->latest()->take(10)->get(); 
+                $latestSeries = $genre->series()->latest()->take(10)->get();
+                $mix = $latestMovies->concat($latestSeries)->shuffle();
+                $latestInGenre[$genre->id] = [
+                    'id' => $genre->id,
+                    'name' => $genre->name,
+                    'items' => $mix,
+                ];
             }
 
-            $latestInGenre[$genre->name] = $latest;
+            
         }
 
         return view('dashboard', compact('latestInGenre'));
