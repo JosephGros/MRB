@@ -16,6 +16,7 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\UserListContentController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\UserProfileIndexController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
@@ -148,9 +149,6 @@ Route::middleware(['admin', 'moderator'])->group(function (){
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-     //User profile
-     Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user.profile');
-     
 });
 
 // Route::middleware()->group(function (){
@@ -194,6 +192,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //User profile
+    Route::get('/user-profile', [UserProfileIndexController::class, 'index'])->name('user.profile');
 });
 
 //ROUTES FOR DISPLAYING IN DIFFERENT VIEWS FOR ALL THAT ENTERS THE WEBSITE.
