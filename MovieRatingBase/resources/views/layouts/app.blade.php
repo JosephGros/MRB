@@ -49,6 +49,8 @@
         <main class="md:mx-20">
             @yield('content')
         </main>
+
+        @include('layouts.footer')
     </div>
 </body>
 </html>
