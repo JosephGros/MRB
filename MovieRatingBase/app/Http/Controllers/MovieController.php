@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -22,7 +23,12 @@ class MovieController extends Controller
      */
     public function create()
     {
-        // Return movie create form for admin
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            return view('admin.edit.editMovie');
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**
@@ -121,7 +127,14 @@ class MovieController extends Controller
      */
     public function edit(string $id)
     {
-        // Return movie edit form for admin
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            $movie = Movie::findOrFail($id);
+
+            return view('admin.edit.editMovie', compact('movie'));
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**
