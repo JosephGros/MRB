@@ -98,29 +98,39 @@ class DashboardController extends Controller
     private function fetchWatchlist()
     {
         $user = Auth::user();
-        $watchlist = $user->watchlist;
+        $watchlist = [$user->watchlist];
         $media = [];
 
-        foreach ($watchlist as $content)
+        foreach ($watchlist as $content) 
         {
-            if($content->media_type === 'movie'){
-                $movie = Movie::find($content->media_id);
-                $movie->type = 'movie';
-                $movie->added = $content->created_at;
-                $media[] = $movie;
-            } elseif($content->media_type === 'serie'){
-                $serie = Serie::find($content->media_id);
-                $serie->type = 'serie';
-                $serie->added = $content->created_at;
-                $media[] = $serie;
+            if (!is_null($content) && is_object($content)) 
+            {
+                if ($content->media_type === 'movie') 
+                {
+                    $movie = Movie::find($content->media_id);
+                    if ($movie) {
+                        $movie->type = 'movie';
+                        $movie->added = $content->created_at;
+                        $media[] = $movie;
+                    }
+                } elseif ($content->media_type === 'serie') 
+                {
+                    $serie = Serie::find($content->media_id);
+                    if ($serie) {
+                        $serie->type = 'serie';
+                        $serie->added = $content->created_at;
+                        $media[] = $serie;
+                    }
+                }
             }
         }
 
-        usort($media, function ($a, $b)
+        usort($media, function ($a, $b) 
         {
-            return $a->added <=> $b->added;
+            return $b->added <=> $a->added;
         });
 
         return $media;
     }
+
 }

@@ -57,6 +57,16 @@
                         <label for="trailer" class="block text-sky-50 font-semibold text-base ">Trailer</label>
                         <input type="text" name="trailer" id="trailer" value="{{ old('trailer', isset(@movie) ? @movie->trailer : '') }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                     </div>
+
+                    <div>
+                        <label for="actors" class="block text-sky-50 font-semibold text-base ">Actors</label>
+                        @foreach(@actors as @actor)
+                            <div>
+                                <input type="text" name="trailer" id="trailer" value="{{ old('trailer', isset(@movie) ? @movie->trailer : '') }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                        @endforeach
+                        
+                    </div>
                 </form>
             </div>
         </div>
