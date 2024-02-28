@@ -72,7 +72,7 @@ class UserListController extends Controller
     {
         $listContent = $this->fetchListContent($listId);
 
-        return view('userList.show', compact('listContent'));
+        return view('contentViews.content-view', compact('listContent'));
     }
 
     /**

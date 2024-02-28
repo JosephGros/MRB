@@ -33,7 +33,7 @@ class CreatorController extends Controller
             [
                 'name' => 'require|string',
                 'profile_picture' => 'require|image|mimes:jpeg,png,jpg,gif,jfif',
-                'birth_date' => 'require|string',
+                'birth_date' => 'require|date',
                 'death_date' => 'nullable|date',
             ]
             );
@@ -89,7 +89,7 @@ class CreatorController extends Controller
             [
                 'name' => 'sometimes|string',
                 'profile_picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
-                'birth_date' => 'sometimes|string',
+                'birth_date' => 'sometimes|date',
                 'death_date' => 'nullable|date',
             ]
             );

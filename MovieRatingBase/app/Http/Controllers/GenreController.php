@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use App\Models\Movie;
+use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class GenreController extends Controller
 {
@@ -38,6 +41,29 @@ class GenreController extends Controller
         return view('dashboard', compact('latestInGenre'));
     }
 
+    public function randomDashboard()
+    {
+        if (Cache::has('random_content'))
+        {
+            $randomContent = Cache::get('random_content');
+
+        } else {
+
+            $movies = Movie::all();
+            $series = Serie::all();
+
+            $mixContent = $movies->merge($series);
+            $mixContent = $mixContent->shuffle();
+
+            $randomContent = $mixContent->take(3);
+
+            Cache::put('random_content', $randomContent, 24 * 60);
+
+        }
+
+        return view('dashboard', compact('randomContent'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -78,7 +104,7 @@ class GenreController extends Controller
         $allGenreContent = $genre->movies->merge($genre->series);
         $allGenreContent = $allGenreContent->sortByDesc('created_at');
 
-        return view('dashboard', compact('genre', 'allGenreContent'));
+        return view('content-view', compact('genre', 'allGenreContent'));
     }
 
     /**
