@@ -41,7 +41,7 @@
                     <!-- Buttons -->
                     <div class="flex flex-wrap justify-center md:justify-start space-x-0 md:space-x-3 mt-3">
 
-                    <a href="{{ route('profile.edit') }}" class="inline-block">
+                        <a href="{{ route('profile.edit') }}" class="inline-block">
 
                             <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Account settings</x-button-dark>
                         </a>
@@ -57,164 +57,173 @@
 
     </div>
 
-
-
     <!--Movie section-->
 
     <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 gap-8">
             <!-- Watchlist Section -->
 
-            <div>
+            <div class="">
                 <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
-                <div class=" bg-sky-700 bg-opacity-75 rounded-md px-5 py-5 flex flex-row justify-start items-center gap-4 overflow-x-auto">
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                        <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full ">
-                        <span class="block text-center mt-2">Lord of the rings</span>
-                    </div>
-
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                        <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full ">
-                        <span class="block text-center mt-2">The Hunger Games</span>
-                    </div>
-
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
-                        <span class="block text-center mt-2">Oppenheimer</span>
-                    </div>
-
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                        <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full ">
-                        <span class="block text-center mt-2">InsideOut</span>
+                <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
+                    <button class=" absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2 " onclick="scrollCarousel('watchlistCarousel', -1)">&#10094;</button>
+                    <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('watchlistCarousel', 1)">&#10095;</button>
+                    <div id="watchlistCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
+                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                            <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                            <span class="block text-center mt-2">Lord of the rings</span>
+                        </div>
+                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                            <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full ">
+                            <span class="block text-center mt-2">The Hunger Games</span>
+                        </div>
+                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                            <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
+                            <span class="block text-center mt-2">Oppenheimer</span>
+                        </div>
+                        <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                            <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full ">
+                            <span class="block text-center mt-2">InsideOut</span>
+                        </div>
                     </div>
                 </div>
+
+                <div>
+
+                    <!-- Seen Section -->
+                    <h2 class="text-2xl font-bold mb-4">Seen</h2>
+                    <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
+                        <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('seenCarousel', -1)">&#10094;</button>
+                        <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('seenCarousel', 1)">&#10095;</button>
+                        <div id="seenCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
+                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
+                                <span class="block text-center mt-2">Over The Hedge</span>
+                            </div>
+                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
+                                <span class="block text-center mt-2">Spiderman 3</span>
+                            </div>
+                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
+                                <span class="block text-center mt-2">InsideOut</span>
+                            </div>
+                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                                <span class="block text-center mt-2">Lord of the rings </span>
+                            </div>
+                            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                                <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
+                                <span class="block text-center mt-2">Oppenheimer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        <!-- Favorite Section -->
+                        <h2 class="text-2xl font-bold mb-4">Favorite</h2>
+                        <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
+                            <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('favoriteCarousel', -1)">&#10094;</button>
+                            <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('favoriteCarousel', 1)">&#10095;</button>
+                            <div id="favoriteCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Over The Hedge</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Spiderman 3</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Inside Out</span>
+                                </div>
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Lord of the rings</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">The Hunger Games</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Oppenheimer</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Spiderman 3</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Inside Out</span>
+                                </div>
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Lord of the rings</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">The Hunger Games</span>
+                                </div>
+
+                                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
+                                    <span class="block text-center mt-2">Oppenheimer</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
 
-            <!-- Seen Section --> 
-            <h2 class="text-2xl font-bold mb-4">Seen</h2>
-            <div class=" bg-sky-700 bg-opacity-75 rounded-md px-5 py-5 flex flex-row  justify-start items-center gap-4 overflow-x-auto">
-            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Over The Hedge</span>
-                </div>
+            <script>
+                function previewImage() {
+                    var file = document.getElementById('imageInput').files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
+                        document.getElementById('profileImage').src = reader.result;
+                    };
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    } else {
+                        document.getElementById('profileImage').src = "{{ asset('/images/profileimage.png') }}";
+                    }
+                }
 
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Spiderman 3</span>
-                </div>
+                // Specifika scroll-funktioner för varje karusell
+                function scrollWatchlist(direction) {
+                    scrollCarousel('watchlistCarousel', direction);
+                }
 
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">InsideOut</span>
-                </div>
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Lord of the rings </span>
-                </div>
+                function scrollSeen(direction) {
+                    scrollCarousel('seenCarousel', direction);
+                }
 
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
-                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
-                        <span class="block text-center mt-2">Oppenheimer</span>
-                    </div>
+                function scrollFavorite(direction) {
+                    scrollCarousel('favoriteCarousel', direction);
+                }
 
+                // Generell scroll-funktion
+                function scrollCarousel(carouselId, direction) {
+                    let container = document.getElementById(carouselId);
+                    let scrollAmount = container.clientWidth / 2 * direction;
+                    container.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            </script>
 
-
-
-            </div>
-            <!-- Favorite Section -->
-            <h2 class="text-2xl font-bold mb-4">Favorite</h2>
-            <div class="bg-sky-700 bg-opacity-75 rounded-md px-5 py-5 flex flex-row justify-start items-center gap-4 overflow-x-auto">
-            <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Over The Hedge</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Spiderman 3</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Inside Out</span>
-                </div>
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Lord of the rings</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">The Hunger Games</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Oppenheimer</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Spiderman 3</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Inside Out</span>
-                </div>
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Lord of the rings</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">The Hunger Games</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Oppenheimer</span>
-                </div>
-
-               
-               
-
-
-
-            </div>
-
-
-
-
-
-
-        </div>
-    </div>
-
-
-
-
-</div>
-
-
-
-<script>
-    function previewImage() {
-        var file = document.getElementById('imageInput').files[0];
-        var reader = new FileReader();
-
-        reader.onloadend = function() {
-            document.getElementById('profileImage').src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            document.getElementById('profileImage').src = "{{ asset('/images/profileimage.png') }}";
-        }
-    }
-</script>
-
-@endsection
+            @endsection
