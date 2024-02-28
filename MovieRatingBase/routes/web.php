@@ -19,6 +19,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,6 +195,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 //ROUTES FOR DISPLAYING IN DIFFERENT VIEWS FOR ALL THAT ENTERS THE WEBSITE.
@@ -229,4 +231,9 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 
+
+//User profile blade route
+Route::get('/user-profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+
 require __DIR__.'/auth.php';
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Movie;
 use App\Models\Serie;
 use App\Models\userList;
@@ -101,4 +102,5 @@ class UserProfileController extends Controller
 
         return $media;
     }
+
 }
