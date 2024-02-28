@@ -27,6 +27,7 @@
             </header>
         @endif
 
+        <!-- Buttons that only will show in display -->
         @if (isset($choiceButtons))
             <nav>
                 <div class="mt-14">
@@ -41,6 +42,16 @@
             <div class="bg-sky-700 md:mx-20 md:rounded-lg">
                 <div class="mt-14">
                     {{ $watchlistExist }}
+                </div>
+            </div>
+        @endif
+
+        
+        <!-- If list exist show, if not don't show this list -->
+        @if (isset($addList))
+            <div class="bg-sky-700 md:mx-20 md:rounded-lg">
+                <div class="mt-14">
+                    {{ $addList }}
                 </div>
             </div>
         @endif

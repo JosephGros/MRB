@@ -1,6 +1,6 @@
 
 <x-guest-layout>
-
+<div class="bg-nav p-8">
     <h1 class="text-center text-2xl font-bold my-10">Create account</h1>
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -57,5 +57,6 @@
             </button>
         </div>
     </form>
+</div>
 </x-guest-layout>
 

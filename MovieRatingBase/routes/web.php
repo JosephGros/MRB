@@ -32,9 +32,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [GenreController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Only admin routes
 Route::middleware('admin')->group(function (){
@@ -129,7 +127,7 @@ Route::middleware(['admin', 'moderator', 'auth'])->group(function () {
     Route::delete('/display/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     //Everything for user lists and watchlist
-    //Watchlist
+    //Watchlist  ->middleware(['auth', 'verified'])
     Route::get('/watchlist/all/{user}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
     Route::get('/watchlist/{user}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
     Route::post('/watchlist/add/{user}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
@@ -164,10 +162,11 @@ Route::get('/dashboard/random', [GenreController::class, 'randomDashboard'])->na
 
 
 //Dashboard Routes for all to see. (Fetching Genres with movies and series)
-Route::get('/dashboard/genres', [GenreController::class, 'index'])->name('genres.index');
+// Route::get('/dashboard/genres', [GenreController::class, 'index'])->name('genres.index');
+
 
 //View for seing everything in the specific genre
-Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.show');
+Route::get('/genres/{id}', [GenreController::class, 'show'])->name('genres.show');
 
 
 // Kontaktformulär Routes
