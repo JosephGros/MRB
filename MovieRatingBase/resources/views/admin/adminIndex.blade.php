@@ -5,25 +5,6 @@
         </div>
     </x-slot>
 
-    $if($errors-any())
-        <div class="bg-sky-700 sm:rounded-lg overflow-hidden shadow-sm">
-            <span class="font-bold text-sky-50 text-2xl h-8">Error!</span>
-            <span class="text-sky-50 text-xl h-8 p-1">{{ session('error') }}</span>
-            <ul>
-                @foreach (@errors->all() as @error)
-                    <li>{{ @error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if(session('success'))
-        <div class="bg-sky-700 sm:rounded-lg overflow-hidden shadow-sm">
-            <span class="font-bold text-sky-50 text-2xl h-8">Success!</span>
-            <span class="text-sky-50 text-xl h-8 p-1">{{ session('success') }}</span>
-        </div>
-    @endif
-
 @section('content')
     <div class="py-8 w-full">
         <div class="w-4/5 mx-auto sm:px-6 lg:px-8">
