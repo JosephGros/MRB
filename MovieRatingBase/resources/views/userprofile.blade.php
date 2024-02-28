@@ -11,7 +11,8 @@
                 <!-- Vänster sida med bild och Edit-knapp -->
                 <div class="flex-shrink-0 mb-4 md:mb-0 text-center">
                     <img src="{{ asset('/images/profileimage.png') }}" alt="Profile image" id="profileImage" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-34 lg:h-34 xl:w-36 xl:h-36 rounded-full border-4 border-blue-300 object-cover mb-2 mx-auto">
-                    <button class="bg-blue-500 text-white rounded-full px-6 py-3 text-base" onclick="document.getElementById('imageInput').click();">Edit</button>
+                    <x-button-dark class="bg-blue-500 text-white rounded-full px-6 py-3 text-base" onclick="document.getElementById('imageInput').click();">Edit</x-button-dark>
+
                     
                     <!-- Dolt filinput-element -->
                     <input type="file" id="imageInput" style="display: none;" onchange="previewImage();" accept="image/*">
@@ -39,17 +40,22 @@
 
                     <!-- Knappar -->
                     <div class="flex flex-wrap justify-center md:justify-start space-x-0 md:space-x-3 mt-3">
-                        <button class="bg-blue-600 hover:bg-blue-700 px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Account settings</button>
-                        <button class="bg-green-500 hover:bg-green-600 px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">New list +</button>
-                        <button class="bg-red-600 hover:bg-red-700 px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Delete account</button>
-                        <button class="bg-blue-600 hover:bg-blue-700 px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Logout</button>
+                    <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Account settings</x-button-dark>
+                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">New list +</x-button-dark>
+                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Delete account</x-button-dark>
+                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Logout</x-button-dark>
+
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+    <!--Movie section-->
+   
 </div>
+
+
 
 <script>
 function previewImage() {
