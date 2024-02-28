@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CreatorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
@@ -32,12 +33,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [GenreController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Only admin routes
 Route::middleware('admin')->group(function (){
 //User view
-Route::get('/admin/users', [AdminController::class, 'admin'])->name('admin.only');
+Route::get('/admin/users', [AdminController::class, 'adminAll'])->name('admin.users.all'); //Get all users in created latest order
+Route::get('/admin/users/{user}', [AdminController::class, 'viewUser'])->name('admin.user'); //Get the chosen users info and display
+Route::patch('/admin/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('admin.promote'); //Promote user to moderator or admin
+Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.delete'); //Delete user with password and admin authentication
 
 });
 
@@ -45,65 +49,103 @@ Route::get('/admin/users', [AdminController::class, 'admin'])->name('admin.only'
 Route::middleware(['admin', 'moderator'])->group(function (){
 
     //Admin and Moderator Routes
-    Route::get('/admin/users', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/movies', [AdminController::class, 'store'])->name('admin.movie.store');
 
+    //Get ALL Routes for Admin and Moderator
+    Route::get('/admin/{type}', [AdminController::class, 'moderatorAll'])->name('admin.index');
+
     //Movie Routes
-    Route::get('/admin/movies', [MovieController::class, 'index'])->name('admin.movie.index');
-    Route::get('/admin/movies/create', [MovieController::class, 'create'])->name('admin.movie.create');
-    Route::post('/admin/movies', [MovieController::class, 'store'])->name('admin.movie.store');
-    Route::get('/admin/movies/{movie}/edit', [MovieController::class, 'edit'])->name('admin.movie.edit');
-    Route::patch('/admin/movies/{movie}/update', [MovieController::class, 'update'])->name('admin.movie.update');
-    Route::delete('/admin/movies/{movie}/delete', [MovieController::class, 'destroy'])->name('admin.movie.destroy');
+    Route::get('/admin/movies', [MovieController::class, 'index'])->name('admin.movies');
+    Route::get('/admin/movies/create', [MovieController::class, 'create'])->name('movies.create');
+    Route::post('/admin/movies', [MovieController::class, 'store'])->name('movies.store');
+    Route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->name('movies.edit');
+    Route::patch('/admin/movies/{id}/update', [MovieController::class, 'update'])->name('movies.update');
+    Route::delete('/admin/movies/{id}/delete', [MovieController::class, 'destroy'])->name('movies.delete');
 
     //Series Routes
-    Route::get('/admin/series', [SerieController::class, 'index'])->name('admin.series.index');
-    Route::get('/admin/series/create', [SerieController::class, 'create'])->name('admin.series.create');
-    Route::post('/admin/series', [SerieController::class, 'store'])->name('admin.series.store');
-    Route::get('/admin/series/{series}/edit', [SerieController::class, 'edit'])->name('admin.series.edit');
-    Route::patch('/admin/series/{series}/update', [SerieController::class, 'update'])->name('admin.series.update');
-    Route::delete('/admin/series/{series}/delete', [SerieController::class, 'destroy'])->name('admin.series.destroy');
+    Route::get('/admin/series', [SerieController::class, 'index'])->name('series');
+    Route::get('/admin/series/create', [SerieController::class, 'create'])->name('series.create');
+    Route::post('/admin/series', [SerieController::class, 'store'])->name('series.store');
+    Route::get('/admin/series/{id}/edit', [SerieController::class, 'edit'])->name('series.edit');
+    Route::patch('/admin/series/{id}/update', [SerieController::class, 'update'])->name('series.update');
+    Route::delete('/admin/series/{id}/delete', [SerieController::class, 'destroy'])->name('series.delete');
 
     //Actor Routes
-    Route::get('/admin/actors', [ActorController::class, 'index'])->name('admin.actors.index');
-    Route::get('/admin/actors/create', [ActorController::class, 'create'])->name('admin.actors.create');
-    Route::post('/admin/actors', [ActorController::class, 'store'])->name('admin.actors.store');
-    Route::get('/admin/actors/{actor}/edit', [ActorController::class, 'edit'])->name('admin.actors.edit');
-    Route::patch('/admin/actors/{actor}/update', [ActorController::class, 'update'])->name('admin.actors.update');
-    Route::delete('/admin/actors/{actor}/delete', [ActorController::class, 'destroy'])->name('admin.actors.destroy');
+    Route::get('/admin/actors', [ActorController::class, 'index'])->name('actors');
+    Route::get('/admin/actors/create', [ActorController::class, 'create'])->name('actors.create');
+    Route::post('/admin/actors', [ActorController::class, 'store'])->name('actors.store');
+    Route::get('/admin/actors/{id}/edit', [ActorController::class, 'edit'])->name('actors.edit');
+    Route::patch('/admin/actors/{id}/update', [ActorController::class, 'update'])->name('actors.update');
+    Route::delete('/admin/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actors.delete');
 
     //Director Routes
-    Route::get('/admin/directors', [DirectorController::class, 'index'])->name('admin.directors.index');
-    Route::get('/admin/directors/create', [DirectorController::class, 'create'])->name('admin.directors.create');
-    Route::post('/admin/directors', [DirectorController::class, 'store'])->name('admin.directors.store');
-    Route::get('/admin/directors/{director}/edit', [DirectorController::class, 'edit'])->name('admin.directors.edit');
-    Route::patch('/admin/directors/{director}/update', [DirectorController::class, 'update'])->name('admin.directors.update');
-    Route::delete('/admin/directors/{director}/delete', [DirectorController::class, 'destroy'])->name('admin.directors.destroy');
+    Route::get('/admin/directors', [DirectorController::class, 'index'])->name('directors');
+    Route::get('/admin/directors/create', [DirectorController::class, 'create'])->name('directors.create');
+    Route::post('/admin/directors', [DirectorController::class, 'store'])->name('directors.store');
+    Route::get('/admin/directors/{id}/edit', [DirectorController::class, 'edit'])->name('directors.edit');
+    Route::patch('/admin/directors/{id}/update', [DirectorController::class, 'update'])->name('directors.update');
+    Route::delete('/admin/directors/{id}/delete', [DirectorController::class, 'destroy'])->name('directors.delete');
 
     //Creator Routes
-    Route::get('/admin/creators', [CreatorController::class, 'index'])->name('admin.creators.index');
-    Route::get('/admin/creators/create', [CreatorController::class, 'create'])->name('admin.creators.create');
-    Route::post('/admin/creators', [CreatorController::class, 'store'])->name('admin.creators.store');
-    Route::get('/admin/creators/{creator}/edit', [CreatorController::class, 'edit'])->name('admin.creators.edit');
-    Route::patch('/admin/creators/{creator}/update', [CreatorController::class, 'update'])->name('admin.creators.update');
-    Route::delete('/admin/creators/{creator}/delete', [CreatorController::class, 'destroy'])->name('admin.creators.destroy');
+    Route::get('/admin/creators', [CreatorController::class, 'index'])->name('creators');
+    Route::get('/admin/creators/create', [CreatorController::class, 'create'])->name('creators.create');
+    Route::post('/admin/creators', [CreatorController::class, 'store'])->name('creators.store');
+    Route::get('/admin/creators/{id}/edit', [CreatorController::class, 'edit'])->name('creators.edit');
+    Route::patch('/admin/creators/{id}/update', [CreatorController::class, 'update'])->name('creators.update');
+    Route::delete('/admin/creators/{id}/delete', [CreatorController::class, 'destroy'])->name('creators.delete');
 
     //Writer Routes
-    Route::get('/admin/writers', [WriterController::class, 'index'])->name('admin.writers.index');
-    Route::get('/admin/writers/create', [WriterController::class, 'create'])->name('admin.writers.create');
-    Route::post('/admin/writers', [WriterController::class, 'store'])->name('admin.writers.store');
-    Route::get('/admin/writers/{writer}/edit', [WriterController::class, 'edit'])->name('admin.writers.edit');
-    Route::patch('/admin/writers/{writer}/update', [WriterController::class, 'update'])->name('admin.writers.update');
-    Route::delete('/admin/writers/{writer}/delete', [WriterController::class, 'destroy'])->name('admin.writers.destroy');
+    Route::get('/admin/writers', [WriterController::class, 'index'])->name('writers');
+    Route::get('/admin/writers/create', [WriterController::class, 'create'])->name('writers.create');
+    Route::post('/admin/writers', [WriterController::class, 'store'])->name('writers.store');
+    Route::get('/admin/writers/{id}/edit', [WriterController::class, 'edit'])->name('writers.edit');
+    Route::patch('/admin/writers/{id}/update', [WriterController::class, 'update'])->name('writers.update');
+    Route::delete('/admin/writers/{id}/delete', [WriterController::class, 'destroy'])->name('writers.delete');
 
 
     //Genre Routes
-    Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('admin.genres.create');
-    Route::post('/admin/genres', [GenreController::class, 'store'])->name('admin.genres.store');
-    Route::get('/admin/genres/{genre}/edit', [GenreController::class, 'edit'])->name('admin.genres.edit');
-    Route::patch('/admin/genres/{genre}/update', [GenreController::class, 'update'])->name('admin.genres.update');
-    Route::delete('/admin/genres/{genre}/delete', [GenreController::class, 'destroy'])->name('admin.genres.destroy');
+    Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('genres.create');
+    Route::post('/admin/genres', [GenreController::class, 'store'])->name('genres.store');
+    Route::get('/admin/genres/{id}/edit', [GenreController::class, 'edit'])->name('genres.edit');
+    Route::patch('/admin/genres/{id}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/admin/genres/{id}/delete', [GenreController::class, 'destroy'])->name('genres.delete');
 
+    //REGULAR USER ROUTES ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+     //CRUD Rating Routes
+     Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
+     Route::patch('/display/ratings/{id}/update', [RatingController::class, 'update'])->name('ratings.update');
+     Route::delete('/display/ratings/{id}/delete', [RatingController::class, 'destroy'])->name('ratings.destroy');
+ 
+     //CRUD Review Routes
+     Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+     Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+     Route::get('/display/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+     Route::patch('/display/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
+     Route::delete('/display/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+ 
+     //Everything for user lists and watchlist
+     //Watchlist
+     Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
+     Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
+     Route::post('/watchlist/add/{id}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
+     Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
+     //User Lists
+     Route::get('/userlists/{id}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
+     Route::get('/userlists/list/{id}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
+     Route::post('/userlists/create/{id}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button
+     Route::patch('/userlists/update/{id}', [UserListController::class, 'update'])->name('userlists.update'); //Update list name
+     Route::delete('/userlists/delete/{id}', [UserListController::class, 'destroy'])->name('userlists.destroy'); //Userlists- button
+     //UserListContent
+     Route::get('/userListContent/{id}', [UserListContentController::class, 'index'])->name('userListContent.index'); //All lists displayed for the user to add content to one or several lists
+     Route::post('/userListContent/create/{id}', [UserListContentController::class, 'store'])->name('userListContent.store'); //Add button will be displayed if not in list
+     Route::delete('/userListContent/delete/{id}', [UserListContentController::class, 'destroy'])->name('userListContent.destroy'); //Remove button will be displayed if it exists in the list
+ 
+     //Profile
+     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // Route::middleware()->group(function (){
@@ -112,7 +154,7 @@ Route::middleware(['admin', 'moderator'])->group(function (){
 
 //ROUTES FOR ALL VIEWS AND STUFF YOU NEED TO BE LOGGED IN FOR.
 
-Route::middleware(['admin', 'moderator', 'auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     //CRUD Rating Routes
     Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
@@ -162,8 +204,7 @@ Route::get('/dashboard/random', [GenreController::class, 'randomDashboard'])->na
 
 
 //Dashboard Routes for all to see. (Fetching Genres with movies and series)
-// Route::get('/dashboard/genres', [GenreController::class, 'index'])->name('genres.index');
-
+Route::get('/dashboard/genres', [GenreController::class, 'index'])->name('genres.index');
 
 //View for seing everything in the specific genre
 Route::get('/genres/{id}', [GenreController::class, 'show'])->name('genres.show');

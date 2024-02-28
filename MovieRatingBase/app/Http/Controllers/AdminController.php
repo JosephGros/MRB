@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -24,7 +25,7 @@ class AdminController extends Controller
         }
     }
 
-    public function admin($type)
+    public function adminAll($type)
     {
         $items = [];
 
@@ -40,7 +41,7 @@ class AdminController extends Controller
     }
 
 
-    public function moderator($type)
+    public function moderatorAll($type)
     {
         $items = [];
 
@@ -77,11 +78,87 @@ class AdminController extends Controller
             }
 
             $items = $items->sortByDesc('created_at');
-            return view('admin.index', compact('items', 'type'));
+            return view('admin.adminIndex', compact('items', 'type'));
 
         }
 
         return redirect()->back()->with('error', 'You are not authorized to do this.');
 
     }
+
+    public function promoteUser(Request $request, $userId)
+    {
+        if (Auth::user()->role === 0)
+        {
+            $user = User::findOrFail($userId);
+            $user->role = $request->role;
+            $user->save();
+
+            return view('admin.userView')->with('success', 'User promoted successfully!');
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
+    }
+
+    public function deleteUser(Request $request, $userId)
+    {
+        if (Auth::user()->role === 0)
+        {
+            if ($request->password !== $request->confirm_password)
+            {
+                return back()->with('error', 'Passwords do not match!');
+            }
+
+            if (!Hash::check($request->password, Auth::user()->password))
+            {
+                return back()->with('error', 'Incorrect admin password');
+            }
+
+            $user = User::findOrFail($userId);
+            $user->delete();
+
+            return view('admin.userView')->with('success', 'User deleted successfully!');
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
+    }
+
+    public function viewUser($userId)
+    {
+        if (Auth::user()->role === 0)
+        {
+            $user = User::findOrFail($userId);
+
+
+            return view('admin.editUsers', compact('user'));
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
+    }
+
+    // //Get all functions
+
+    // public function getAllGenres()
+    // {
+    //     if (Auth::user()->role === 0 || Auth::user()->role === 1)
+    //     {
+    //         $genres = Genre::all();
+
+    //         return view('admin.adminIndex', compact('genres'));
+    //     }
+
+    //     return back()->with('error', 'You are not authorized to do this.');
+    // }
+
+    // public function getAllReviews()
+    // {
+    //     if (Auth::user()->role === 0 || Auth::user()->role === 1)
+    //     {
+    //         $reviews = Review::all();
+
+    //         return view('admin.adminIndex', compact('reviews'));
+    //     }
+
+    //     return back()->with('error', 'You are not authorized to do this.');
+    // }
 }
