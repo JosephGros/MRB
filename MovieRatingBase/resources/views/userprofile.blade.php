@@ -66,8 +66,8 @@
             <div class="">
                 <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
                 <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                    <button class=" absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2 " onclick="scrollCarousel('watchlistCarousel', -1)">&#10094;</button>
-                    <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('watchlistCarousel', 1)">&#10095;</button>
+                <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="watchlistCarousel">&#10094;</button>
+                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="watchlistCarousel">&#10095;</button>
                     <div id="watchlistCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
                         <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                             <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
@@ -93,8 +93,8 @@
                     <!-- Seen Section -->
                     <h2 class="text-2xl font-bold mb-4">Seen</h2>
                     <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                        <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('seenCarousel', -1)">&#10094;</button>
-                        <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('seenCarousel', 1)">&#10095;</button>
+                    <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="seenCarousel">&#10094;</button>
+                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="seenCarousel">&#10095;</button>
                         <div id="seenCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
                             <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                                 <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
@@ -123,8 +123,8 @@
                         <!-- Favorite Section -->
                         <h2 class="text-2xl font-bold mb-4">Favorite</h2>
                         <div class="relative bg-sky-700 bg-opacity-75 rounded-md">
-                            <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('favoriteCarousel', -1)">&#10094;</button>
-                            <button class="absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" onclick="scrollCarousel('favoriteCarousel', 1)">&#10095;</button>
+                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="favoriteCarousel">&#10094;</button>
+                        <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="favoriteCarousel">&#10095;</button>
                             <div id="favoriteCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
                                 <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                                     <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
@@ -203,27 +203,24 @@
                 }
 
                 // Specifika scroll-funktioner för varje karusell
-                function scrollWatchlist(direction) {
-                    scrollCarousel('watchlistCarousel', direction);
-                }
+                document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.carousel-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const carouselId = this.getAttribute('data-carousel');
+                const direction = parseInt(this.getAttribute('data-direction'), 10);
+                scrollCarousel(carouselId, direction);
+            });
+        });
+    });
 
-                function scrollSeen(direction) {
-                    scrollCarousel('seenCarousel', direction);
-                }
-
-                function scrollFavorite(direction) {
-                    scrollCarousel('favoriteCarousel', direction);
-                }
-
-                // Generell scroll-funktion
-                function scrollCarousel(carouselId, direction) {
-                    let container = document.getElementById(carouselId);
-                    let scrollAmount = container.clientWidth / 2 * direction;
-                    container.scrollBy({
-                        left: scrollAmount,
-                        behavior: 'smooth'
-                    });
-                }
+    function scrollCarousel(carouselId, direction) {
+        let container = document.getElementById(carouselId);
+        let scrollAmount = container.clientWidth / 2 * direction;
+        container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
             </script>
 
             @endsection
