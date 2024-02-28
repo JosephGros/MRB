@@ -101,7 +101,7 @@ class DashboardController extends Controller
     private function fetchWatchlist()
     {
         $user = Auth::user();
-        $watchlist = [$user->watchlist];
+        $watchlist = $user->watchlist;
         $media = [];
 
         foreach ($watchlist as $content) 
