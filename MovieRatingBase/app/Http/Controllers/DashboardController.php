@@ -8,6 +8,7 @@ use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,8 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('latestInGenre', 'randomContent', 'limit'));
     }
+    
+    
 
     public function getGenres(Request $request)
     {
@@ -105,20 +108,20 @@ class DashboardController extends Controller
         {
             if($content->media_type === 'movie'){
                 $movie = Movie::find($content->media_id);
-                $movie->type = 'movie';
                 $movie->added = $content->created_at;
                 $media[] = $movie;
             } elseif($content->media_type === 'serie'){
                 $serie = Serie::find($content->media_id);
-                $serie->type = 'serie';
                 $serie->added = $content->created_at;
                 $media[] = $serie;
+            } else {
+                continue;
             }
         }
 
         usort($media, function ($a, $b)
         {
-            return $a->added <=> $b->added;
+            return $b->added <=> $a->added;
         });
 
         return $media;
