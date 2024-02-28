@@ -144,55 +144,42 @@
 
     <!-- Watchlist (don't show if it is empty) -->
     <x-slot name="watchlistExist">
-        <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-            <div>
-              <a href="#"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
-                <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/insideOut.jpg') }}" alt="Inside out">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over the hedge">
-                    <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
+        @foreach($limit as $movie)
+            <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
+                <div>
+                <a href="{{ route('watchlist.dashboardWatchlist', ['user' => $movie['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
+                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+                    @if(empty($watchlists))
+                    <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies in your watchlist</p>
+                    @else
+                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
+                    @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach 
     </x-slot>
 
         <!-- Movie / serie content -->
         @section('content')
-            <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                <div>
-                   <a href="#"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Action</h2></a>
-                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
+            @foreach($latestInGenre as $genre)
+                    <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
+                        <div>
+                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2></a>
+                            <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+
+                                    @foreach($genre['items'] as $item)
+                                     
+                                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                     
+                                    @endforeach
+
+                            </div>
+                        </div>
                     </div>
-                </div>
+            @endforeach
 
-            </div>
 
-            <div class="bg-sky-700 mb-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                <div>
-                   <a href="#"></a> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Drama</h2></a>
-                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
-                    </div>
-                </div>
-
-            </div>
-
-            
-            <div class="bg-sky-700 mb-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                <div>
-                   <a href="#"></a> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Comedy</h2></a>
-                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman no way home">
-                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50" src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman 3">
-                    </div>
-                </div>
-            </div>
-            @endsection
+        @endsection
             
         </x-app-layout>
