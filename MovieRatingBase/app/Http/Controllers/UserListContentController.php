@@ -15,7 +15,7 @@ class UserListContentController extends Controller
     public function index()
     {
         $userLists = Auth::user()->userlist;
-        return view('add_content_to_list', compact('userLists'));
+        return view('contentViews.add-content-list', compact('userLists'));
     }
 
     /**

@@ -35,7 +35,7 @@ class RatingController extends Controller
 
         $rating = Rating::create($validated);
 
-        return redirect()->route('display')->with('success', 'Thanks for rating!');
+        return redirect()->back()->with('success', 'Thanks for rating!');
     }
 
     private function validateOnlyOne($data)
