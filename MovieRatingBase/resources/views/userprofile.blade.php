@@ -68,45 +68,35 @@
             <div>
                 <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
                 <div class=" bg-sky-700 bg-opacity-75 rounded-md px-5 py-5 flex flex-row justify-start items-center gap-4 overflow-x-auto">
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                        <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                        <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full ">
                         <span class="block text-center mt-2">Lord of the rings</span>
                     </div>
 
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                        <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
+                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                        <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full ">
                         <span class="block text-center mt-2">The Hunger Games</span>
                     </div>
 
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
+                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
                         <span class="block text-center mt-2">Oppenheimer</span>
                     </div>
 
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                        <img src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool" class="rounded-lg w-full">
-                        <span class="block text-center mt-2">Deadpool</span>
-                    </div>
-
-                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                        <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
+                    <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                        <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full ">
                         <span class="block text-center mt-2">InsideOut</span>
                     </div>
                 </div>
             </div>
 
 
-            <!-- Seen Section -->
+            <!-- Seen Section --> 
             <h2 class="text-2xl font-bold mb-4">Seen</h2>
             <div class=" bg-sky-700 bg-opacity-75 rounded-md px-5 py-5 flex flex-row  justify-start items-center gap-4 overflow-x-auto">
             <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                     <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
                     <span class="block text-center mt-2">Over The Hedge</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman  No way home" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Spiderman No way home</span>
                 </div>
 
                 <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
@@ -123,6 +113,12 @@
                     <span class="block text-center mt-2">Lord of the rings </span>
                 </div>
 
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 ">
+                        <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full ">
+                        <span class="block text-center mt-2">Oppenheimer</span>
+                    </div>
+
+
 
 
             </div>
@@ -132,11 +128,6 @@
             <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                     <img src="{{ asset('/images/overTheHedge.jpg') }}" alt="Over The Hedge" class="rounded-lg w-full">
                     <span class="block text-center mt-2">Over The Hedge</span>
-                </div>
-
-                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/spidermanNoWayHome.jpg') }}" alt="Spiderman  No way home" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Spiderman No way home</span>
                 </div>
 
                 <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
@@ -164,10 +155,30 @@
                 </div>
 
                 <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                    <img src="{{ asset('/images/deadpool.jpg') }}" alt="Deadpool" class="rounded-lg w-full">
-                    <span class="block text-center mt-2">Deadpool</span>
+                    <img src="{{ asset('/images/spiderman3.jpg') }}" alt="Spiderman3" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">Spiderman 3</span>
                 </div>
 
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                    <img src="{{ asset('/images/insideOut.jpg') }}" alt="InsideOut" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">Inside Out</span>
+                </div>
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                    <img src="{{ asset('/images/lotr.jpg') }}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">Lord of the rings</span>
+                </div>
+
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                    <img src="{{ asset('/images/thg.jpg') }}" alt="The Hunger Games - The Ballad of Songbirds and Snakes" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">The Hunger Games</span>
+                </div>
+
+                <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
+                    <img src="{{ asset('/images/oppenheimer.jpg') }}" alt="Oppenheimer" class="rounded-lg w-full">
+                    <span class="block text-center mt-2">Oppenheimer</span>
+                </div>
+
+               
                
 
 
