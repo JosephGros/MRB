@@ -104,20 +104,22 @@ class DashboardController extends Controller
         $watchlist = $user->watchlist;
         $media = [];
 
-        foreach ($watchlist as $content) 
+        foreach ($watchlist as $content)
         {
-
-            if($content->media_type === 'movie'){
+            if ($content->media_type === 'movie') {
                 $movie = Movie::find($content->media_id);
-                $movie->added = $content->created_at;
-                $media[] = $movie;
-            } elseif($content->media_type === 'serie'){
+                if ($movie !== null) { // Kontrollera om $movie inte är null
+                    $movie->added = $content->created_at;
+                    $media[] = $movie;
+                }
+            } elseif ($content->media_type === 'serie') {
                 $serie = Serie::find($content->media_id);
-                $serie->added = $content->created_at;
-                $media[] = $serie;
+                if ($serie !== null) { // Kontrollera om $serie inte är null
+                    $serie->added = $content->created_at;
+                    $media[] = $serie;
+                }
             } else {
                 continue;
-
             }
         }
 
