@@ -84,7 +84,7 @@ class MovieController extends Controller
             // $movie->writers()->attach($validated['writers']);
             
 
-            return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
+            return redirect()->view('admin.edit.editMovie')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
         } else {
             return redirect()->back()->with('error', 'Something went wrong');
         }
