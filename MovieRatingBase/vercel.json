@@ -6,8 +6,8 @@
     },
     "routes": [
         { 
-            "src": "/storage/app/public/posters/(.*)" , 
-            "dest": "/storage/app/public/posters/$1" 
+            "src": "/images/(.*)" , 
+            "dest": "/images/$1" 
         },
         {
             "src": "/build/(.*)",
