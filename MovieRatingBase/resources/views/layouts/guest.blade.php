@@ -13,8 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-backgc antialiased">
+    <body class="bg-backgc font-inter">
     
     <div class="min-h-screen flex justify-center items-center text-50 font-inter">
 
@@ -24,5 +25,7 @@
         </div>
 
     </div>
+
+ 
 </body>
 </html>

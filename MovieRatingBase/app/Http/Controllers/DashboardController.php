@@ -22,6 +22,13 @@ class DashboardController extends Controller
         return view('dashboard', compact('latestInGenre', 'randomContent', 'limit'));
     }
     
+    public function indexGuest(Request $request)
+    {
+        $latestInGenre = $this->getGenres($request);
+        $randomContent = $this->randomDashboard();
+
+        return view('welcome', compact('latestInGenre', 'randomContent'));
+    }
     
 
     public function getGenres(Request $request)
