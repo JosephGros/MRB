@@ -6,13 +6,14 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Models\Serie;
 use App\Models\userList;
+use App\Models\UserListContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserProfileIndexController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         $allUserLists = $this->userList();
         $limit = $this->dashboardWatchlist();
 
@@ -24,31 +25,41 @@ class UserProfileIndexController extends Controller
     public function userList()
     {
 
-        $userLists = Auth::user()->userLists->latest()->get();
+        $userLists = Auth::user()->userLists;
+        $lists = [];
+    
+        foreach ($userLists as $userList) {
+            $listContent = $this->fetchListContent($userList->id);
+            
+            // Merge movies and series into a single array
+            $content = $listContent['movies']->merge($listContent['series'])->unique();
+    
+            // Take recent 20 items
+            $recentContent = $content->take(20);
+    
+            $lists[] = [
 
-        $allUserLists = [];
-
-        foreach($userLists as $userList)
-        {
-
-            $listContent = $this->fetchListContent($userList->id)->sortByDesc('created_at');
-
-            $recent = array_slice($listContent, 0, 20);
-            $allUserLists[] = [
                 'list' => $userList,
-                'content' => $recent,
+                'content' => $recentContent,
             ];
         }
-
-        return $allUserLists;
+    
+        return $lists;
     }
 
     private function fetchListContent($listId)
     {
 
-        $list = Auth::user()->userList()->findOrFail($listId);
+        $userListContent = UserListContent::where('user_lists_id', $listId)->get();
+        $moviesIds = $userListContent->where('media_type', 'movie')->pluck('media_id')->unique();
+        $seriesIds = $userListContent->where('media_type', 'serie')->pluck('media_id')->unique();
+        $movies = Movie::whereIn('id', $moviesIds)->get();
+        $series = Serie::whereIn('id', $seriesIds)->get();
 
-        return $list->contents()->latest()->get();
+        return [
+            'movies' => $movies,
+            'series' => $series,
+        ];
 
     }
 
