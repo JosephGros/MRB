@@ -4,6 +4,7 @@ use App\Http\Controllers\ActorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContentViewController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
@@ -233,6 +234,11 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
+
+//Content View Controller
+Route::get('/genres/{id}', [ContentViewController::class, 'show'])->name('genres.show');
+Route::get('/watchlist/{id}', [ContentViewController::class, 'show'])->name('watchlist.show');
+Route::get('/userlists/{id}', [ContentViewController::class, 'show'])->name('userlists.show');
 
 
 //User profile blade route
