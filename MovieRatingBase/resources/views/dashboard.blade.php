@@ -84,45 +84,6 @@
         </div>
     </x-slot>
 
-    <script>
-    // Function to fetch random content
-    function fetchRandomContent() {
-        fetch('/get-random-content') // Replace '/get-random-content' with your actual endpoint to fetch random content
-            .then(response => response.json())
-            .then(data => {
-                const randomItem = data.randomItem;
-                const contentDiv = document.getElementById('random-content');
-                contentDiv.innerHTML = `
-                    <img src="${randomItem.poster}" alt="${randomItem.name}" class="rounded-l-lg w-auto h-auto">
-                    <div class="bg-sky-700 rounded-r-lg">
-                        <p class="text-sky-50 text-center md:text-base 2xl:text-xl">${randomItem.name}</p>    
-                        <p class="text-sky-50 text-center font-inter p-2 md:text-sm 2xl:text-base">${randomItem.description}</p>
-                        <div class="flex justify-center">
-                            <div class="text-sm text-sky-50 font-inter mt-2">${randomItem.release} | ${randomItem.runtime} | 9.0/10</div>
-                            <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                        </div> 
-                        ${randomItem.genres.map(genre => `
-                            <div class="text-center text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap justify-center">${genre.name}</div>
-                        `).join('')}
-                        <div class="flex ml-2 mt-2 md:justify-center">
-                            <x-button-dark>Watch</x-button-dark>
-                            <x-button-dark>
-                                <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
-                            </x-button-dark>
-                            <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
-                        </div>
-                    </div>
-                `;
-            })
-            .catch(error => console.error('Error fetching random content:', error));
-    }
-
-    // Fetch random content initially
-    fetchRandomContent();
-
-    // Fetch random content every 5 minutes
-    setInterval(fetchRandomContent, 5 * 60 * 1000);
-</script>
 
     <!-- Buttons for add watchlist, see all, only movies, only series -->
     <x-slot name="choiceButtons">
@@ -150,15 +111,20 @@
             <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
            
                 <div>
-                <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
-                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                    @foreach($limit as $movie)
-                        @if(empty($limit))
-                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
-                        @else
-                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
-                        @endif
-                    @endforeach 
+                    <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
+                
+                    <div id="watchlistContainer" class="relative">
+                                <div id="watchlistCarousel">
+                                <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+                                    @foreach($limit as $movie)
+                                        @if(empty($limit))
+                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
+                                        @else
+                                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
+                                        @endif
+                                    @endforeach 
+                                </div>
+                            </div>
                     </div>
                 </div>
               
@@ -172,15 +138,21 @@
             @foreach($latestInGenre as $genre)
                     <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
                         <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2></a>
-                            <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+                            <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2></a>
 
-                                    @foreach($genre['items'] as $item)
-                                     
-                                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
-                                     
-                                    @endforeach
+                            <div id="genreContainer" class="relative">
+                                <div id="genreCarousel">
 
+                                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+
+                                            @foreach($genre['items'] as $item)
+                                            
+                                                <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                            
+                                            @endforeach
+                                    </div>
+                                                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,26 +163,65 @@
             
         </x-app-layout>
 
-        <script>
-            function showTrailer(trailerUrl) {
-                // You can implement your own logic to show the trailer
-                // For example, you can open a modal or a popover with the trailer video
-                // Here, I'm just redirecting the user to the trailer URL
-                window.location.href = trailerUrl;
+<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const watchlistContainer = document.getElementById('watchlistContainer');
+                const watchlistCarousel = document.getElementById('watchlistCarousel');
                 
-                const medias = [
-                    $randomContent
-                ];
+                // Check if watchlist carousel has content
+                if (watchlistCarousel.children.length > 0) {
+                    // Create and append buttons if content exists
+                    const prevButton = createButton('&#10094;', -1, 'watchlistCarousel');
+                    const nextButton = createButton('&#10095;', 1, 'watchlistCarousel');
+                    
+                    watchlistContainer.appendChild(prevButton);
+                    watchlistContainer.appendChild(nextButton);
+                }
 
-                let media = medias[Math.floor(Math.random())];
+                const genreContainer = document.getElementById('genreContainer');
+                const genreCarousel = document.getElementById('genreCarousel');
+                
+                // Check if genre carousel has content
+                if (genreCarousel.children.length > 0) {
+                    // Create and append buttons if content exists
+                    const prevButton = createButton('&#10094;', -1, 'genreCarousel');
+                    const nextButton = createButton('&#10095;', 1, 'genreCarousel');
+                    
+                    genreContainer.appendChild(prevButton);
+                    genreContainer.appendChild(nextButton);
+                }
+                
+                // Add event listener to buttons
+                document.querySelectorAll('.carousel-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const carouselId = this.getAttribute('data-carousel');
+                        const direction = parseInt(this.getAttribute('data-direction'), 10);
+                        scrollCarousel(carouselId, direction);
+                    });
+                });
+            });
 
-                return media;
+            function createButton(text, direction, carouselId) {
+                const button = document.createElement('button');
+                button.className = 'carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600';
+                button.style.left = direction === -1 ? '4px' : 'auto';
+                button.style.right = direction === 1 ? '4px' : 'auto';
+                button.style.transform = 'translate(-50%, -50%)';
+                button.style.top = '50%';
+                button.style.transform = 'translateY(-50%)';
+                button.innerHTML = text;
+                button.setAttribute('data-direction', direction);
+                button.setAttribute('data-carousel', carouselId);
+                return button;
             }
 
-            function randomMediaData(data) {
-                
-                let mediaTimer = data[Math.floor(data.length * Math.random())];
-
-                return mediaTimer;
+            function scrollCarousel(carouselId, direction) {
+                let container = document.getElementById(carouselId);
+                let scrollAmount = container.clientWidth / 2 * direction;
+                container.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
             }
-        </script>
+
+</script>
