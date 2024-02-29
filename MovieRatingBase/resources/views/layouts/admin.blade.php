@@ -32,6 +32,7 @@
         <main class="m-20 flex flex-wrap justify-center">
             @yield('content')
         </main>
+        @include('layouts.footer')
     </div>
 </body>
 </html>
