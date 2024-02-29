@@ -25,3 +25,28 @@ function displaySearchResults(data) {
         searchResults.appendChild(li);
     });
 }
+
+document.getElementById('search-results').addEventListener('click', function(event) {
+    let target = event.target;
+    if(target && target.matches('li.search-result-item')) {
+        let resultType = target.dataset.resultType;
+        let resultId = target.dataset.resultId;
+        
+        let currentPage = '{{ $currentPage }}';
+
+        if (currentPage === 'editMovies' || currentPage === 'editSeries') {
+            if (resultType === 'actors') {
+                let selectedActors = document.getElementById('selected-actors');
+
+                let actorName = target.textContent;
+                let actorId = target.dataset.resultId;
+
+                let actorRole = document.createElement('div');
+                actorRole.innerHTML = `
+                <div class="font-semibold">${actorName}</div>
+                <input type="text" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500" placeholder="Enter role..." data-actor-id="${actorId}">
+                `
+            }
+        }
+    }
+})
