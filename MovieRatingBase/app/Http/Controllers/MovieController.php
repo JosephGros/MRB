@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class MovieController extends Controller
 {
@@ -56,8 +58,10 @@ class MovieController extends Controller
                 'trailer' => 'required|string',
                 
             ]);
+
+        $filename = Str::uuid()->toString() . '.' . $request->file('poster')->getClientOriginalExtension();
         
-        $path = $request->file('poster')->store('posters', 'public');
+        $path = $request->file('poster')->storeAs('posters', $filename, 'public');
 
         $movie = new Movie([
             'name' => $validated['name'],
@@ -84,7 +88,7 @@ class MovieController extends Controller
             // $movie->writers()->attach($validated['writers']);
             
 
-            return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
+            return redirect()->view('admin.edit.editMovie')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
         } else {
             return redirect()->back()->with('error', 'Something went wrong');
         }
