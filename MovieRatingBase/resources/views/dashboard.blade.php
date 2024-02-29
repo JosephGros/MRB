@@ -149,9 +149,7 @@
                 <div>
                 <a href="{{ route('watchlist.dashboardWatchlist', ['user' => $movie['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
                     <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                    @if(empty($watchlists))
-                    <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies in your watchlist</p>
-                    @else
+                    
                         <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
                     @endif
                     </div>
