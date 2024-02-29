@@ -71,7 +71,7 @@ function displaySearchResults(data) {
 //         }
 //     }
 // });
-
+ 
 // function addEntity(entityType, entityId){
 //     let selectedEntities = document.getElementById('selected-' + entityType);
 
