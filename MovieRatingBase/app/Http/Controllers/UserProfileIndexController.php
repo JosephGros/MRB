@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Movie;
 use App\Models\Serie;
 use App\Models\userList;
@@ -16,11 +17,14 @@ class UserProfileIndexController extends Controller
         $allUserLists = $this->userList();
         $limit = $this->dashboardWatchlist();
 
+
         return view('userprofile', compact('allUserLists', 'limit'));
+
     }
 
     public function userList()
     {
+
         $userLists = Auth::user()->userLists;
         $lists = [];
     
@@ -34,6 +38,7 @@ class UserProfileIndexController extends Controller
             $recentContent = $content->take(20);
     
             $lists[] = [
+
                 'list' => $userList,
                 'content' => $recentContent,
             ];
@@ -44,6 +49,7 @@ class UserProfileIndexController extends Controller
 
     private function fetchListContent($listId)
     {
+
         $userListContent = UserListContent::where('user_lists_id', $listId)->get();
         $moviesIds = $userListContent->where('media_type', 'movie')->pluck('media_id')->unique();
         $seriesIds = $userListContent->where('media_type', 'serie')->pluck('media_id')->unique();
@@ -54,6 +60,7 @@ class UserProfileIndexController extends Controller
             'movies' => $movies,
             'series' => $series,
         ];
+
     }
 
 
@@ -68,7 +75,9 @@ class UserProfileIndexController extends Controller
     private function fetchWatchlist()
     {
         $user = Auth::user();
+
         $watchlist = $user->watchlist;
+
         $media = [];
 
         foreach ($watchlist as $content) 
@@ -102,4 +111,5 @@ class UserProfileIndexController extends Controller
 
         return $media;
     }
+
 }

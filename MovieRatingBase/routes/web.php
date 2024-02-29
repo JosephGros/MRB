@@ -21,6 +21,7 @@ use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -38,17 +40,17 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Only admin routes
-Route::middleware('admin')->group(function (){
-//User view
-Route::get('/admin/users', [AdminController::class, 'adminAll'])->name('admin.users.all'); //Get all users in created latest order
-Route::get('/admin/users/{user}', [AdminController::class, 'viewUser'])->name('admin.user'); //Get the chosen users info and display
-Route::patch('/admin/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('admin.promote'); //Promote user to moderator or admin
-Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.delete'); //Delete user with password and admin authentication
+Route::middleware('admin')->group(function () {
+    //User view
+    Route::get('/admin/users', [AdminController::class, 'adminAll'])->name('admin.users.all'); //Get all users in created latest order
+    Route::get('/admin/users/{user}', [AdminController::class, 'viewUser'])->name('admin.user'); //Get the chosen users info and display
+    Route::patch('/admin/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('admin.promote'); //Promote user to moderator or admin
+    Route::delete('/admin/users/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.delete'); //Delete user with password and admin authentication
 
 });
 
 // Only admin and moderator routes
-Route::middleware(['admin', 'moderator'])->group(function (){
+Route::middleware(['admin', 'moderator'])->group(function () {
 
     //Admin and Moderator Routes
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -114,6 +116,7 @@ Route::middleware(['admin', 'moderator'])->group(function (){
     Route::delete('/admin/genres/{id}/delete', [GenreController::class, 'destroy'])->name('genres.delete');
 
     //REGULAR USER ROUTES ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
 
      //CRUD Rating Routes
      Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
@@ -232,4 +235,9 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 
-require __DIR__.'/auth.php';
+
+//User profile blade route
+
+// Route::get('/user-profile', [UserProfileIndexController::class, 'show'])->name('user.profile.show');
+
+require __DIR__ . '/auth.php';
