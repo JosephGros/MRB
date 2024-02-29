@@ -21,7 +21,6 @@ class UserProfileIndexController extends Controller
         return view('userprofile', compact('allUserLists', 'limit'));
 
     }
-
     public function userList()
     {
 
@@ -60,9 +59,7 @@ class UserProfileIndexController extends Controller
             'movies' => $movies,
             'series' => $series,
         ];
-
     }
-
 
     public function dashboardWatchlist()
     {
@@ -80,20 +77,16 @@ class UserProfileIndexController extends Controller
 
         $media = [];
 
-        foreach ($watchlist as $content) 
-        {
-            if (!is_null($content) && is_object($content)) 
-            {
-                if ($content->media_type === 'movie') 
-                {
+        foreach ($watchlist as $content) {
+            if (!is_null($content) && is_object($content)) {
+                if ($content->media_type === 'movie') {
                     $movie = Movie::find($content->media_id);
                     if ($movie) {
                         $movie->type = 'movie';
                         $movie->added = $content->created_at;
                         $media[] = $movie;
                     }
-                } elseif ($content->media_type === 'serie') 
-                {
+                } elseif ($content->media_type === 'serie') {
                     $serie = Serie::find($content->media_id);
                     if ($serie) {
                         $serie->type = 'serie';
@@ -104,12 +97,10 @@ class UserProfileIndexController extends Controller
             }
         }
 
-        usort($media, function ($a, $b) 
-        {
+        usort($media, function ($a, $b) {
             return $b->added <=> $a->added;
         });
 
         return $media;
     }
-
 }

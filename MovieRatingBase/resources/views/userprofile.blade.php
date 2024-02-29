@@ -69,6 +69,7 @@
                     <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="watchlistCarousel">&#10094;</button>
                     <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="watchlistCarousel">&#10095;</button>
                     <div id="watchlistCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
+
                         @foreach ($limit as $watchList)
                         <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
                             <img src="{{ $watchList->poster}}" alt="Lord of the rings - The return of the king" class="rounded-lg w-full">
@@ -89,13 +90,17 @@
                         <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 left-4 transform -translate-y-1/2 top-1/2" data-direction="-1" data-carousel="seenCarousel">&#10094;</button>
                         <button class="carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600 right-4 transform -translate-y-1/2 top-1/2" data-direction="1" data-carousel="seenCarousel">&#10095;</button>
                         <div id="seenCarousel" class="flex flex-row justify-start items-center gap-4 overflow-hidden px-5 py-5">
-                            @foreach ($userList['content'] as $content)
+                         
+                        
+                        @foreach ($userList['content'] as $content)
                             <div class="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6">
-                                <img src="{{ $content->poster }}" alt="Over The Hedge" class="rounded-lg w-full">
+                                <img src="{{$content->poster}}" alt="Over The Hedge" class="rounded-lg w-full">
                                 <span class="block text-center mt-2">{{$content->name}}</span>
                             </div>
                             @endforeach
                             @endforeach
+                            
+
 
                         </div>
                     </div>
