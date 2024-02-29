@@ -1,11 +1,11 @@
 <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
 
-<nav x-data="{ open: false }" class="bg-nav text-50 font-bold text-xl static w-screen">
+<nav x-data="{ open: false }" class="text-50 font-bold text-xl w-screen">
 
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto py-4 lg:py-6 px-4 sm:px-6 lg:p-8 md:text-base">
+    <div class="py-4 lg:py-6 md:text-base">
         <div class="flex justify-center h-12 sm:h-16">
-            <div class="font-inter text-50 font-bold text-xl static">
+            <div class="font-inter text-50 font-bold text-xl">
 
 
                 <div class="flex items-center py-2 sm:py-6 fixed top-1 left-0 sm:right-0 mt-2 ml-3 sm:ml-0 font-inter">
