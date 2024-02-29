@@ -1,6 +1,6 @@
 <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
 
-<nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen">
+<nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen mb-28 md:mb-44">
        
     <!-- Navigation not logged in -->
     <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-10">
@@ -93,19 +93,19 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 mt-14 border-t border-gray-200 dark:border-gray-600">
 
                 <div class="mt-3 space-y-1 text-50">
-                    <a>
-                        {{ __('Profile') }}
-                    </a>
-                    <x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('login') }}">
+                        {{ __('Login') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('welcome') }}">
                         {{ __('Home') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('about-us') }}">
                         {{ __('About us') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('contact.index') }}">
                         {{ __('Contact') }}
                     </x-responsive-nav-link>
 
