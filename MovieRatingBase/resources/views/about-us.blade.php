@@ -46,22 +46,19 @@
 
         <div class="text-center pt-6">
             <a href="{{ route('contact.index') }}" class="inline-block">
-                <button type="button" class="text-white bg-gradient-to-r from-sky-400 via-sky-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                <button type="button" class="text-white bg-sky-700 from-sky-400 via-sky-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                     Contact us
                 </button>
+                
             </a>
-
-            <a href="create-account">
+            <a href="{{ route('dashboard') }}" class="inline-block">
                 <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                </button>
-
-                <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    <a href="Home">Home</a>
-                </button>
+                Home
+                    </button>
+                    </a>
         </div>
     </div>
 </div>
 @endsection
-
 
 
