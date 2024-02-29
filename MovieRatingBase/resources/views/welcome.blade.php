@@ -20,29 +20,18 @@
     <body class="antialiased bg-sky-950">
     @include('layouts.nav')
         
-<x-guest-layout class="mt-20">
+<x-guest-layout>
+    <div class="bg-sky-700/50">
         <!-- <div class="md:flex"> -->
         <div class="md:grid ms:grid-cols-2">
-        @foreach($randomContent as $randonItem)
-            <div class="flex pt-2 md:flex md:justify-center md:items-center">
-               
+            @foreach($randomContent as $randomItem)
+            <div id="contentToUpdate">
 
-                <!-- Img for movie -->
-                <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
-                    <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randonItem->poster }}" alt="{{$randonItem->name}}">
-                    <div class="text-xs text-sky-50 font-inter font-light mt-4 mb-2 mr-2 md:text-lg md:font-light md:ml-4">{{$randonItem->genre}} | {{$randonItem->genre}} | {{$randonItem->genre}}</div>
-                        <div class="flex">
-                            <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">{{$randonItem->relese}} | {{$randonItem->runtime }}| {{$randonItem->rating}}</div>
-                            <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                        </div>
-                </div>
-    
-                <!-- Trailer for movie -->
-                <div class="basis-1/2 md:basis-none md:w-1/2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randonItem->trailer}}" alt="{{$randonItem->name}}"></video>
-                </div>
-                
+        
+                <!-- Here is where the content will be displayed --> 
+
             </div>
+                
 
             <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
             <div class="w-1/2">
@@ -69,21 +58,21 @@
 
                 <div class="md:mt-2 md:w-4/5">
                     <div class="rounded-lg flex ml-2 mr-2 mb-4">
-                        @foreach($randomContent as $randonItem)
-                                <img src="{{$randonItem->poster}}" alt="{{$randonItem->name}}" class="rounded-l-lg w-auto h-auto">
+                        @foreach($randomContent as $randomItem)
+                                <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-auto h-auto">
 
                             <div class="bg-sky-700 rounded-r-lg">
 
-                                <p class="text-sky-50 text-center md:text-base 2xl:text-xl">{{$randonItem->name}}</span></p>    
+                                <p class="text-sky-50 text-center md:text-base 2xl:text-xl">{{$randomItem->name}}</span></p>    
 
                                     <p class="text-sky-50 text-center font-inter p-2 md:text-sm 2xl:text-base">
-                                        {{$randonItem->description}}</p>
+                                        {{$randomItem->description}}</p>
                                 <!-- Genre, Time, Year and Rating -->
                                 <div class="flex justify-center">
-                                    <div class="text-sm text-sky-50 font-inter mt-2">{{$randonItem->release}} | {{$randonItem->runtime}} | 9.0/10</div>
+                                    <div class="text-sm text-sky-50 font-inter mt-2">{{$randomItem->release}} | {{$randomItem->runtime}} | 9.0/10</div>
                                     <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                                 </div> 
-                                @foreach($randonItem->genres as $genre)
+                                @foreach($randomItem->genres as $genre)
                                     <div class="text-center text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap justify-center">
                                         {{$genre['name']}}
                                     </div>
@@ -103,10 +92,10 @@
 
             </div>
         </div>
- 
+    </div>
 
     <!-- Buttons for add watchlist, see all, only movies, only series -->
-    <x-slot name="choiceButtons">
+
         <div class="hidden md:contents">
             <div class="flex justify-center m-8">
                 <x-primary-btn>
@@ -123,10 +112,11 @@
                 </x-primary-btn>
             </div>
         </div>
-    </x-slot>
+
         
 
         <!-- Movie / serie content -->
+        <div class="md:mx-20">
             @foreach($latestInGenre as $genre)
                 <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
                     <div>
@@ -145,6 +135,7 @@
                     </div>
                 </div>
             @endforeach
+        </div>
 </x-guest-layout>
 
 @include('layouts.footer')
@@ -186,7 +177,7 @@
 
     function createButton(text, direction, carouselId) {
         const button = document.createElement('button');
-        button.className = 'carousel-button absolute z-30 px-4 cursor-pointer bg-sky-700 bg-opacity-85 text-white shadow-lg hover:bg-sky-600';
+        button.className = 'carousel-button absolute px-4 cursor-pointer bg-sky-950 bg-opacity-85 text-white shadow-lg rounded-lg hover:bg-sky-600';
         button.style.left = direction === -1 ? '4px' : 'auto';
         button.style.right = direction === 1 ? '4px' : 'auto';
         button.style.transform = 'translate(-50%, -50%)';
@@ -207,9 +198,52 @@
         });
     }
 
-
-
-
-
-
 </script>
+
+<script>
+    // Define an array to hold the random content
+    var randomContent = @json($randomContent);
+    
+    // Function to fetch and update random content
+    function fetchAndUpdateRandomContent() {
+        // Randomly select one of the three data points
+        var randomIndex = Math.floor(Math.random() * 3);
+        var randomItem = randomContent[randomIndex];
+
+        // Update the specific content with the fetched data
+        document.getElementById('contentToUpdate').innerHTML = `
+            <div class="flex pt-2 md:flex md:justify-center md:items-center"> 
+            
+                <!-- Img for movie -->
+                <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
+                        <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randomItem->poster }}" alt="{{$randomItem->name}}">
+                        @foreach($randomItem->genres as $genre)
+                            <div class="text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap md:ml-4">
+                                {{$genre['name']}}
+                            </div>
+                        @endforeach
+                            <div class="flex">
+                                <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }} | {{$randomItem->rating}}</div>
+                                <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            </div>
+                </div>
+
+                <!-- Trailer for movie -->
+                <div class="basis-1/2 md:basis-none md:w-1/2">
+                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="${randomItem.trailer}" alt="${randomItem.name}"></video>
+                </div>
+
+            </div>
+        `;
+    }
+
+    // Function to fetch and update random content initially
+    fetchAndUpdateRandomContent();
+
+    // Set interval to fetch and update random content every 5 minutes (300,000 milliseconds)
+    setInterval(fetchAndUpdateRandomContent, 300000); // 300000 milliseconds = 5 minutes
+
+    // Function to fetch and update random content every 24 hours (86,400,000 milliseconds)
+    setInterval(fetchAndUpdateRandomContent, 86400000); // 86400000 milliseconds = 24 hours
+</script>
+
