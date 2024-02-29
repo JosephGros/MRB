@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class MovieController extends Controller
 {
@@ -56,8 +58,10 @@ class MovieController extends Controller
                 'trailer' => 'required|string',
                 
             ]);
+
+        $filename = Str::uuid()->toString() . '.' . $request->file('poster')->getClientOriginalExtension();
         
-        $path = $request->file('poster')->store('posters', 'public');
+        $path = $request->file('poster')->storeAs('posters', $filename, 'public');
 
         $movie = new Movie([
             'name' => $validated['name'],
