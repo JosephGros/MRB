@@ -1,19 +1,19 @@
 <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
 
-<nav x-data="{ open: false }" class="text-50 font-bold text-xl static w-screen">
+<nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen">
        
     <!-- Navigation not logged in -->
-    <div class="max-w-7xl mx-auto py-4 lg:py-6 px-4 sm:px-6 text-sm md:text-base">
+    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-10">
             <div class="flex justify-center h-12 sm:h-16">
-                <div class="text-50 font-bold text-xl static">
+                <div class="font-inter text-50 font-bold text-xl">
 
                             <!-- Login / create account -->
                             @if (Route::has('login'))
-                            <div class="fixed flex top-0 right-0 p-2 sm:p-6 text-right z-10 mt-2 sm:mt-3">
+                            <div class="fixed flex top-0 right-0 p-2 md:pt-4 md:pr-6 text-right z-10 mt-2 sm:mt-3">
                                 @auth
                                 <a href="{{ url('dashboard') }}" class="font-bold font-inter hover:text-gray-300  focus:outline focus:outline-2 focus:rounded-sm"></a>
                                 @else
-                                <a href="{{ route('login') }}" class="ml-4 font-semibold dark:hover:text-gray-300 h-10 w-10 mt-2 rounded-lg border-solid border-4 border-sky-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 bg-sky-600" stroke="sky-600" fill="#082f49" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <a href="{{ route('login') }}" class="ml-4 font-semibold dark:hover:text-gray-300 h-10 w-10 rounded-lg border-solid border-4 border-sky-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 bg-sky-600" stroke="sky-600" fill="#082f49" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                     <path  d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                                     </svg></a>
 
@@ -27,21 +27,22 @@
 
 
                             <!-- Navigation  -->
-                                <div class="flex items-center py-2 sm:py-6 fixed top-1 left-0 sm:right-0 mt-2 ml-3 sm:ml-0 font-inter">
+                                <!-- <div class="flex items-center py-2 sm:py-8 fixed top-0 left-0 sm:right-0 ml-3 sm:ml-0 font-inter bg-nav"> -->
+                                <div class="flex items-center py-2 sm:py-8 ml-3 sm:ml-0 font-inter">
 
                                     <!-- Logo -->
-                                    <div class="ml-[130px] sm:ml-8">
-                                        <a href="#">
-                                            <img class="h-10 w-30 md:h-18 md:w-40" src="{{ asset('/images/LogoMRB.png') }}" alt="MRB logo">
+                                    <div class="ml-[130px] mt-4 sm:ml-8 fixed top-0 left-0">
+                                        <a href="{{ route('welcome') }}">
+                                            <img class="h-10 w-30 md:h-20 md:w-40" src="{{ asset('/images/LogoMRB.png') }}" alt="MRB logo">
                                         </a>
                                     </div>
 
                                     <!-- Navigation Links -->
 
-                                    <x-nav-link>
-                                        <ul class="hidden sm:-my-px sm:ms-10 sm:flex items-center mx-auto">
+                                    <x-nav-link :href="route('welcome')">
+                                        <ul class="hidden sm:-my-px sm:flex md:items-center mx-auto">
                                             <li class="ml-10 list-none">
-                                                <a href="{{ route('dashboard') }}"class="hover:text-gray-300">Home</a> <!-- Movies -->
+                                                <a href="{{ route('welcome') }}"class="hover:text-gray-300">Home</a> <!-- Movies -->
                                             </li>
                                             <li class="ml-10">
                                             <a href="{{ route('user.profile') }}" class="hover:text-gray-300">Profile</a>
@@ -54,9 +55,9 @@
                                             </li>
 
                                             <li class="ml-10 sm:ml-6">
-                                                <x-text-input type="text" class="ml-10 bg-200 rounded-md text-sm sm:text-xl w-64 px-4 pl-4 py-1
+                                                <input type="text" class="ml-10 bg-200 rounded-md text-sm sm:text-xl w-64 px-4 pl-4 py-1
                                                 focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search">
-                                                </x-text-input>
+                                                </input>
                                             </li>
                                         </ul>
                                     </x-nav-link>

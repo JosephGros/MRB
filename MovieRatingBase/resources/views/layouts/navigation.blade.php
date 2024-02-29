@@ -1,18 +1,17 @@
 <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
 
-<nav x-data="{ open: false }" class="text-50 font-bold text-xl w-screen">
+<nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen">
 
     <!-- Primary Navigation Menu -->
-    <div class="py-4 lg:py-6 md:text-base">
-        <div class="flex justify-center h-12 sm:h-16">
+    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-10 mb-20">
+        <div class="flex justify-center h-12 md:h-16">
             <div class="font-inter text-50 font-bold text-xl">
 
-
-                <div class="flex items-center py-2 sm:py-6 fixed top-1 left-0 sm:right-0 mt-2 ml-3 sm:ml-0 font-inter">
+                <div class="flex items-center py-2 sm:py-8 top-0 left-0 sm:right-0 ml-3 sm:ml-0 font-inter">
 
                     <!-- Logo -->
-                    <div class="ml-[130px] sm:ml-8">
-                        <a href="#">
+                    <div class="ml-[130px] mt-4 sm:ml-8 fixed top-0 left-0">
+                        <a href="{{ route('dashboard') }}">
                             <img class="h-10 w-30 md:h-20 md:w-40" src="{{ asset('/images/LogoMRB.png') }}" alt="MRB logo">
                         </a>
                     </div>
@@ -44,7 +43,7 @@
                 </div>
 
                 <!-- Settings Dropdown -->
-                <div class="fixed flex top-0 right-0 sm:p-6 text-right z-10 mt-3 sm:mt-3">
+                <div class="fixed flex top-0 right-0 md:pt-4 sm:pr-6 text-right z-10 mt-2">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 text-xl leading-4 hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
