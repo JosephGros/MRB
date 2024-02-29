@@ -1,12 +1,17 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-0dwk9up-.css",
+    "file": "assets/app-Dio-N21R.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
     "file": "assets/app-9mbrzSRH.js",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/search.js": {
+    "file": "assets/search-FmWyZZtl.js",
+    "src": "resources/js/search.js",
     "isEntry": true
   }
 }
