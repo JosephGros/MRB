@@ -19,7 +19,7 @@
     
     <div class="min-h-screen flex justify-center items-center text-50 font-inter">
 
-        <div class="md:mx-20 md:mt-20">
+        <div>
             {{ $slot }}
 
         </div>
