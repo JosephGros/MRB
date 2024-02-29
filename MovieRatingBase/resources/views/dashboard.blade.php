@@ -170,7 +170,7 @@
 
                                     @foreach($genre['items'] as $item)
                                      
-                                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ 'storage/' . $item->poster }}" alt="{{ $item->name }}">
                                      
                                     @endforeach
 
