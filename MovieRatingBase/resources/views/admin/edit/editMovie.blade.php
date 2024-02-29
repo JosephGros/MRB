@@ -50,6 +50,34 @@
 
                         </div>
 
+                        <div>
+                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Genres</label>
+                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                        </div>
+
+                        <div id="selected-genres" class="mt-4">
+
+                        </div>
+                        <div>
+                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Directors</label>
+                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                        </div>
+
+                        <div id="selected-directors" class="mt-4">
+
+                        </div>
+                        <div>
+                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Writers</label>
+                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                        </div>
+
+                        <div id="selected-writers" class="mt-4">
+
+                        </div>
+
                             <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
                 </div>
@@ -117,7 +145,7 @@ function addActor(actorId){
     let selectedActors = document.getElementById('selected-actors');
 
     let actorTitle = document.createElement('div');
-    actorTitle.classList.add('border', 'border-sky-900', 'p-3', 'rounded-md', 'mb-2')
+    actorTitle.classList.add('border', 'active:border-sky-900', 'p-3', 'rounded-md', 'mb-2', 'cursor-pointer')
 
     let actorRole = document.createElement('input');
     actorRole.type = 'text';
