@@ -39,16 +39,16 @@
                                     <!-- Navigation Links -->
                                     <ul class="hidden sm:-my-px sm:ms-10 sm:flex items-center mx-auto">
                                         <li class="ml-10 list-none">
-                                            <a href="#" class="hover:text-gray-300">Home</a> <!-- Movies -->
+                                            <a href="{{ route('dashboard') }}"class="hover:text-gray-300">Home</a> <!-- Movies -->
                                         </li>
                                         <li class="ml-10">
-                                            <a href="#" class="hover:text-gray-300">Profile</a>
+                                        <a href="{{ route('user.profile') }}" class="hover:text-gray-300">Profile</a>
                                         </li>
                                         <li class="ml-10">
-                                            <a href="#" class="hover:text-gray-300">About us</a>
+                                            <a href="{{ route('about-us') }}" class="hover:text-gray-300">About us</a>
                                         </li>
                                         <li class="ml-10">
-                                            <a href="#" class="hover:text-gray-300">Contact</a>
+                                        <a href="{{ route('contact.index') }}"  class="hover:text-gray-300">Contact</a>
                                         </li>
 
                                         <li class="ml-10 sm:ml-6">
