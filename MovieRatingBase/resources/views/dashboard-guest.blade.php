@@ -1,5 +1,5 @@
-<x-app-layout>
-<x-slot name="header">
+<x-guest-layout>
+    <x-slot name="header">
         <!-- <div class="md:flex"> -->
         <div class="md:grid ms:grid-cols-2">
         @foreach($randomContent as $randonItem)
@@ -18,7 +18,7 @@
     
                 <!-- Trailer for movie -->
                 <div class="basis-1/2 md:basis-none md:w-1/2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randonItem->trailer}}" alt="{{$randonItem->name}}"></video>
+                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randonItem->trailer}}" alt="{{$randonItem->name}}" disableremoteplayback webkit-playsinline playsinline></video>
                 </div>
                 
             </div>
@@ -37,8 +37,7 @@
                        </x-primary-button>
                     </div>
             </div>
-            @break
-        @endforeach
+            @endforeach
         </div>
 
 
@@ -84,52 +83,12 @@
         </div>
     </x-slot>
 
-    <script>
-    // Function to fetch random content
-    function fetchRandomContent() {
-        fetch('/get-random-content') // Replace '/get-random-content' with your actual endpoint to fetch random content
-            .then(response => response.json())
-            .then(data => {
-                const randomItem = data.randomItem;
-                const contentDiv = document.getElementById('random-content');
-                contentDiv.innerHTML = `
-                    <img src="${randomItem.poster}" alt="${randomItem.name}" class="rounded-l-lg w-auto h-auto">
-                    <div class="bg-sky-700 rounded-r-lg">
-                        <p class="text-sky-50 text-center md:text-base 2xl:text-xl">${randomItem.name}</p>    
-                        <p class="text-sky-50 text-center font-inter p-2 md:text-sm 2xl:text-base">${randomItem.description}</p>
-                        <div class="flex justify-center">
-                            <div class="text-sm text-sky-50 font-inter mt-2">${randomItem.release} | ${randomItem.runtime} | 9.0/10</div>
-                            <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                        </div> 
-                        ${randomItem.genres.map(genre => `
-                            <div class="text-center text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap justify-center">${genre.name}</div>
-                        `).join('')}
-                        <div class="flex ml-2 mt-2 md:justify-center">
-                            <x-button-dark>Watch</x-button-dark>
-                            <x-button-dark>
-                                <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
-                            </x-button-dark>
-                            <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
-                        </div>
-                    </div>
-                `;
-            })
-            .catch(error => console.error('Error fetching random content:', error));
-    }
-
-    // Fetch random content initially
-    fetchRandomContent();
-
-    // Fetch random content every 5 minutes
-    setInterval(fetchRandomContent, 5 * 60 * 1000);
-</script>
-
     <!-- Buttons for add watchlist, see all, only movies, only series -->
     <x-slot name="choiceButtons">
         <div class="hidden md:contents">
             <div class="flex justify-center m-8">
                 <x-primary-btn>
-                    <a href=" {{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
+                    <a href=" {{ route('register') }}">Watchlist +</a>
                 </x-primary-btn>
                 <x-primary-btn class="ml-8">
                     <a href="{{ route('dashboard') }}">All</a>
@@ -143,28 +102,7 @@
             </div>
         </div>
     </x-slot>
-
-    <!-- Watchlist (don't show if it is empty) -->
-    <x-slot name="watchlistExist">
-       
-            <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-           
-                <div>
-                <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
-                    <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                    @foreach($limit as $movie)
-                        @if(empty($limit))
-                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
-                        @else
-                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
-                        @endif
-                    @endforeach 
-                    </div>
-                </div>
-              
-            </div>
         
-    </x-slot>
 
         <!-- Movie / serie content -->
         @section('content')
@@ -185,32 +123,4 @@
                         </div>
                     </div>
             @endforeach
-
-
-        @endsection
-            
-        </x-app-layout>
-
-        <script>
-            function showTrailer(trailerUrl) {
-                // You can implement your own logic to show the trailer
-                // For example, you can open a modal or a popover with the trailer video
-                // Here, I'm just redirecting the user to the trailer URL
-                window.location.href = trailerUrl;
-                
-                const medias = [
-                    $randomContent
-                ];
-
-                let media = medias[Math.floor(Math.random())];
-
-                return media;
-            }
-
-            function randomMediaData(data) {
-                
-                let mediaTimer = data[Math.floor(data.length * Math.random())];
-
-                return mediaTimer;
-            }
-        </script>
+</x-guest-layout>
