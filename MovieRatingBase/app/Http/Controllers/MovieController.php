@@ -31,6 +31,16 @@ class MovieController extends Controller
         return back()->with('error', 'You are not authorized to do this.');
     }
 
+    // 'actors' => 'required|array',
+    //             'actors.*.id' => 'required|exists:actors,id',
+    //             'actors.*.role' => 'required|string',
+    //             'genres' => 'required|array',
+    //             'genres.*' => 'required|exists:genres,id',
+    //             'directors' => 'required|array',
+    //             'directors.*' => 'required|exists:directors,id',
+    //             'writers' => 'required|array',
+    //             'writers.*' => 'required|exists:writers,id',
+
     /**
      * Store a newly created resource in storage.
      */
@@ -44,15 +54,7 @@ class MovieController extends Controller
                 'runtime' => 'required|string',
                 'description' => 'required|string',
                 'trailer' => 'required|string',
-                'actors' => 'required|array',
-                'actors.*.id' => 'required|exists:actors,id',
-                'actors.*.role' => 'required|string',
-                'genres' => 'required|array',
-                'genres.*' => 'required|exists:genres,id',
-                'directors' => 'required|array',
-                'directors.*' => 'required|exists:directors,id',
-                'writers' => 'required|array',
-                'writers.*' => 'required|exists:writers,id',
+                
             ]);
         
         $path = $request->file('poster')->store('posters', 'public');
@@ -68,18 +70,18 @@ class MovieController extends Controller
         
         if($movie->save())
         {
-            foreach ($validated['actors'] as $actor)
-            {
-                $actorId = $actor['id'];
-                $role = $actor['role'];
-                $movie->actors()->attach($actorId, ['role' => $role]);
-            }
+            // foreach ($validated['actors'] as $actor)
+            // {
+            //     $actorId = $actor['id'];
+            //     $role = $actor['role'];
+            //     $movie->actors()->attach($actorId, ['role' => $role]);
+            // }
 
-            $movie->genres()->attach($validated['genres']);
+            // $movie->genres()->attach($validated['genres']);
 
-            $movie->directors()->attach($validated['directors']);
+            // $movie->directors()->attach($validated['directors']);
 
-            $movie->writers()->attach($validated['writers']);
+            // $movie->writers()->attach($validated['writers']);
             
 
             return redirect()->route('dashboard')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!

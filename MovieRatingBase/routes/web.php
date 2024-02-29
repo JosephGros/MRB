@@ -11,6 +11,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\UserListContentController;
@@ -58,12 +59,12 @@ Route::middleware(['admin', 'moderator'])->group(function (){
     Route::get('/admin/{type}', [AdminController::class, 'moderatorAll'])->name('admin.index');
 
     //Movie Routes
-    Route::get('/admin/movies', [MovieController::class, 'index'])->name('admin.movies');
-    Route::get('/admin/movies/create', [MovieController::class, 'create'])->name('movies.create');
-    Route::post('/admin/movies', [MovieController::class, 'store'])->name('movies.store');
+    Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+    Route::get('/movies', [MovieController::class, 'create'])->name('movies.create');
+    Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
     Route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->name('movies.edit');
-    Route::patch('/admin/movies/{id}/update', [MovieController::class, 'update'])->name('movies.update');
-    Route::delete('/admin/movies/{id}/delete', [MovieController::class, 'destroy'])->name('movies.delete');
+    Route::put('/movies/{id}', [MovieController::class, 'update'])->name('movies.update');
+    Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies.delete');
 
     //Series Routes
     Route::get('/admin/series', [SerieController::class, 'index'])->name('series');
@@ -198,6 +199,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //ROUTES FOR DISPLAYING IN DIFFERENT VIEWS FOR ALL THAT ENTERS THE WEBSITE.
+
+//Search Route
+Route::get('/search', [SearchController::class, 'search']);
 
 //Display view Routes for 1 Movie or 1 Series
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movie.show');
