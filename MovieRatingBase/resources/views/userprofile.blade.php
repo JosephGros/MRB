@@ -46,9 +46,14 @@
                             <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Account settings</x-button-dark>
                         </a>
 
-                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">New list +</x-button-dark>
-                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Delete account</x-button-dark>
-                        <x-button-dark class="px-2 sm:px-4 py-1 sm:py-2 rounded mb-2 md:mb-0">Logout</x-button-dark>
+                        <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <x-button-dark  :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-button-dark>
+                            </form>
 
                     </div>
                 </div>
