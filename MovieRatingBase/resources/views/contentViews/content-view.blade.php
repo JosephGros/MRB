@@ -7,7 +7,6 @@
     @elseif($source === 'userlist')
     <h1>User List Content</h1>
     @endif
-
     <ul>
         @foreach($allContent as $content)
         
