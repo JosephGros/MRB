@@ -6,13 +6,30 @@
     </x-slot>
 
 @section('content')
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        <h2>{{ session('error') }}</h2>
+    </div>
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">
+        <h2>{{ session('success') }}</h2>
+    </div>
+@endif
     <div class="py-8 w-full">
         <div class="w-4/5 mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center content-center bg-sky-700 sm:rounded-lg overflow-hidden shadow-sm">
                 <div class="w-4/5">
-                    <form @if(isset($movie)) method="post" action="{{ route('movies.store') }}" @else method="post"  enctype="multipart/form-data" class="space-y-4 px-6 py-4"@endif>
-                        @csrf 
-                        @if(isset($movie)) @method('PUT') @endif
+                    <form method="post" 
+                            action="{{ isset($movie) ? route('movies.update', $movie->id) : route('movies.store') }}" 
+                            enctype="multipart/form-data" 
+                            class="space-y-4 px-6 py-4">
+                            @csrf 
+                            @if(isset($movie))
+                                @method('PUT')
+                            @endif
                         <div>
                             <label for="name" class="block text-sky-50 font-semibold text-base ">Title</label>
                             <input type="text" name="name" id="name" value="{{ isset($movie) ? $movie->name : '' }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
@@ -31,24 +48,50 @@
                         </div>
                         <div>
                             <label for="description" class="block text-sky-50 font-semibold text-base ">Description</label>
-                            <textarea name="description" id="description" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                {{ isset($movie) ? $movie->description : '' }}
-                            </textarea>
+                            <textarea name="description" id="description" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">{{ isset($movie) ? $movie->description : '' }}</textarea>
                         </div>
                         <div>
                             <label for="trailer" class="block text-sky-50 font-semibold text-base ">Trailer</label>
                             <input type="text" name="trailer" id="trailer" value="{{ isset($movie) ? $movie->trailer : '' }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                         </div>
 
-                        <div>
-                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Actors</label>
-                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                        <!-- <div>
+                                <label for="searchActors" class="block text-sky-50 font-semibold text-base">Search Actors</label>
+                                <input type="text" name="searchActors" id="searchActors" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                                 <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
                         </div>
 
                         <div id="selected-actors" class="mt-4">
 
+                        </div> -->
+
+                        <!-- <div>
+                                <label for="searchGenres" class="block text-sky-50 font-semibold text-base">Search Genres</label>
+                                <input type="text" name="searchGenres" id="searchGenres" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
                         </div>
+
+                        <div id="selected-genres" class="mt-4">
+
+                        </div>
+                        <div>
+                                <label for="searchDirectors" class="block text-sky-50 font-semibold text-base">Search Directors</label>
+                                <input type="text" name="searchDirectors" id="searchDirectors" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                        </div>
+
+                        <div id="selected-directors" class="mt-4">
+
+                        </div>
+                        <div>
+                                <label for="searchWriters" class="block text-sky-50 font-semibold text-base">Search Writers</label>
+                                <input type="text" name="searchWriters" id="searchWriters" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                        </div>
+
+                        <div id="selected-writers" class="mt-4">
+
+                        </div> -->
 
                             <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
@@ -57,7 +100,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
 
         let currentPage = 'editMovies';
 
@@ -117,7 +160,7 @@ function addActor(actorId){
     let selectedActors = document.getElementById('selected-actors');
 
     let actorTitle = document.createElement('div');
-    actorTitle.classList.add('border', 'border-sky-900', 'p-3', 'rounded-md', 'mb-2')
+    actorTitle.classList.add('border', 'active:border-sky-900', 'p-3', 'rounded-md', 'mb-2', 'cursor-pointer')
 
     let actorRole = document.createElement('input');
     actorRole.type = 'text';
@@ -132,7 +175,7 @@ function addActor(actorId){
     selectedActors.appendChild(actorTitle);
 
 }
-    </script>
+    </script> -->
 
 @endsection
 </x-admin-layout>

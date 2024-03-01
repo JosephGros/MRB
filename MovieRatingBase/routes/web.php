@@ -60,59 +60,59 @@ Route::middleware(['admin', 'moderator'])->group(function () {
 
     //Movie Routes
     Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
-    Route::get('/movies', [MovieController::class, 'create'])->name('movies.create');
+    Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
     Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
     Route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->name('movies.edit');
     Route::put('/movies/{id}', [MovieController::class, 'update'])->name('movies.update');
     Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies.delete');
 
     //Series Routes
-    Route::get('/admin/series', [SerieController::class, 'index'])->name('series');
-    Route::get('/admin/series/create', [SerieController::class, 'create'])->name('series.create');
-    Route::post('/admin/series', [SerieController::class, 'store'])->name('series.store');
-    Route::get('/admin/series/{id}/edit', [SerieController::class, 'edit'])->name('series.edit');
-    Route::patch('/admin/series/{id}/update', [SerieController::class, 'update'])->name('series.update');
-    Route::delete('/admin/series/{id}/delete', [SerieController::class, 'destroy'])->name('series.delete');
+    Route::get('/series', [SerieController::class, 'index'])->name('series');
+    Route::get('/series/create', [SerieController::class, 'create'])->name('series.create');
+    Route::post('/series', [SerieController::class, 'store'])->name('series.store');
+    Route::get('/series/{id}/edit', [SerieController::class, 'edit'])->name('series.edit');
+    Route::patch('/series/{id}/update', [SerieController::class, 'update'])->name('series.update');
+    Route::delete('/series/{id}/delete', [SerieController::class, 'destroy'])->name('series.delete');
 
     //Actor Routes
-    Route::get('/admin/actors', [ActorController::class, 'index'])->name('actors');
-    Route::get('/admin/actors/create', [ActorController::class, 'create'])->name('actors.create');
-    Route::post('/admin/actors', [ActorController::class, 'store'])->name('actors.store');
-    Route::get('/admin/actors/{id}/edit', [ActorController::class, 'edit'])->name('actors.edit');
-    Route::patch('/admin/actors/{id}/update', [ActorController::class, 'update'])->name('actors.update');
-    Route::delete('/admin/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actors.delete');
+    Route::get('/actors', [ActorController::class, 'index'])->name('actor');
+    Route::get('/actors', [ActorController::class, 'create'])->name('actor.create');
+    Route::post('/actors', [ActorController::class, 'store'])->name('actor.store');
+    Route::get('/actors/{id}/edit', [ActorController::class, 'edit'])->name('actor.edit');
+    Route::patch('/actors/{id}/update', [ActorController::class, 'update'])->name('actor.update');
+    Route::delete('/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actor.delete');
 
     //Director Routes
-    Route::get('/admin/directors', [DirectorController::class, 'index'])->name('directors');
-    Route::get('/admin/directors/create', [DirectorController::class, 'create'])->name('directors.create');
-    Route::post('/admin/directors', [DirectorController::class, 'store'])->name('directors.store');
-    Route::get('/admin/directors/{id}/edit', [DirectorController::class, 'edit'])->name('directors.edit');
-    Route::patch('/admin/directors/{id}/update', [DirectorController::class, 'update'])->name('directors.update');
-    Route::delete('/admin/directors/{id}/delete', [DirectorController::class, 'destroy'])->name('directors.delete');
+    Route::get('/directors', [DirectorController::class, 'index'])->name('directors');
+    Route::get('/directors/create', [DirectorController::class, 'create'])->name('directors.create');
+    Route::post('/directors', [DirectorController::class, 'store'])->name('directors.store');
+    Route::get('/directors/{id}/edit', [DirectorController::class, 'edit'])->name('directors.edit');
+    Route::patch('/directors/{id}/update', [DirectorController::class, 'update'])->name('directors.update');
+    Route::delete('/directors/{id}/delete', [DirectorController::class, 'destroy'])->name('directors.delete');
 
     //Creator Routes
-    Route::get('/admin/creators', [CreatorController::class, 'index'])->name('creators');
-    Route::get('/admin/creators/create', [CreatorController::class, 'create'])->name('creators.create');
-    Route::post('/admin/creators', [CreatorController::class, 'store'])->name('creators.store');
-    Route::get('/admin/creators/{id}/edit', [CreatorController::class, 'edit'])->name('creators.edit');
-    Route::patch('/admin/creators/{id}/update', [CreatorController::class, 'update'])->name('creators.update');
-    Route::delete('/admin/creators/{id}/delete', [CreatorController::class, 'destroy'])->name('creators.delete');
+    Route::get('/creators', [CreatorController::class, 'index'])->name('creators');
+    Route::get('/creators/create', [CreatorController::class, 'create'])->name('creators.create');
+    Route::post('/creators', [CreatorController::class, 'store'])->name('creators.store');
+    Route::get('/creators/{id}/edit', [CreatorController::class, 'edit'])->name('creators.edit');
+    Route::patch('/creators/{id}/update', [CreatorController::class, 'update'])->name('creators.update');
+    Route::delete('/creators/{id}/delete', [CreatorController::class, 'destroy'])->name('creators.delete');
 
     //Writer Routes
-    Route::get('/admin/writers', [WriterController::class, 'index'])->name('writers');
-    Route::get('/admin/writers/create', [WriterController::class, 'create'])->name('writers.create');
-    Route::post('/admin/writers', [WriterController::class, 'store'])->name('writers.store');
-    Route::get('/admin/writers/{id}/edit', [WriterController::class, 'edit'])->name('writers.edit');
-    Route::patch('/admin/writers/{id}/update', [WriterController::class, 'update'])->name('writers.update');
-    Route::delete('/admin/writers/{id}/delete', [WriterController::class, 'destroy'])->name('writers.delete');
+    Route::get('/writers', [WriterController::class, 'index'])->name('writers');
+    Route::get('/writers/create', [WriterController::class, 'create'])->name('writers.create');
+    Route::post('/writers', [WriterController::class, 'store'])->name('writers.store');
+    Route::get('/writers/{id}/edit', [WriterController::class, 'edit'])->name('writers.edit');
+    Route::patch('/writers/{id}/update', [WriterController::class, 'update'])->name('writers.update');
+    Route::delete('/writers/{id}/delete', [WriterController::class, 'destroy'])->name('writers.delete');
 
 
     //Genre Routes
-    Route::get('/admin/genres/create', [GenreController::class, 'create'])->name('genres.create');
-    Route::post('/admin/genres', [GenreController::class, 'store'])->name('genres.store');
-    Route::get('/admin/genres/{id}/edit', [GenreController::class, 'edit'])->name('genres.edit');
-    Route::patch('/admin/genres/{id}/update', [GenreController::class, 'update'])->name('genres.update');
-    Route::delete('/admin/genres/{id}/delete', [GenreController::class, 'destroy'])->name('genres.delete');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres.create');
+    Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
+    Route::get('/genres/{id}/edit', [GenreController::class, 'edit'])->name('genres.edit');
+    Route::patch('/genres/{id}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{id}/delete', [GenreController::class, 'destroy'])->name('genres.delete');
 
     //REGULAR USER ROUTES ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 

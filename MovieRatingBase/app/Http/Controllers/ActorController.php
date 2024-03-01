@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actor;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ActorController extends Controller
@@ -21,7 +22,7 @@ class ActorController extends Controller
      */
     public function create()
     {
-        // View for creating actor admin
+        return view('admin.edit.editPeople');
     }
 
     /**
@@ -31,14 +32,16 @@ class ActorController extends Controller
     {
         $request->validate(
             [
-                'name' => 'require|string',
-                'profile_picture' => 'require|image|mimes:jpeg,png,jpg,gif,jfif',
-                'birth_date' => 'require|date',
+                'name' => 'required|string',
+                'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
+                'birth_date' => 'required|date',
                 'death_date' => 'nullable|date',
             ]
             );
 
-        $path = $request->file('profile_pictrue')->store('profilePic', 'public');
+            $filename = Str::uuid()->toString() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
+        
+            $path = $request->file('profile_picture')->storeAs('posters', $filename, 'public');
 
         $actor = new Actor();
         $actor->name = $request->name;
@@ -48,7 +51,7 @@ class ActorController extends Controller
 
         if($actor->save())
         {
-            return redirect()->route('dashboard')->with('success', 'Actor created successfully');
+            return view('admin.edit.editPeople')->with('success', 'Actor created successfully');
         } else
         {
             return redirect()->back()->with('Error', 'something went wrong');
@@ -126,7 +129,7 @@ class ActorController extends Controller
             $actor = Actor::find($id);
             $actor->delete();
 
-            return redirect()->route('actor.dashboard', $actor->id)->with('success', 'Actor deleted successfully');
+            return redirect()->route('admin.edit.editPeople')->with('success', 'Actor deleted successfully');
         } else {
             return redirect()->back()-with('error', 'Could not delete actor');
         }
