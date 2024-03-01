@@ -10,7 +10,7 @@
 <div class="py-8 w-full">
     <div class="w-full px-2">
         <x-admin-edit-btn>
-            <a href="{{ route('movies.create') }}">Create New Movie</a>
+            <a href="{{ route($type . '.create') }}">Create New Movie</a>
         </x-admin-edit-btn>
         <div class="bg-sky-700 rounded-lg overflow-hidden shadow-sm">
             <div class="p-4 bg-sky-600 border-b border-sky-900">
@@ -25,9 +25,9 @@
                                 </div>
                                 <div class="flex justify-between sm:justify-end w-full sm:w-1/4 mt-2 sm:mt-0">
                                     <x-admin-edit-btn>
-                                        <a href="{{ route('movies.edit', ['id' => $item->id]) }}">Edit</a>
+                                        <a href="{{ route($type . '.store', ['id' => $item->id]) }}">Edit</a>
                                     </x-admin-edit-btn>
-                                    <form method="post" action="{{ route('movies.delete', $item->id) }}">
+                                    <form method="post" action="{{ route($type . '.delete', $item->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <x-admin-edit-btn>
