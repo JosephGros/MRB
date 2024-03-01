@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DirectorController extends Controller
 {
@@ -21,7 +22,12 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        // create director view for admin
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            return view('admin.edit.newPerson', ['type' => 'directors']);
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**

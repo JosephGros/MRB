@@ -76,12 +76,12 @@ Route::middleware(['admin', 'moderator'])->group(function () {
     Route::delete('/series/{id}/delete', [SerieController::class, 'destroy'])->name('series.delete');
 
     //Actor Routes
-    Route::get('/actors', [ActorController::class, 'index'])->name('actor');
-    Route::get('/actors', [ActorController::class, 'create'])->name('actor.create');
-    Route::post('/actors', [ActorController::class, 'store'])->name('actor.store');
-    Route::get('/actors/{id}/edit', [ActorController::class, 'edit'])->name('actor.edit');
-    Route::patch('/actors/{id}/update', [ActorController::class, 'update'])->name('actor.update');
-    Route::delete('/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actor.delete');
+    Route::get('/actors', [ActorController::class, 'index'])->name('actors');
+    Route::get('/actors/create', [ActorController::class, 'create'])->name('actors.create');
+    Route::post('/actors', [ActorController::class, 'store'])->name('actors.store');
+    Route::get('/actors/{id}/edit', [ActorController::class, 'edit'])->name('actors.edit');
+    Route::patch('/actors/{id}/update', [ActorController::class, 'update'])->name('actors.update');
+    Route::delete('/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actors.delete');
 
     //Director Routes
     Route::get('/directors', [DirectorController::class, 'index'])->name('directors');
@@ -205,7 +205,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/search', [SearchController::class, 'search']);
 
 //Display view Routes for 1 Movie or 1 Series
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movie.show');
+Route::get('/display/{id}', [MovieController::class, 'show'])->name('movie.show');
 Route::get('/series/{serie}', [SerieController::class, 'show'])->name('serie.show');
 //Side views from Display
 Route::get('/reviews', [ReviewController::class, 'show'])->name('review.show');
@@ -237,10 +237,10 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 
-//Content View Controller
-Route::get('/genres/{id}', [ContentViewController::class, 'show'])->name('genres.show');
-Route::get('/watchlist/{id}', [ContentViewController::class, 'show'])->name('watchlist.show');
-Route::get('/userlists/{id}', [ContentViewController::class, 'show'])->name('userlists.show');
+
+// view for Actors
+Route::get('/actors', [ActorController::class, 'show'])->name('actor.show');
+
 
 
 //User profile blade route

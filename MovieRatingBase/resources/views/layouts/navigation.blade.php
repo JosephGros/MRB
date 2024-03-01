@@ -23,20 +23,22 @@
                             <li class="ml-10 list-none">
                                 <a href="{{ route('dashboard') }}"  class="hover:text-gray-300">Home</a> <!-- Movies -->
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                             <a href="{{ route('user.profile') }}" class="hover:text-gray-300">Profile</a>
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                                 <a href="{{ route('about-us') }}" class="hover:text-gray-300">About us</a>
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                                 <a href="{{ route('contact.index') }}" class="hover:text-gray-300">Contact</a>
                             </li>
 
 
                             <li class="ml-10">
-                                <input type="text" class="ml-10 bg-200 rounded-md text-el w-64 px-4 pl-4 py-1
-                            focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search">
+                                <!-- <input type="text" class="ml-10 bg-200 rounded-md text-el w-64 px-4 pl-4 py-1
+                            focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search"> -->
+                                <input type="text" name="search" id="search" placeholder="&#xf002; Search" class="text-sky-950 fa-solid font-inter block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results"></ul>
                             </li>
                         </ul>
                     </x-nav-link>
@@ -50,13 +52,18 @@
                                 <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->name }}</div>
 
                                 <div class="ms-3">
-                                    <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-12 border-solid border-4 border-sky-600">
+                                    <img src="{{ Auth::user()->profile_picture }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
                                 </div>
                             </button>
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            @if(Auth::user()->role === 0 || Auth::user()->role === 0)
+                            <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                {{ __('Admin') }}
+                            </x-dropdown-link>
+                            @endif
+                            <x-dropdown-link href="{{ route('profile.edit') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                             <x-dropdown-link href="{{ route('dashboard') }}">

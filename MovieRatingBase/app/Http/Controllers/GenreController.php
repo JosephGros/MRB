@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Movie_Genre;
 use App\Models\Serie;
+use App\Models\Serie_Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class GenreController extends Controller
 {
@@ -84,7 +88,12 @@ class GenreController extends Controller
      */
     public function create()
     {
-        // Create view for genre admin
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            return view('admin.edit.newGenre', ['type' => 'genres']);
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**
@@ -116,10 +125,20 @@ class GenreController extends Controller
     {
         $genre = Genre::findOrFail($id);
 
-        $allGenreContent = $genre->movies->merge($genre->series);
+        $movies = Movie::whereHas('genres', function ($query) use ($id) 
+        {
+            $query->where('genre_id', $id);
+        })->get();
+        $series = Serie::whereHas('genres', function ($query) use ($id) 
+        {
+            $query->where('genre_id', $id);
+        })->get();
+
+        $allGenreContent = $movies->merge($series);
+
         $allGenreContent = $allGenreContent->sortByDesc('created_at');
 
-        return view('content-view', compact('genre', 'allGenreContent'));
+        return view('contentViews.content-view', compact('genre', 'allGenreContent',));
     }
 
     /**

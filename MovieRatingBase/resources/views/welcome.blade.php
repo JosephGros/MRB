@@ -78,7 +78,9 @@
                                     </div>
                                 @endforeach
                                 <div class="flex ml-2 mt-2 md:justify-center">
-                                    <x-button-dark>Watch</x-button-dark>
+                                    <x-button-dark>
+                                        <a href="{{ route('movie.show', ['id' => $randomItem->id]) }}">Watch</a>
+                                    </x-button-dark>
                                     <x-button-dark>
                                         <a href=" {{ route('login') }}">Watchlist +</a>
                                     </x-button-dark>
@@ -120,14 +122,21 @@
             @foreach($latestInGenre as $genre)
                 <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
                     <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2></a>
+                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> 
+                            <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                        </a>
 
                         <!-- Unique IDs for genre container and carousel -->
                         <div id="genreContainer_{{ $genre['id'] }}" class="relative">
                             <div id="genreCarousel_{{ $genre['id'] }}">
                                 <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+
                                     @foreach($genre['items'] as $item)
-                                        <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
+
+                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}">
+                                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                        </a>
+                                        
                                     @endforeach
                                 </div>
                             </div>
@@ -217,11 +226,13 @@
                 <!-- Img for movie -->
                 <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
                         <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randomItem->poster }}" alt="{{$randomItem->name}}">
-                        @foreach($randomItem->genres as $genre)
-                            <div class="text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap md:ml-4">
-                                {{$genre['name']}}
-                            </div>
-                        @endforeach
+                        <div class="grid grid-cols-3 gap-2 p-2">
+                            @foreach($randomItem->genres as $genre)
+                                <div class="text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap md:ml-4">
+                                    {{$genre['name']}}
+                                </div>
+                            @endforeach
+                        </div>
                             <div class="flex">
                                 <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }} | {{$randomItem->rating}}</div>
                                 <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
