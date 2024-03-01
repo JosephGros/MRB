@@ -37,6 +37,8 @@
                             <li class="ml-10">
                                 <input type="text" class="ml-10 bg-200 rounded-md text-el w-64 px-4 pl-4 py-1
                             focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search">
+                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <ul id="search-results"></ul>
                             </li>
                         </ul>
                     </x-nav-link>
@@ -50,7 +52,7 @@
                                 <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->name }}</div>
 
                                 <div class="ms-3">
-                                    <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-12 border-solid border-4 border-sky-600">
+                                    <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600">
                                 </div>
                             </button>
                         </x-slot>

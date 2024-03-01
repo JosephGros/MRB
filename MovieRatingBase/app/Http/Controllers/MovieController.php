@@ -75,7 +75,7 @@ class MovieController extends Controller
         ]);
         $movie->save();
 
-        return view('admin.adminIndex', ['type' => 'movies'])->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
+        return redirect()->route('admin.index', ['type' => 'movies'])->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
         if(!$movie->save())
         {
             return redirect()->back()->with('error', 'Something went wrong');
@@ -228,9 +228,9 @@ class MovieController extends Controller
             $movie = Movie::find($id);
             $movie->delete();
 
-            return redirect()->route('movies.dashboard', $movie->id)->with('success', 'Movie deleted successfully');
+            return redirect()->route('admin.index', ['type' => 'movies'])->with('success', 'Movie deleted successfully');
         } else {
-            return redirect()->back()-with('error', 'Movie not found');
+            return redirect()->route('admin.index', ['type' => 'movies'])->with('error', 'Something went wrong.');
         }
     }
 }
