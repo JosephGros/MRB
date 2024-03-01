@@ -23,13 +23,13 @@
                             <li class="ml-10 list-none">
                                 <a href="{{ route('dashboard') }}"  class="hover:text-gray-300">Home</a> <!-- Movies -->
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                             <a href="{{ route('user.profile') }}" class="hover:text-gray-300">Profile</a>
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                                 <a href="{{ route('about-us') }}" class="hover:text-gray-300">About us</a>
                             </li>
-                            <li class="ml-10">
+                            <li class="ml-10 list-none">
                                 <a href="{{ route('contact.index') }}" class="hover:text-gray-300">Contact</a>
                             </li>
 
@@ -52,13 +52,18 @@
                                 <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->name }}</div>
 
                                 <div class="ms-3">
-                                    <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600">
+                                    <img src="{{ Auth::user()->profile_picture }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
                                 </div>
                             </button>
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            @if(Auth::user()->role === 0 || Auth::user()->role === 0)
+                            <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                {{ __('Admin') }}
+                            </x-dropdown-link>
+                            @endif
+                            <x-dropdown-link href="{{ route('profile.edit') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                             <x-dropdown-link href="{{ route('dashboard') }}">
