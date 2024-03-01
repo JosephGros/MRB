@@ -56,8 +56,8 @@
                         </div>
 
                         <!-- <div>
-                                <label for="searchActors" class="block text-sky-50 font-semibold text-base">Search Actors</label>
-                                <input type="text" name="searchActors" id="searchActors" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Actors</label>
+                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                                 <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
                         </div>
 
