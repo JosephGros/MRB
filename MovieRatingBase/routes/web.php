@@ -75,12 +75,12 @@ Route::middleware(['admin', 'moderator'])->group(function () {
     Route::delete('/series/{id}/delete', [SerieController::class, 'destroy'])->name('series.delete');
 
     //Actor Routes
-    Route::get('/actors', [ActorController::class, 'index'])->name('actor');
-    Route::get('/actors', [ActorController::class, 'create'])->name('actor.create');
-    Route::post('/actors', [ActorController::class, 'store'])->name('actor.store');
-    Route::get('/actors/{id}/edit', [ActorController::class, 'edit'])->name('actor.edit');
-    Route::patch('/actors/{id}/update', [ActorController::class, 'update'])->name('actor.update');
-    Route::delete('/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actor.delete');
+    Route::get('/actors', [ActorController::class, 'index'])->name('actors');
+    Route::get('/actors/create', [ActorController::class, 'create'])->name('actors.create');
+    Route::post('/actors', [ActorController::class, 'store'])->name('actors.store');
+    Route::get('/actors/{id}/edit', [ActorController::class, 'edit'])->name('actors.edit');
+    Route::patch('/actors/{id}/update', [ActorController::class, 'update'])->name('actors.update');
+    Route::delete('/actors/{id}/delete', [ActorController::class, 'destroy'])->name('actors.delete');
 
     //Director Routes
     Route::get('/directors', [DirectorController::class, 'index'])->name('directors');

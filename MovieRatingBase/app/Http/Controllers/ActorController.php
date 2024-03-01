@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActorController extends Controller
 {
@@ -22,7 +23,12 @@ class ActorController extends Controller
      */
     public function create()
     {
-        return view('admin.edit.editPeople');
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            return view('admin.edit.newPerson', ['type' => 'actors']);
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**
@@ -49,13 +55,9 @@ class ActorController extends Controller
         $actor->birth_date = $request->birth_date;
         $actor->death_date = $request->death_date;
 
-        if($actor->save())
-        {
-            return view('admin.edit.editPeople')->with('success', 'Actor created successfully');
-        } else
-        {
-            return redirect()->back()->with('Error', 'something went wrong');
-        }
+        $actor->save();
+
+        return redirect()->route('admin.index', ['type' => 'actors'])->with('success', 'Actor created successfully');
     }
 
     /**

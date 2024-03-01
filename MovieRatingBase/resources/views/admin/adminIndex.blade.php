@@ -25,7 +25,7 @@
         <div class="bg-sky-700 rounded-lg overflow-hidden shadow-sm">
             <div class="p-4 bg-sky-600 border-b border-sky-900">
                 <ul>
-                <li class="flex flex-col sm:flex-row items-center py-2 border-b border-sky-900">
+                <li class="flex flex-col sm:flex-row items-center py-2 border-b-4 border-sky-900">
                             <div class="flex flex-col sm:flex-row items-center justify-between w-full">
                                 <div class="flex flex-col sm:flex-row items-center justify-between w-full sm:w-3/4">
                                     <span class="text-sky-50 text-lg sm:text-2xl lg:text-2xl h-8">Name</span>
@@ -33,13 +33,16 @@
                                     <span class="text-sky-50 text-lg sm:text-2xl lg:text-2xl h-8">Created</span>
                                 </div>
                                 <x-admin-edit-btn>
-                                    <a href="{{ route($type . '.create') }}">New Movie</a>
+                                    <a href="{{ route($type . '.create') }}">New!</a>
                                 </x-admin-edit-btn>
                             </div>
                         </li>
                     @foreach($items as $item)
                         <li class="flex flex-col sm:flex-row items-center py-2 border-b border-sky-900">
                             <div class="flex flex-col sm:flex-row items-center justify-between w-full">
+                                <div>
+                                    <img src="{{ $item->poster ?? $item->profile_picture }}" alt="{{ $item->name }}" class="rounded-full">
+                                </div>
                                 <div class="flex flex-col sm:flex-row items-center justify-between w-full sm:w-3/4">
                                     <span class="text-sky-50 text-lg sm:text-xl lg:text-2xl h-8">{{ $item->name }}</span>
                                     <br class="sm:hidden">
