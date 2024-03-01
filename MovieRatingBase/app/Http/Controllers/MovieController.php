@@ -76,10 +76,7 @@ class MovieController extends Controller
         $movie->save();
 
         return redirect()->route('admin.index', ['type' => 'movies'])->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
-        if(!$movie->save())
-        {
-            return redirect()->back()->with('error', 'Something went wrong');
-        }
+    
     }catch (\Exception $e) {
         // Log the exception for debugging purposes
         Log::error('Error occurred while saving movie: ' . $e->getMessage());
