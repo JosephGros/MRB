@@ -97,56 +97,10 @@
 
     <!-- Watchlist (don't show if it is empty) -->
     <x-slot name="watchlistExist">
-<<<<<<< HEAD
-        
-=======
        
->>>>>>> 8303385cd873f8412b4d1e6bcab1970f8f1e6b99
             <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
            
                 <div>
-<<<<<<< HEAD
-                <a href="{{ route('watchlist.dashboardWatchlist', ['user' => Auth::user()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
-                
-                    <!-- <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2"> -->
-                    <div id="default-carousel" class="relative w-full" data-carousel="slide">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                    @foreach($limit as $movie)
-                        <div>
-                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img class="h-[300px] w-[250px] rounded-lg border-solid border-4 border-sky-800/50 ml-2 absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
-                                <h3>{{ $movie->name }}</h3>
-                            </div>
-                        </div>
-                    @endforeach     
-                    
-                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-    </div>
-    <!-- Slider controls -->
-    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-    </button>
-    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-    </button>
-</div>
-=======
                     <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
                 
                     <div id="watchlistContainer" class="relative">
@@ -161,44 +115,11 @@
                                     @endforeach 
                                 </div>
                             </div>
->>>>>>> 8303385cd873f8412b4d1e6bcab1970f8f1e6b99
                     </div>
                 </div>
               
             </div>
-<<<<<<< HEAD
-
-
-
-            
-
-            
-            <!-- <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-    
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-3.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-      
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-4.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-5.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-    </div> -->
-    <!-- Slider indicators -->
-    
-
-       
-=======
         
->>>>>>> 8303385cd873f8412b4d1e6bcab1970f8f1e6b99
     </x-slot>
 
         <!-- Movie / serie content -->
@@ -214,15 +135,7 @@
                             <div id="genreCarousel_{{ $genre['id'] }}">
                                 <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
                                     @foreach($genre['items'] as $item)
-<<<<<<< HEAD
-                                        <div class="relative">
-                                            <img class="h-[200px] w-[250px] rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
-                                            <button class="absolute top-0 bg-blue-500 text-white p-2 rounded hover:bg-blue-800 m-2">+</button>
-                                        </div>
-                                     
-=======
                                         <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
->>>>>>> 8303385cd873f8412b4d1e6bcab1970f8f1e6b99
                                     @endforeach
                                 </div>
                             </div>
