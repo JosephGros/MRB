@@ -1,6 +1,6 @@
 <script src="https://kit.fontawesome.com/a0315d2788.js" crossorigin="anonymous"></script>
 
-<footer class="w-full h-[190px] bg-sky-700 inset-x-0 static bottom-0 mt-auto">
+<footer class="w-full h-[190px] bg-nav inset-x-0 static bottom-0 mt-auto">
 
         <span class="flex justify-center text-sm font-inter text-sky-50 font-bold text-center pt-2 md:text-base">Follow us on</span>
 
@@ -56,13 +56,13 @@
                 <a href="#">Privacy policy</a>
             </div>
             <div class="ml-14 md:ml-40">
-                <a href="#">About us</a>
+                <a href="{{ route('about-us') }}">About us</a>
             </div>
         </div>
 
         <div class="flex justify-center mt-4 text-sm font-inter text-sky-50 font-medium text-center md:text-base">
             <div>
-                <a href="#">Contact us</a>
+                <a href="{{ route('contact.index') }}">Contact us</a>
             </div>
             <div class="ml-16 md:ml-44">
                 <a href="#">Press Room</a>

@@ -12,7 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/search.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-sky-950">
     <div class="min-h-screen">
@@ -32,6 +32,7 @@
         <main class="m-20 flex flex-wrap justify-center">
             @yield('content')
         </main>
+        @include('layouts.footer')
     </div>
 </body>
 </html>
