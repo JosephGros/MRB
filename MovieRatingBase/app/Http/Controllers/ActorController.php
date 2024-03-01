@@ -131,7 +131,7 @@ class ActorController extends Controller
             $actor = Actor::find($id);
             $actor->delete();
 
-            return redirect()->route('admin.edit.editPeople')->with('success', 'Actor deleted successfully');
+            return redirect()->route('admin.index', ['type' => 'actors'])->with('success', 'Actor deleted successfully');
         } else {
             return redirect()->back()-with('error', 'Could not delete actor');
         }

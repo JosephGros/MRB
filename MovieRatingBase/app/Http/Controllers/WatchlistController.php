@@ -15,7 +15,7 @@ class WatchlistController extends Controller
      */
     public function index()
     {
-        $media = $this->fetchWatchlist();
+        $media = $this->fetchAllWatchlist();
         return view('contentViews.content-view', compact('media'));
     }
 
@@ -27,7 +27,7 @@ class WatchlistController extends Controller
         return view('dashboard', compact('limit'));
     }
 
-    private function fetchWatchlist()
+    private function fetchFullWatchlist()
     {
         $user = Auth::user();
         $watchlist = $user->watchlist;
@@ -35,25 +35,29 @@ class WatchlistController extends Controller
 
         foreach ($watchlist as $content)
         {
-            if($content->media_type === 'movie'){
+            if ($content->media_type === 'movie') {
                 $movie = Movie::find($content->media_id);
-                $movie->added = $content->created_at;
-                $media[] = $movie;
-            } elseif($content->media_type === 'serie'){
+                if ($movie !== null) { // Kontrollera om $movie inte är null
+                    $movie->added = $content->created_at;
+                    $media[] = $movie;
+                }
+            } elseif ($content->media_type === 'serie') {
                 $serie = Serie::find($content->media_id);
-                $serie->added = $content->created_at;
-                $media[] = $serie;
+                if ($serie !== null) { // Kontrollera om $serie inte är null
+                    $serie->added = $content->created_at;
+                    $media[] = $serie;
+                }
             } else {
                 continue;
             }
         }
 
-        usort($media, function ($a, $b)
+        usort($media, function ($a, $b) 
         {
             return $b->added <=> $a->added;
         });
 
-        return $media;
+        return view('contentView.content-view', compact('media'));
     }
 
     /**

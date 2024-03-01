@@ -40,13 +40,20 @@
                     @foreach($items as $item)
                         <li class="flex flex-col sm:flex-row items-center py-2 border-b border-sky-900">
                             <div class="flex flex-col sm:flex-row items-center justify-between w-full">
+                                @if(!$item === 'genres')
                                 <div>
                                     <img src="{{ $item->poster ?? $item->profile_picture }}" alt="{{ $item->name }}" class="rounded-full">
                                 </div>
+                                @endif
                                 <div class="flex flex-col sm:flex-row items-center justify-between w-full sm:w-3/4">
                                     <span class="text-sky-50 text-lg sm:text-xl lg:text-2xl h-8">{{ $item->name }}</span>
                                     <br class="sm:hidden">
+                                    @if($item === 'genres')
+                                    <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">{{ $totalCount }}</span>
+                                    @endif
+                                    @if(!$item === 'genres')
                                     <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">Created at: {{ optional($item->created_at)->format('Y-m-d') }}</span>
+                                    @endif
                                 </div>
                                 <div class="flex justify-between sm:justify-end w-full sm:w-1/4 mt-2 sm:mt-0">
                                     <x-admin-edit-btn>
