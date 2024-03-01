@@ -204,7 +204,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/search', [SearchController::class, 'search']);
 
 //Display view Routes for 1 Movie or 1 Series
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movie.show');
+Route::get('/display/{id}', [MovieController::class, 'show'])->name('movie.show');
 Route::get('/series/{serie}', [SerieController::class, 'show'])->name('serie.show');
 //Side views from Display
 Route::get('/reviews', [ReviewController::class, 'show'])->name('review.show');
@@ -235,6 +235,9 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 //About us controller Route
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
+
+// view for Actors
+Route::get('/actors', [ActorController::class, 'show'])->name('actor.show');
 
 
 //User profile blade route

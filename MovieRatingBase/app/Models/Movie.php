@@ -23,21 +23,31 @@ class Movie extends Model
 
     public function actors()
     {
-        return $this->belongsToMany(Actor::class);
+        return $this->belongsToMany(Actor::class, 'movie_actor');
     }
 
     public function directors()
     {
-        return $this->belongsToMany(Director::class);
+        return $this->belongsToMany(Director::class, 'movie_director');
     }
 
     public function writers()
     {
-        return $this->belongsToMany(Writer::class);
+        return $this->belongsToMany(Writer::class, 'movie_writer');
     }
 
     public function creators()
     {
-        return $this->belongsToMany(Creator::class);
+        return $this->belongsToMany(Creator::class, 'movie_creator');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

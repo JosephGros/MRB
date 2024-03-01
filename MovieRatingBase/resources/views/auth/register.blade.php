@@ -1,4 +1,4 @@
-
+@include('layouts.nav')
 <x-guest-layout>
 <div class="bg-nav p-8">
     <h1 class="text-center text-2xl font-bold my-10">Create account</h1>
@@ -60,3 +60,4 @@
 </div>
 </x-guest-layout>
 
+@include('layouts.footer')
