@@ -35,9 +35,9 @@
 
 
                             <li class="ml-10">
-                                <input type="text" class="ml-10 bg-200 rounded-md text-el w-64 px-4 pl-4 py-1
-                            focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search">
-                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                <!-- <input type="text" class="ml-10 bg-200 rounded-md text-el w-64 px-4 pl-4 py-1
+                            focus:outline-none focus:shadow-outline text-black fa-solid font-inter" placeholder="&#xf002; Search"> -->
+                                <input type="text" name="search" id="search" placeholder="&#xf002; Search" class="text-sky-950 fa-solid font-inter block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                                 <ul id="search-results"></ul>
                             </li>
                         </ul>
