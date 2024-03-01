@@ -6,6 +6,7 @@ use App\Models\Movie;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class MovieController extends Controller
@@ -48,6 +49,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+        try {
         $validated = $request->validate(
             [
                 'name' => 'required|string',
@@ -71,9 +73,20 @@ class MovieController extends Controller
             'description' => $validated['description'],
             'trailer' => $validated['trailer'],
         ]);
-        
-        if($movie->save())
+        $movie->save();
+
+        return view('admin.adminIndex', ['type' => 'movies'])->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
+        if(!$movie->save())
         {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }catch (\Exception $e) {
+        // Log the exception for debugging purposes
+        Log::error('Error occurred while saving movie: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'An error occurred while saving the movie');
+    }
+}
+
             // foreach ($validated['actors'] as $actor)
             // {
             //     $actorId = $actor['id'];
@@ -86,14 +99,6 @@ class MovieController extends Controller
             // $movie->directors()->attach($validated['directors']);
 
             // $movie->writers()->attach($validated['writers']);
-            
-
-            return view('admin.edit.editMovie')->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
-        } else {
-            return redirect()->back()->with('error', 'Something went wrong');
-        }
-    }
-
     /**
      * Display the specified resource.
      */
