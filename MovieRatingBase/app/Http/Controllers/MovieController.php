@@ -94,39 +94,60 @@ class MovieController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(int $id)
+{
+    $movie = Movie::with(['ratings', 'actors', 'writers', 'reviews', 'genres', 'directors'])->find($id);
+
+    if (!$movie) 
     {
-        $movie = Movie::with(['ratings', 'actors', 'writers', 'reviews', 'genres', 'directors'])->find($id);
-
-        if (!$movie) 
-        {
-            return redirect()->route('dashboard')->with('error', 'Movie not found');
-        }
-
-        $totalRatings = $movie->ratings->count();
-        $sumRatings = $movie->ratings->sum('rating');
-        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
-
-        $averageRating = max(1, min(10, $averageRating));
-
-        $similarMovies = Movie::whereHas('genres', function ($query) use ($movie)
-        {
-            $query->whereIn('id', $movie->genres->pluck('id'));
-        })->where('id', '!=', $id)->take(5)->get();
-
-        $latestReview = $movie->review()->latest()->first();
-
-        return view('display', 
-        [
-            'movie' => $movie,
-            'similarMovies' => $similarMovies,
-            'latestReview' => $latestReview,
-            'averageRating' => $averageRating,
-        ]);
+        return redirect()->route('dashboard')->with('error', 'Movie not found');
     }
+
+    $totalRatings = $movie->ratings->count();
+    $sumRatings = $movie->ratings->sum('rating');
+    $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+    $averageRating = max(1, min(10, $averageRating));
+
+    // Initialize an empty collection to store similar movies
+    $similarMovies = collect();
+
+    foreach ($movie->genres as $genre) {
+        // Retrieve similar movies for each genre
+        $moviesInGenre = Movie::whereHas('genres', function ($query) use ($genre, $movie) {
+            $query->where('genres.id', $genre->id)->whereNotIn('movies.id', [$movie->id]);
+        })->get();
+
+        // Add unique movies to the collection
+        foreach ($moviesInGenre as $movieInGenre) {
+            if (!$similarMovies->contains('id', $movieInGenre->id)) {
+                $similarMovies->push($movieInGenre);
+            }
+        }
+    }
+
+    $similarMovies = $similarMovies->take(5); // Limit the number of similar movies to 5
+
+    $latestReview = $movie->reviews()->latest()->first();
+    $displayedMovies = collect();
+
+    // Fetch the ID of the first movie in the $similarMovies collection
+    $firstMovieId = $similarMovies->first()->id;
+
+    // Add the ID to the $displayedMovies collection
+    $displayedMovies->push($firstMovieId);
+
+    return view('display', 
+    [
+        'movie' => $movie,
+        'similarMovies' => $similarMovies,
+        'latestReview' => $latestReview,
+        'averageRating' => $averageRating,
+        'displayedMovies' => $displayedMovies,
+    ]);
+}
+
+
 
     /**
      * Show the form for editing the specified resource.
