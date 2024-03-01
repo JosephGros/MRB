@@ -132,11 +132,11 @@ Route::middleware(['admin', 'moderator'])->group(function () {
 
     //Everything for user lists and watchlist
     //Watchlist
-    Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
-    Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
-    Route::post('/watchlist/add/{id}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
-    Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
-    //User Lists
+    Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); // För att se allt i watchlist
+    Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); // Watchlist för Dashboard
+    Route::post('/watchlist/add', [WatchlistController::class, 'store'])->middleware('auth')->name('watchlist.store'); // Watchlist+ knappen, ändrad för att inte kräva en användar-ID-parameter
+    Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); // Watchlist- knappen
+     //User Lists
     Route::get('/userlists/{id}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
     Route::get('/userlists/list/{id}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
     Route::post('/userlists/create/{id}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button

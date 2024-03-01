@@ -16,4 +16,5 @@ class userList extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 }
