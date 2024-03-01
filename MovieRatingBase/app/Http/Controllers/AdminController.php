@@ -7,8 +7,10 @@ use App\Models\Creator;
 use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Movie_Genre;
 use App\Models\Review;
 use App\Models\Serie;
+use App\Models\Serie_Genre;
 use App\Models\User;
 use App\Models\Writer;
 use Illuminate\Http\Request;
@@ -44,6 +46,7 @@ class AdminController extends Controller
     public function moderatorAll($type)
     {
         $items = [];
+        $totalCount = 0;
 
         if (Auth::user()->role === 0 || Auth::user()->role === 1)
         {
@@ -57,6 +60,16 @@ class AdminController extends Controller
                     break;
                 case 'genres':
                     $items = Genre::all();
+                    foreach ($items as $item)
+                    {
+                        $genre = Genre::findOrFail($item->id);
+                
+                        $movieCount = Movie_Genre::where('genre_id', $genre->id)->count();
+                        $serieCount = Serie_Genre::where('genre_id', $genre->id)->count();
+                        $item->totalCount = $movieCount + $serieCount;
+                        
+                        $totalCount += $item->totalCount;
+                    }
                     break;
                 case 'actors':
                     $items = Actor::all();
@@ -78,7 +91,7 @@ class AdminController extends Controller
             }
 
             $items = $items->sortByDesc('created_at');
-            return view('admin.adminIndex', compact('items', 'type'));
+            return view('admin.adminIndex', compact('items', 'type', 'totalCount'));
 
         }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Writer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WriterController extends Controller
 {
@@ -21,7 +22,12 @@ class WriterController extends Controller
      */
     public function create()
     {
-        // create writer view for admin
+        if (Auth::user()->role === 0 || Auth::user()->role === 1)
+        {
+            return view('admin.edit.newPerson', ['type' => 'writers']);
+        }
+
+        return back()->with('error', 'You are not authorized to do this.');
     }
 
     /**
