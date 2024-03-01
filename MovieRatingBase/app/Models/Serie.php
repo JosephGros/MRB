@@ -24,7 +24,7 @@ class Serie extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class, 'serie_genre', 'genre_id', 'serie_id');
     }
 
     public function actors()
