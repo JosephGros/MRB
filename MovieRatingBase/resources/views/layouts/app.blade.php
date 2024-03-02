@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/search.js'])
 </head>
 <body class="font-inter bg-sky-950">
-    <div class="min-h-screen">
+    <div>
 
         @include('layouts.navigation')
 
