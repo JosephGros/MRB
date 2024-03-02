@@ -15,11 +15,21 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $latestInGenre = $this->getGenres($request);
-        $randomContent = $this->randomDashboard();
-        $limit = $this->dashboardWatchlist();
 
-        return view('dashboard', compact('latestInGenre', 'randomContent', 'limit'));
+        if(Auth::user())
+        {
+            $latestInGenre = $this->getGenres($request);
+            $randomContent = $this->randomDashboard();
+            $limit = $this->dashboardWatchlist();
+
+            return view('dashboard', compact('latestInGenre', 'randomContent', 'limit'));
+        } else {
+            
+            $latestInGenre = $this->getGenres($request);
+            $randomContent = $this->randomDashboard();
+
+            return view('dashboard', compact('latestInGenre', 'randomContent'));
+        }
     }
     
     public function indexGuest(Request $request)

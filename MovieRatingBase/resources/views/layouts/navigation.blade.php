@@ -49,42 +49,64 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 text-xl leading-4 hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                @if(Auth::user())
                                 <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->username }}</div>
-
+                                @else
+                                <div class="text-50 text-sm md:text-base font-inter font-light">Login</div>
+                                @endif
                                 <div class="ms-3">
+                                @if(Auth::user())
                                     <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
+                                @else
+                                    <img src="{{ asset('/images/astro-like-removebg.png') }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
+                                @endif
                                 </div>
                             </button>
                         </x-slot>
 
                         <x-slot name="content">
-                            @if(Auth::user()->role === 0 || Auth::user()->role === 0)
-                            <x-dropdown-link href="{{ route('admin.dashboard') }}">
-                                {{ __('Admin') }}
-                            </x-dropdown-link>
-                            @endif
-                            <x-dropdown-link href="{{ route('profile.edit') }}">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('dashboard') }}">
-                                {{ __('Home') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('about-us') }}">
-                                {{ __('About us') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('contact.index') }}">
-                                {{ __('Contact') }}
-                            </x-dropdown-link>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                            @if(Auth::user())
+                            @if(Auth::user()->role === 0 || Auth::user()->role === 1)
+                                <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                    {{ __('Admin') }}
                                 </x-dropdown-link>
-                            </form>
+                                @endif
+                                <x-dropdown-link href="{{ route('profile.edit') }}">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('dashboard') }}">
+                                    {{ __('Home') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('about-us') }}">
+                                    {{ __('About us') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('contact.index') }}">
+                                    {{ __('Contact') }}
+                                </x-dropdown-link>
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            @else
+                                <x-responsive-nav-link href="{{ route('login') }}">
+                                    {{ __('Login') }}
+                                </x-responsive-nav-link>
+                                <x-responsive-nav-link href="{{ route('welcome') }}">
+                                    {{ __('Home') }}
+                                </x-responsive-nav-link>
+                                <x-responsive-nav-link href="{{ route('about-us') }}">
+                                    {{ __('About us') }}
+                                </x-responsive-nav-link>
+                                <x-responsive-nav-link href="{{ route('contact.index') }}">
+                                    {{ __('Contact') }}
+                                </x-responsive-nav-link>
+                            @endif
+
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -120,11 +142,17 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 mt-16 bg-nav">
             <div class="px-4">
+            @if(Auth::user())
                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-sky-100">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1 text-sky-50">
+            @if(Auth::user()->role === 0 || Auth::user()->role === 1)
+                <x-responsive-nav-link href="{{ route('admin.dashboard') }}">
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endif
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
@@ -137,17 +165,27 @@
                 <x-responsive-nav-link href="{{ route('contact.index') }}">
                     {{ __('Contact') }}
                 </x-responsive-nav-link>
+            @else
+            <div class="font-medium text-base text-gray-800 dark:text-gray-200">Login</div>
+            </div>
 
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+            <div class="mt-3 space-y-1 text-sky-50">
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('welcome') }}">
+                    {{ __('Home') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('about-us') }}">
+                    {{ __('About us') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('contact.index') }}">
+                    {{ __('Contact') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('login')">
+                    {{ __('Login') }}
+                </x-responsive-nav-link>
+            @endif
             </div>
         </div>
     </div>
