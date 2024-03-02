@@ -63,7 +63,7 @@
                                                 <x-primary-button class="flex justify-center"><img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-primary-button>
                                                 <x-primary-button><i class="fa-solid fa-share-nodes fa-xl" style="color: #f0f9ff;"></i></x-primary-button>
                                                 <x-primary-button class="md:hidden">
-                                                    <a href="{{ route('actor.show') }}">Cast</a>
+                                                    <a href="{{ route('actors') }}">Cast</a>
                                                 </x-primary-button>
                                                 <x-primary-button class="md:hidden">
                                                     <a href="{{ route('genres.randomDashboard') }}">More like this</a>
@@ -276,7 +276,7 @@
                                                 <x-primary-button class="flex justify-center"><img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-primary-button>
                                                 <x-primary-button><i class="fa-solid fa-share-nodes fa-xl" style="color: #f0f9ff;"></i></x-primary-button>
                                                 <x-primary-button class="md:hidden">
-                                                    <a href="{{ route('actor.show') }}">Cast</a>
+                                                    <a href="{{ route('actors') }}">Cast</a>
                                                 </x-primary-button>
                                                 <x-primary-button class="md:hidden">
                                                     <a href="{{ route('genres.randomDashboard') }}">More like this</a>
