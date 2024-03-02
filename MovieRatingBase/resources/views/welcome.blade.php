@@ -243,8 +243,8 @@
                 </div>
     
                 <!-- Trailer for movie -->
-                <div class="basis-1/2 md:basis-none md:w-1/2 mr-2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}"></video>
+                <div class="basis-1/2 md:basis-none flex justify-center">
+                    <iframe class="h-[185px] w-2/3 rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}" data-id="{{$randomItem->id}}"></iframe>
                 </div>
                 
             </div>
