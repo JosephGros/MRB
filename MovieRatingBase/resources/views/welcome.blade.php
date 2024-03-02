@@ -59,10 +59,7 @@
                 <div class="md:mt-2 md:w-4/5">
                     <div class="rounded-lg flex ml-2 mr-2 mb-4">
                         @foreach($randomContent as $randomItem)
-                                <div class="w-[200px] h-[300px]">
-                                    <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[200px] h-[300px]">
-                                </div>
-                                
+                                <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[200px] h-[300px]] ml-4">
 
                             <div class="bg-sky-700 rounded-r-lg">
 
@@ -122,29 +119,32 @@
 
         <!-- Movie / serie content -->
         <div class="md:mx-20">
-            @foreach($latestInGenre as $genre)
-                <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                    <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> 
-                            <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
-                        </a>
-
+        @foreach($latestInGenre as $genre)
+            <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
+                    
+                        
+                    <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
+                        <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                    </a>
                         <!-- Unique IDs for genre container and carousel -->
-                        <div id="genreContainer_{{ $genre['id'] }}" class="relative">
-                            <div id="genreCarousel_{{ $genre['id'] }}">
-                                <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-
+                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
+                            <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
+                                <div class="flex">
                                     @foreach($genre['items'] as $item)
-
-                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}">
-                                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $item->poster }}" alt="{{ $item->name }}">
-                                        </a>
-                                        
+                                        <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
+                                            <div class="relative h-[250px] w-[175px]">
+                                            <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                                <button type="submit" class="absolute flex items-center justify-center w[30px inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                    <a href="{{ route('login') }}" class="material-symbols-outlined text-sky-50">bookmark_add</span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             @endforeach
         </div>
@@ -212,6 +212,10 @@
 
 </script>
 
+
+
+
+
 <script>
     // Define an array to hold the random content
     var randomContent = @json($randomContent);
@@ -224,29 +228,30 @@
 
         // Update the specific content with the fetched data
         document.getElementById('contentToUpdate').innerHTML = `
-            <div class="flex pt-2 md:flex md:justify-around md:items-center"> 
-            
+            <div class="flex pt-2 md:flex md:justify-center md:items-center">
+                
+
                 <!-- Img for movie -->
-                <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
-                        <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randomItem->poster }}" alt="{{$randomItem->name}}">
-                        <div class="grid grid-cols-3 gap-2 p-2">
-                            @foreach($randomItem->genres as $genre)
-                                <div class="text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap md:ml-4">
-                                    {{$genre['name']}}
-                                </div>
-                            @endforeach
-                        </div>
-                            <div class="flex">
-                                <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }} | {{$randomItem->rating}}</div>
-                                <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                <div class="w-1/2 md:ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
+                    <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randomItem->poster }}" alt="{{$randomItem->name}}">
+                    <div class="grid grid-cols-3 gap-2 p-2">
+                        @foreach($randomItem->genres as $genre)
+                            <div class="text-sm text-sky-50 font-inter mb-2 flex flex-row flex-wrap ml-4">
+                                {{$genre['name']}}
                             </div>
+                        @endforeach
+                    </div>
+                        <div class="flex">
+                            <div class="text-xs text-sky-50 font-inter font-light mt-1 ml-4 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }}| {{$randomItem->rating}}</div>
+                            <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                        </div>
                 </div>
-
+    
                 <!-- Trailer for movie -->
-                <div>
-                    <iframe class=" w-560 rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="${randomItem.trailer}" alt="${randomItem.name}"></iframe>
+                <div class="basis-1/2 md:basis-none flex justify-center">
+                    <iframe class="h-[185px] w-2/3 rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}" data-id="{{$randomItem->id}}"></iframe>
                 </div>
-
+                
             </div>
         `;
     }
@@ -260,4 +265,3 @@
     // Function to fetch and update random content every 24 hours (86,400,000 milliseconds)
     setInterval(fetchAndUpdateRandomContent, 86400000); // 86400000 milliseconds = 24 hours
 </script>
-

@@ -3,11 +3,11 @@
 <nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen mb-28 md:mb-44">
 
     <!-- Primary Navigation Menu -->
-    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-10">
+    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-20">
         <div class="flex justify-center h-12 md:h-16">
             <div class="font-inter text-50 font-bold text-xl">
 
-                <div class="flex items-center py-2 sm:py-8 top-0 left-0 sm:right-0 ml-3 sm:ml-0 font-inter">
+                <div class="flex items-center py-2 top-0 left-0 sm:right-0 ml-3 md:mt-6 sm:ml-0 font-inter">
 
                     <!-- Logo -->
                     <div class="ml-[130px] mt-4 sm:ml-8 fixed top-0 left-0">
@@ -45,11 +45,11 @@
                 </div>
 
                 <!-- Settings Dropdown -->
-                <div class="fixed flex top-0 right-0 md:pt-4 sm:pr-6 text-right z-10 mt-2">
+                <div class="fixed flex top-0 right-0 md:pt-4 sm:pr-6 text-right z-20 mt-2">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 text-xl leading-4 hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->name }}</div>
+                                <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->username }}</div>
 
                                 <div class="ms-3">
                                     <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
@@ -116,16 +116,15 @@
 
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden fixed flex top-0 z-10">
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 mt-14 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 mt-16 bg-nav">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-sm text-sky-100">{{ Auth::user()->email }}</div>
             </div>
 
-            <div class="mt-3 space-y-1 text-50">
+            <div class="mt-3 space-y-1 text-sky-50">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>

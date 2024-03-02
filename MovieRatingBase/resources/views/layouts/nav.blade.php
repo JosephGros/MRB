@@ -3,13 +3,13 @@
 <nav x-data="{ open: false }" class="text-50 font-bold text-xl min-w-screen mb-28 md:mb-44">
        
     <!-- Navigation not logged in -->
-    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-10">
+    <div class="py-4 lg:py-6 text-sm md:text-base fixed top-0 right-0 left-0 bg-nav z-20">
             <div class="flex justify-center h-12 sm:h-16">
                 <div class="font-inter text-50 font-bold text-xl">
 
                             <!-- Login / create account -->
                             @if (Route::has('login'))
-                            <div class="fixed flex top-0 right-0 p-2 md:pt-4 md:pr-6 text-right z-10 mt-2 sm:mt-3">
+                            <div class="fixed flex top-0 right-0 p-2 md:pt-4 md:pr-6 text-right z-20 mt-2 sm:mt-3">
                                 @auth
                                 <a href="{{ url('dashboard') }}" class="font-bold font-inter hover:text-gray-300  focus:outline focus:outline-2 focus:rounded-sm"></a>
                                 @else
@@ -90,12 +90,12 @@
 
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden fixed flex top-0 z-10">
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 mt-14 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 mt-14 bg-nav">
 
-                <div class="mt-3 space-y-1 text-50">
+                <div class="mt-3 space-y-1">
                     <x-responsive-nav-link href="{{ route('login') }}">
                         {{ __('Login') }}
                     </x-responsive-nav-link>

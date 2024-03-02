@@ -16,9 +16,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/search.js'])
 </head>
 <body class="font-inter bg-sky-950">
-    <div class="min-h-screen">
+    
+@include('layouts.navigation')
+    <div class="max-h-screen">
 
-        @include('layouts.navigation')
+       
 
         <!-- Page Heading -->
         @if (isset($header))
@@ -56,6 +58,7 @@
 
         
     </div>
+
 </body>
 @include('layouts.footer')
 </html>
