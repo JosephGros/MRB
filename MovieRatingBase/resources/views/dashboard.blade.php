@@ -120,9 +120,9 @@
                                     @if(empty($limit))
                                     <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
                                     @else
-                                    <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
+                                    <div class="inline-block w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 p-4 mx-1.5">
                                     <div class="relative h-[250px] w-[175px]">
-                                    <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $movie->poster }}" alt="{{ $movie->name }}">
+                                    <img class="w-full h-auto rounded-lg border-solid border-4 border-sky-800/50 object-cover" src="{{ $movie->poster }}" alt="{{ $movie->name }}">
                                     @if(auth()->user()->watchlist->contains('media_id', $movie->id))
                                         <form method="POST" action="{{ route('watchlist.destroy', ['id' => $movie->id]) }}">
                                             @csrf
