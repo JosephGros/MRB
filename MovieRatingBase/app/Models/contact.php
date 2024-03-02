@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class contact extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'email', 'message']; // Lägg till alla fält du vill kunna mass-assigna
 }
