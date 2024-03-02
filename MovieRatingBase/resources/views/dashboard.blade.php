@@ -1,32 +1,32 @@
 <x-app-layout>
-<x-slot name="header">
+    <x-slot name="header">
         <!-- <div class="md:flex"> -->
         <div class="md:grid ms:grid-cols-2">
-        @foreach($randomContent as $randomItem)
-        <div id="contentToUpdate">
+            @foreach($randomContent as $randomItem)
+            <div id="contentToUpdate">
 
-        
-            <!-- Here is where the content will be displayed --> 
+            
+                <!-- Here is where the content will be displayed --> 
 
-        </div>
-
-
-            <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
-            <div class="w-1/2">
-                    <div class="flex ml-2 mt-2 md:justify-center 2xl:-ml-2">
-                        <x-primary-button class="mb-2">
-                            <a href="{{ route('watchlist.store', ['user' => Auth::id()]) }}">Watchlist +</a>
-                        </x-primary-button>
-                        <x-primary-button>List +</x-primary-button>
-                        <x-primary-button> 
-                            <a href="">
-                                <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                            </a>
-                       </x-primary-button>
-                    </div>
             </div>
-            @break
-        @endforeach
+
+
+                <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
+                <div class="w-1/2">
+                        <div class="flex ml-2 mt-2 md:justify-center 2xl:-ml-2">
+                            <x-primary-button class="mb-2">
+                                <a href="{{ route('watchlist.store', ['user' => Auth::id()]) }}">Watchlist +</a>
+                            </x-primary-button>
+                            <x-primary-button>List +</x-primary-button>
+                            <x-primary-button> 
+                                <a href="">
+                                    <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                </a>
+                        </x-primary-button>
+                        </div>
+                </div>
+                @break
+            @endforeach
         </div>
 
 
@@ -38,7 +38,7 @@
                     <div class="rounded-lg flex ml-2 mr-2 mb-4">
 
                         @foreach($randomContent as $randomItem)
-                            <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-auto h-auto">
+                            <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[200px] h-[300px]] ml-4">
 
                             <div class="bg-sky-700 rounded-r-lg">
 
@@ -98,8 +98,7 @@
     <!-- Watchlist (don't show if it is empty) -->
     <x-slot name="watchlistExist">
        
-            <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-           
+            <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">          
                 <div>
                     <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
                 
@@ -116,8 +115,8 @@
                                 </div>
                             </div>
                     </div>
+
                 </div>
-              
             </div>
         
     </x-slot>
@@ -128,20 +127,22 @@
             @foreach($latestInGenre as $genre)
             <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
                     <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2></a>
+                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                    </a>
 
                         <!-- Unique IDs for genre container and carousel -->
-                        <div id="genreContainer_{{ $genre['id'] }}" class="relative">
-                            <div id="genreCarousel_{{ $genre['id'] }}">
-                                <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
+                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
+                            <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
+                                <div class="flex">
                                     @foreach($genre['items'] as $item)
-                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}">
-                                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" role="button" aria-label="add to watchlist" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}" class="flex-none mr-4">
+                                            <img class="h-[200px] w-auto max-w-full rounded-lg border-solid border-4 border-sky-800/50" src="{{ $item->poster }}" alt="{{ $item->name }}">
                                         </a>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             @endforeach
@@ -149,73 +150,65 @@
 
         @endsection
             
-        </x-app-layout>
+</x-app-layout>
 
-<script>
-                document.addEventListener('DOMContentLoaded', function() {
-        // Fetch all genre containers
-        const genreContainers = document.querySelectorAll('[id^="genreContainer_"]');
-        
-        genreContainers.forEach(genreContainer => {
-            const genreCarouselId = genreContainer.getAttribute('id').replace('genreContainer_', 'genreCarousel_');
-            const genreCarousel = document.getElementById(genreCarouselId);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch all genre and watchlist containers
+            const containers = document.querySelectorAll('[id^="genreContainer_"], #watchlistContainer');
             
-            // Check if carousel exists
-            if (genreCarousel) {
-                // Create and append buttons
-                const prevButton = createButton('&#10094;', -1, genreCarouselId);
-                const nextButton = createButton('&#10095;', 1, genreCarouselId);
+            containers.forEach(container => {
+                const containerId = container.id;
+                const carouselId = containerId.replace('Container', 'Carousel');
+                const carousel = document.getElementById(carouselId);
                 
-                genreContainer.appendChild(prevButton);
-                genreContainer.appendChild(nextButton);
-            }
-
-            const watchlistContainer = document.getElementById('watchlistContainer');
-                const watchlistCarousel = document.getElementById('watchlistCarousel');
-                
-                // Check if watchlist carousel has content
-                if (watchlistCarousel.children.length > 0) {
-                    // Create and append buttons if content exists
-                    const prevButton = createButton('&#10094;', -1, 'watchlistCarousel');
-                    const nextButton = createButton('&#10095;', 1, 'watchlistCarousel');
+                // Check if carousel exists
+                if (carousel && carousel.children.length > 0) {
+                    // Create and append buttons
+                    const prevButton = createButton('&#10094;', -1, carouselId);
+                    const nextButton = createButton('&#10095;', 1, carouselId);
                     
-                    watchlistContainer.appendChild(prevButton);
-                    watchlistContainer.appendChild(nextButton);
+                    container.appendChild(prevButton);
+                    container.appendChild(nextButton);
                 }
-        });
+            });
 
-        // Add event listener to buttons
-        document.querySelectorAll('.carousel-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const carouselId = this.getAttribute('data-carousel');
-                const direction = parseInt(this.getAttribute('data-direction'), 10);
-                scrollCarousel(carouselId, direction);
+            // Add event listener to buttons
+            document.querySelectorAll('.carousel-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const carouselId = this.getAttribute('data-carousel');
+                    const direction = parseInt(this.getAttribute('data-direction'), 10);
+                    scrollCarousel(carouselId, direction);
+                });
             });
         });
-    });
 
-    function createButton(text, direction, carouselId) {
-        const button = document.createElement('button');
-        button.className = 'carousel-button absolute px-4 cursor-pointer bg-sky-950 bg-opacity-85 text-white shadow-lg rounded-lg hover:bg-sky-600';
-        button.style.left = direction === -1 ? '4px' : 'auto';
-        button.style.right = direction === 1 ? '4px' : 'auto';
-        button.style.transform = 'translate(-50%, -50%)';
-        button.style.top = '50%';
-        button.style.transform = 'translateY(-50%)';
-        button.innerHTML = text;
-        button.setAttribute('data-direction', direction);
-        button.setAttribute('data-carousel', carouselId);
-        return button;
-    }
+        // Function to create a button
+        function createButton(text, direction, carouselId) {
+            const button = document.createElement('button');
+            button.className = 'carousel-button absolute px-4 cursor-pointer bg-sky-950 bg-opacity-85 text-white shadow-lg rounded-lg hover:bg-sky-600';
+            button.style.left = direction === -1 ? '4px' : 'auto';
+            button.style.right = direction === 1 ? '4px' : 'auto';
+            button.style.transform = 'translate(-50%, -50%)';
+            button.style.top = '50%';
+            button.style.transform = 'translateY(-50%)';
+            button.innerHTML = text;
+            button.setAttribute('data-direction', direction);
+            button.setAttribute('data-carousel', carouselId);
+            return button;
+        }
 
-    function scrollCarousel(carouselId, direction) {
-        let container = document.getElementById(carouselId);
-        let scrollAmount = container.clientWidth / 2 * direction;
-        container.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    }
+        // Function to scroll carousel
+        function scrollCarousel(carouselId, direction) {
+            let container = document.getElementById(carouselId);
+            let scrollAmount = container.clientWidth / 2 * direction;
+            container.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+</script>
+
 
 </script>
 
@@ -231,11 +224,10 @@
 
         // Update the specific content with the fetched data
         document.getElementById('contentToUpdate').innerHTML = `
-            <div class="flex pt-2 md:flex md:justify-center md:items-center">
+        <div class="flex pt-2 md:flex md:justify-center md:items-center">
                 
-
                 <!-- Img for movie -->
-                <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
+                <div class="w-1/2 md:ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
                     <img class="h-[130px] w-auto rounded-lg ml-6 md:h-[400px] md:w-auto md:ml-0" src="{{ $randomItem->poster }}" alt="{{$randomItem->name}}">
                     <div class="grid grid-cols-3 gap-2 p-2">
                         @foreach($randomItem->genres as $genre)
@@ -245,17 +237,17 @@
                         @endforeach
                     </div>
                         <div class="flex">
-                            <div class="text-xs text-sky-50 font-inter font-light mt-1 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }}| {{$randomItem->rating}}</div>
+                            <div class="text-xs text-sky-50 font-inter font-light mt-1 ml-4 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }}| {{$randomItem->rating}}</div>
                             <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                         </div>
                 </div>
     
                 <!-- Trailer for movie -->
-                <div class="basis-1/2 md:basis-none md:w-1/2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}"></video>
+                <div class="basis-1/2 md:basis-none md:w-1/2 mr-2">
+                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}"></video>
                 </div>
                 
-            </div>
+        </div>
         `;
     }
 
