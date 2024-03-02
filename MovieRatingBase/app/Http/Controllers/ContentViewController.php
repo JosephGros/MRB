@@ -10,32 +10,28 @@ use Illuminate\Support\Facades\Auth;
 
 class ContentViewController extends Controller
 {
-    //
     public function show(Request $request, $source)
     {
         $user = Auth::user();
         $allContent = [];
+        $genre = null; // Initiera $genre till null
     
         switch ($source) {
             case 'genre':
-                $genre = Genre::findOrFail($request->id);
+                $genre = Genre::findOrFail($request->id); // Tilldela $genre om källan är 'genre'
                 $allContent = $genre->movies->merge($genre->series);
                 break;
             case 'watchlist':
-                // $watchlist = $user->watchlist;
                 $allContent = $this->fetchWatchlist();
-
                 break;
-
             case 'userlist':
                 $allContent = $user->userLists->find($request->id)->contents;
                 break;
         }
     
-        // $allContent = $allContent->sortByDesc('created_at');
-    
-        return view('contentViews.content-view', compact('allContent', 'source'));
+        return view('contentViews.content-view', compact('allContent', 'source', 'genre'));
     }
+    
     private function fetchWatchlist()
     {
         $user = Auth::user();
@@ -46,13 +42,13 @@ class ContentViewController extends Controller
         {
             if ($content->media_type === 'movie') {
                 $movie = Movie::find($content->media_id);
-                if ($movie !== null) { // Kontrollera om $movie inte är null
+                if ($movie !== null) {
                     $movie->added = $content->created_at;
                     $media[] = $movie;
                 }
             } elseif ($content->media_type === 'serie') {
                 $serie = Serie::find($content->media_id);
-                if ($serie !== null) { // Kontrollera om $serie inte är null
+                if ($serie !== null) {
                     $serie->added = $content->created_at;
                     $media[] = $serie;
                 }
@@ -61,8 +57,8 @@ class ContentViewController extends Controller
             }
         }
 
-        usort($media, function ($a, $b) 
-        {
+        
+        usort($media, function ($a, $b) {
             return $b->added <=> $a->added;
         });
 
