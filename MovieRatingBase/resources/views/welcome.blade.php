@@ -119,27 +119,32 @@
 
         <!-- Movie / serie content -->
         <div class="md:mx-20">
-            @foreach($latestInGenre as $genre)
-                <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                    <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> 
-                            <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
-                        </a>
-
+        @foreach($latestInGenre as $genre)
+            <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
+                    
+                        
+                    <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
+                        <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                    </a>
                         <!-- Unique IDs for genre container and carousel -->
                         <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
                             <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
                                 <div class="flex">
                                     @foreach($genre['items'] as $item)
-                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}" class="flex-none mr-4">
-                                            <img class="h-[200px] w-auto max-w-full rounded-lg border-solid border-4 border-sky-800/50" src="{{ $item->poster }}" alt="{{ $item->name }}">
-                                        </a>
+                                        <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
+                                            <div class="relative h-[250px] w-[175px]">
+                                            <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                                <button type="submit" class="absolute flex items-center justify-center w[30px inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                    <a href="{{ route('login') }}" class="material-symbols-outlined text-sky-50">bookmark_add</span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-
-                    </div>
                 </div>
             @endforeach
         </div>

@@ -52,7 +52,7 @@
                                 <div class="text-50 text-sm md:text-base font-inter font-light">{{ Auth::user()->username }}</div>
 
                                 <div class="ms-3">
-                                    <img src="{{ Auth::user()->profile_picture }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
+                                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profil bild" class="rounded-lg w-12 h-12 border-solid border-4 border-sky-600 cover">
                                 </div>
                             </button>
                         </x-slot>

@@ -62,7 +62,7 @@
                                     </x-button-dark>
 
                                     <x-button-dark>
-                                        <a href=" {{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
+                                        <a href=" {{ route('watchlist.index', ['id' => Auth::id()]) }}">Watchlist +</a>
                                     </x-button-dark>
                                     <x-button-dark>
                                         <a href="{{ route('reviews.create') }}">
@@ -87,7 +87,7 @@
         <div class="hidden md:contents">
             <div class="flex justify-center m-8">
                 <x-primary-btn>
-                    <a href=" {{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
+                    <a href=" {{ route('watchlist.index', ['id' => Auth::id()]) }}">Watchlist +</a>
                 </x-primary-btn>
                 <x-primary-btn class="ml-8">
                     <a href="{{ route('dashboard') }}">All</a>
@@ -107,25 +107,49 @@
        
             <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">          
                 <div>
-                    <a href="{{ route('watchlist.index', ['user' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a>
+                    <!-- <a href="{{ route('watchlist.index', ['id' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a> -->
                 
                     <div id="watchlistContainer" class="relative">
-                            <div id="watchlistCarousel">
-                                <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2">
-                                    @foreach($limit as $movie)
-                                        @if(empty($limit))
-                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
-                                        @else
-                                            <img class="h-[200px] w-auto rounded-lg border-solid border-4 border-sky-800/50 ml-2" src="{{ $movie->poster }}" alt=" {{ $movie->name }}">
-                                        @endif
-                                    @endforeach 
+                        <div id="watchlistCarousel">
+                            <a href="{{ route('watchlist.index', ['id' => Auth::id()]) }}">
+                            <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2>
+                            </a>
+                            <div class="overflow-x-auto whitespace-nowrap py-4 px-2 md:px-4 scrollbar-thin scrollbar-thumb-sky-800 scrollbar-track-sky-700">
+                            <!-- <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2"> -->
+                                @foreach($limit as $movie)
+                                    @if(empty($limit))
+                                    <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
+                                    @else
+                                    <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
+                                    <div class="relative h-[250px] w-[175px]">
+                                    <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $movie->poster }}" alt="{{ $movie->name }}">
+                                    @if(auth()->user()->watchlist->contains('media_id', $movie->id))
+                                        <form method="POST" action="{{ route('watchlist.destroy', ['id' => $movie->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="absolute flex items-center justify-center w-[30px] inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                <span class="material-symbols-outlined text-sky-50">bookmark_added</span>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form method="POST" action="{{ route('watchlist.store') }}">
+                                            @csrf
+                                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                                            <button type="submit" class="absolute flex items-center justify-center w-[30px] inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                <span class="material-symbols-outlined text-sky-50">bookmark_add</span>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
+                            @endif
+                            @endforeach
+                        </div>
                     </div>
 
                 </div>
             </div>
-        
+        </div>
     </x-slot>
 
         <!-- Movie / serie content -->
@@ -133,24 +157,42 @@
 
             @foreach($latestInGenre as $genre)
             <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                    <div>
-                        <a href="{{ route('genres.show', ['id' => $genre['id']]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                    
+                        
+                    <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
+                        <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
                     </a>
-
                         <!-- Unique IDs for genre container and carousel -->
                         <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
                             <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
                                 <div class="flex">
                                     @foreach($genre['items'] as $item)
-                                        <a href="{{ route('movie.show', ['id' => $item->id]) }}" class="flex-none mr-4">
-                                            <img class="h-[200px] w-auto max-w-full rounded-lg border-solid border-4 border-sky-800/50" src="{{ $item->poster }}" alt="{{ $item->name }}">
-                                        </a>
+                                        <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
+                                            <div class="relative h-[250px] w-[175px]">
+                                            <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                            @if(auth()->user()->watchlist->contains('media_id', $item->id))
+                                                <form method="POST" action="{{ route('watchlist.destroy', ['id' => $item->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="absolute flex items-center justify-center w-[30px] inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                        <span class="material-symbols-outlined text-sky-50">bookmark_added</span>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form method="POST" action="{{ route('watchlist.store') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="movie_id" value="{{ $item->id }}">
+                                                    <button type="submit" class="absolute flex items-center justify-center w-[30px] inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
+                                                        <span class="material-symbols-outlined text-sky-50">bookmark_add</span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
                 </div>
             @endforeach
 
