@@ -136,20 +136,9 @@ class GenreController extends Controller
 
         $allGenreContent = $movies->merge($series);
 
-        $movies = Movie::whereHas('genres', function ($query) use ($id) 
-        {
-            $query->where('genre_id', $id);
-        })->get();
-        $series = Serie::whereHas('genres', function ($query) use ($id) 
-        {
-            $query->where('genre_id', $id);
-        })->get();
-
-        $allGenreContent = $movies->merge($series);
-
         $allGenreContent = $allGenreContent->sortByDesc('created_at');
 
-        return view('contentViews.content-view', compact('genre', 'allGenreContent'));
+        return view('contentViews.content-view', compact('genre', 'allGenreContent',));
     }
 
     /**
