@@ -236,10 +236,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::get('/about-us', [App\Http\Controllers\AboutUsController::class, 'index'])->name('about-us');
 
 
-// view for Actors
-Route::get('/actors', [ActorController::class, 'show'])->name('actor.show');
-
-
 //User profile blade route
 
 // Route::get('/user-profile', [UserProfileIndexController::class, 'show'])->name('user.profile.show');
