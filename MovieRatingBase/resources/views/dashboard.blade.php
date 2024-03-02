@@ -3,12 +3,12 @@
         <!-- <div class="md:flex"> -->
         <div class="md:grid ms:grid-cols-2">
             @foreach($randomContent as $randomItem)
-            <div id="contentToUpdate">
+                <div id="contentToUpdate">
 
-            
-                <!-- Here is where the content will be displayed --> 
+                
+                    <!-- Here is where the content will be displayed --> 
 
-            </div>
+                </div>
 
 
                 <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
@@ -57,11 +57,18 @@
                                     </div>
                                 @endforeach
                                 <div class="flex ml-2 mt-2 md:justify-center">
-                                    <x-button-dark>Watch</x-button-dark>
+                                    <x-button-dark>
+                                        <a href="#">Watch</a>
+                                    </x-button-dark>
+
                                     <x-button-dark>
                                         <a href=" {{ route('watchlist.index', ['user' => Auth::id()]) }}">Watchlist +</a>
                                     </x-button-dark>
-                                    <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
+                                    <x-button-dark>
+                                        <a href="{{ route('reviews.create') }}">
+                                            <img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                        </a>
+                                    </x-button-dark>
                                 </div>
 
                             </div>
@@ -243,8 +250,8 @@
                 </div>
     
                 <!-- Trailer for movie -->
-                <div class="basis-1/2 md:basis-none md:w-1/2 mr-2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}"></video>
+                <div class="basis-1/2 md:basis-none flex justify-center">
+                    <iframe class="h-[185px] w-1/2 rounded-lg border-solid border-2 border-sky-600 md:ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="{{$randomItem->trailer}}" alt="{{$randomItem->name}}" data-id="{{$randomItem->id}}"></iframe>
                 </div>
                 
         </div>
