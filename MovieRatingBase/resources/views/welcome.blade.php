@@ -59,7 +59,10 @@
                 <div class="md:mt-2 md:w-4/5">
                     <div class="rounded-lg flex ml-2 mr-2 mb-4">
                         @foreach($randomContent as $randomItem)
-                                <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-auto h-auto">
+                                <div class="w-[200px] h-[300px]">
+                                    <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[200px] h-[300px]">
+                                </div>
+                                
 
                             <div class="bg-sky-700 rounded-r-lg">
 
@@ -221,7 +224,7 @@
 
         // Update the specific content with the fetched data
         document.getElementById('contentToUpdate').innerHTML = `
-            <div class="flex pt-2 md:flex md:justify-center md:items-center"> 
+            <div class="flex pt-2 md:flex md:justify-around md:items-center"> 
             
                 <!-- Img for movie -->
                 <div class="ml-2 md:w-1/3 md:pl-32 2xl:pl-48">
@@ -240,8 +243,8 @@
                 </div>
 
                 <!-- Trailer for movie -->
-                <div class="basis-1/2 md:basis-none md:w-1/2">
-                    <video class="h-[185px] w-auto rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="${randomItem.trailer}" alt="${randomItem.name}"></video>
+                <div>
+                    <iframe class=" w-560 rounded-lg border-solid border-2 border-sky-600 ml-2 md:h-[500px] md:w-auto md:border-4 md:ml-6" src="${randomItem.trailer}" alt="${randomItem.name}"></iframe>
                 </div>
 
             </div>

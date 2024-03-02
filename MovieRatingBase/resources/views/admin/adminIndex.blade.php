@@ -30,7 +30,11 @@
                                 <div class="flex flex-col sm:flex-row items-center justify-between w-full sm:w-3/4">
                                     <span class="text-sky-50 text-lg sm:text-2xl lg:text-2xl h-8">Name</span>
                                     <br class="sm:hidden">
+                                    @if($type === 'genres') 
+                                    <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">Content Amount</span>
+                                    @else
                                     <span class="text-sky-50 text-lg sm:text-2xl lg:text-2xl h-8">Created</span>
+                                    @endif
                                 </div>
                                 <x-admin-edit-btn>
                                     <a href="{{ route($type . '.create') }}">New!</a>
@@ -39,19 +43,19 @@
                         </li>
                     @foreach($items as $item)
                         <li class="flex flex-col sm:flex-row items-center py-2 border-b border-sky-900">
-                            <div class="flex flex-col sm:flex-row items-center justify-between w-full">
-                                @if(!$item === 'genres')
+                            <div class="flex flex-col sm:flex-row items-center justify-around w-full">
+                                @if(!$item instanceof App\Models\Genre)
                                 <div>
-                                    <img src="{{ $item->poster ?? $item->profile_picture }}" alt="{{ $item->name }}" class="rounded-full">
+                                    <img src="{{ asset($item->poster ?? $item->profile_picture) }}" alt="{{ $item->name }}" class="rounded-full h-16 w-16 object-cover">
                                 </div>
+                                <br>
                                 @endif
                                 <div class="flex flex-col sm:flex-row items-center justify-between w-full sm:w-3/4">
-                                    <span class="text-sky-50 text-lg sm:text-xl lg:text-2xl h-8">{{ $item->name }}</span>
+                                    <span class="text-sky-50 text-lg sm:text-xl lg:text-xl h-8">{{ $item->name }}</span>
                                     <br class="sm:hidden">
-                                    @if($item === 'genres')
-                                    <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">{{ $totalCount }}</span>
-                                    @endif
-                                    @if(!$item === 'genres')
+                                    @if($item instanceof App\Models\Genre) 
+                                    <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">{{ $item->totalCount }}</span>
+                                    @else
                                     <span class="text-sky-50 text-base sm:text-lg h-8 p-1 sm:ml-4">Created at: {{ optional($item->created_at)->format('Y-m-d') }}</span>
                                     @endif
                                 </div>
