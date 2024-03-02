@@ -136,9 +136,7 @@
                                             <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $item->poster }}" alt="{{ $item->name }}">
                                                 <button type="submit" class="absolute flex items-center justify-center w[30px inset-x-0 top-0 h-8 bg-blue-950 rounded hover:bg-blue-800 m-1 bg-opacity-75">
                                                     <a href="{{ route('login') }}" class="material-symbols-outlined text-sky-50">bookmark_add</span>
-                                                    </button>
-                                                </form>
-                                            @endif
+                                                </button>
                                         </div>
                                     </div>
                                     @endforeach
