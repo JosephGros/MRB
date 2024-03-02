@@ -15,68 +15,87 @@ class WatchlistController extends Controller
      */
     public function index()
     {
-        $media = $this->fetchAllWatchlist();
-        return view('contentViews.content-view', compact('media'));
+        $watchlistMedia = $this->fetchWatchlist(); // Ändra namnet från $media till $watchlistMedia
+        return view('contentViews.content-view', compact('watchlistMedia'));
     }
+
 
     public function dashboardWatchlist()
     {
-        $media = $this->fetchWatchlist();
-        $limit = array_slice($media, 0, 20);
-
-        return view('dashboard', compact('limit'));
-    }
-
-    private function fetchFullWatchlist()
-    {
         $user = Auth::user();
-        $watchlist = $user->watchlist;
-        $media = [];
 
-        foreach ($watchlist as $content)
-        {
-            if ($content->media_type === 'movie') {
-                $movie = Movie::find($content->media_id);
-                if ($movie !== null) { // Kontrollera om $movie inte är null
-                    $movie->added = $content->created_at;
-                    $media[] = $movie;
-                }
-            } elseif ($content->media_type === 'serie') {
-                $serie = Serie::find($content->media_id);
-                if ($serie !== null) { // Kontrollera om $serie inte är null
-                    $serie->added = $content->created_at;
-                    $media[] = $serie;
-                }
-            } else {
-                continue;
-            }
+        if ($user && $user->watchlist) {
+            $media = $this->fetchWatchlist();
+            // Om $media innehåller arrayer, konvertera dem till objekt
+            $limit = collect($media)->map(function ($item) {
+                return (object) $item;
+            })->slice(0, 20)->toArray();
+        } else {
+            $limit = [];
         }
 
-        usort($media, function ($a, $b) 
-        {
-            return $b->added <=> $a->added;
-        });
+        return $limit;
+    }
 
-        return view('contentView.content-view', compact('media'));
+    private function fetchWatchlist()
+    {
+        $user = Auth::user();
+
+        // Kontrollera om användaren är inloggad och om de har en watchlist
+        if ($user && $user->watchlist) {
+            $watchlistItems = $user->watchlist()->get();
+            $media = [];
+
+            foreach ($watchlistItems as $content) {
+                if ($content->media_type === 'movie') {
+                    $movie = Movie::find($content->media_id);
+                    if ($movie) {
+                        $media[] = [
+                            'type' => 'movie',
+                            'title' => $movie->title,
+                            'poster' => $movie->poster,
+                            'added' => $content->created_at ? $content->created_at : null, // Set added attribute or null
+                        ];
+                    }
+                } elseif ($content->media_type === 'serie') {
+                    $serie = Serie::find($content->media_id);
+                    if ($serie) {
+                        $media[] = [
+                            'type' => 'serie',
+                            'title' => $serie->title,
+                            'poster' => $serie->poster,
+                            'added' => $content->created_at ? $content->created_at : null, // Set added attribute or null
+                        ];
+                    }
+                }
+            }
+
+            usort($media, function ($a, $b) {
+                return $b['added'] <=> $a['added'];
+            });
+
+            return $media;
+        } else {
+            return [];
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function addToWatchlist(Request $request)
     {
-        $validated = $request->validate(
-            [
-                'media_id' => 'required|exists:movies,id|exists:series,id',
-            ]
-        );
+        $validated = $request->validate([
+            'media_id' => 'required|exists:movies,id|exists:series,id',
+        ]);
 
         $user = Auth::user();
         $watchlist = $user->watchlist;
 
         $watchlist->media()->attach($validated['media_id']);
 
-        return back()->with('success', 'Added to watchlist!');
+        // Redirect tillbaka till watchlist-sidan efter att filmen har lagts till
+        return redirect()->route('watchlist.index')->with('success', 'Added to watchlist!');
     }
 
     /**
