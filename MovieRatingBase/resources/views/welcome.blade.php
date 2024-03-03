@@ -39,12 +39,14 @@
                         <x-primary-button class="mb-2">
                             <a href="{{ route('login') }}">Watchlist +</a>
                         </x-primary-button>
-                        <x-primary-button>List +</x-primary-button>
+                        <x-primary-button>
+                            <a href="{{ route('login') }}">List +</a>
+                        </x-primary-button>
                         <x-primary-button> 
-                            <a href="">
+                            <a href="{{ route('login') }}">
                                 <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </a>
-                       </x-primary-button>
+                        </x-primary-button>
                     </div>
             </div>
             @break
@@ -84,7 +86,11 @@
                                     <x-button-dark>
                                         <a href=" {{ route('login') }}">Watchlist +</a>
                                     </x-button-dark>
-                                    <x-button-dark><img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-button-dark>
+                                    <x-button-dark>
+                                        <a href="{{ route('login') }}">
+                                            <img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                        </a>
+                                    </x-button-dark>
                                 </div>
 
                             </div>
@@ -238,7 +244,9 @@
                     </div>
                         <div class="flex">
                             <div class="text-xs text-sky-50 font-inter font-light mt-1 ml-4 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }}| {{$randomItem->rating}}</div>
-                            <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            <a href="{{ route('login') }}">
+                                <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            </a>
                         </div>
                 </div>
     
