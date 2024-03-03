@@ -37,7 +37,7 @@ class WatchlistController extends Controller
         
             foreach ($watchlist as $content)
             {
-                if(!'media_type' === 'movie')
+                if('media_type' === 'movie')
                 {
                     $movie = Movie::find($content->media_id);
         

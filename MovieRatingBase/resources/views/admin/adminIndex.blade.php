@@ -37,6 +37,9 @@
                                     @endif
                                 </div>
                                 <x-admin-edit-btn>
+                                    <a href="{{ route('admin.dashboard') }}">Back</a>
+                                </x-admin-edit-btn>
+                                <x-admin-edit-btn>
                                     <a href="{{ route($type . '.create') }}">New!</a>
                                 </x-admin-edit-btn>
                             </div>
@@ -45,7 +48,7 @@
                         <li class="flex flex-col sm:flex-row items-center py-2 border-b border-sky-900">
                             <div class="flex flex-col sm:flex-row items-center justify-around w-full">
                                 @if(!$item instanceof App\Models\Genre)
-                                <div>
+                                <div class="mx-1.5">
                                     <img src="{{ asset($item->poster ?? $item->profile_picture) }}" alt="{{ $item->name }}" class="rounded-full h-16 w-16 object-cover">
                                 </div>
                                 <br>
