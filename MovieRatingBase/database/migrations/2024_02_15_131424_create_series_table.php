@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('poster');
-            $table->string('release');
+            $table->date('release');
+            $table->date('end')->nullable();
             $table->string('runtime');
             $table->text('description');
             $table->timestamps();

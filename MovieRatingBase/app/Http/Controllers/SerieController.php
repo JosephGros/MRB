@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episode;
+use App\Models\Season;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,7 @@ class SerieController extends Controller
     public function index()
     {
         $series = Serie::all();
-        return view('dashboard', ['series$series' => $series]);
+        return view('dashboard', ['series' => $series]);
     }
 
     /**
@@ -29,28 +31,58 @@ class SerieController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
+        $validated = $request->validate(
             [
-                'name' => 'required|string',
-                'poster' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
-                'release' => 'required|date_format:Y',
-                'runtime' => 'required|string',
-                'description' => 'required|text',
+                'series.name' => 'required|string',
+                'series.poster' => 'required|image|mimes:jpeg,png,jpg,gif,jfif',
+                'series.release' => 'required|date_format:Y',
+                'series.end' => 'nullable|date_format:Y',
+                'series.runtime' => 'required|string',
+                'series.description' => 'required|text',
+                'series.trailer' => 'required|string',
+                'series.seasons' => 'required|array|min:1',
+                'series.seasons.*.name' => 'required|string',
+                'series.seasons.*.number_of_episodes' => 'required|integer|min:1',
+                'series.seasons.*.episodes' => 'required|array|min:1',
+                'series.seasons.*.episodes.*.name' => 'required|string',
+                'series.seasons.*.episodes.*.episode_count' => 'required|string',
+                'series.seasons.*.episodes.*.runtime' => 'required|string',
+                'series.seasons.*.episodes.*.release_date' => 'required|string',
+                'actors' => 'required|array',
+                'actors.*.id' => 'required|exists:actors,id',
+                'actors.*.role' => 'required|string',
+                'genres' => 'required|array',
+                'genres.*' => 'required|exists:genres,id',
+                'creators' => 'required|array',
+                'creators.*' => 'required|exists:directors,id',
+                'writers' => 'required|array',
+                'writers.*' => 'required|exists:writers,id',
             ]);
         
         $path = $request->file('poster')->store('posters', 'public');
 
-        $series = new Serie();
-        $series->name = $request->name;
-        $series->poster = $path;
-        $series->release = $request->release;
-        $series->runtime = $request->runtime;
-        $series->description = $request->description;
+        $series = Serie::create($validated['series']);
         
+        foreach ($validated['series']['season'] as $season)
+        {
+            $season = $series->seasons()->create($season);
+        }
+
+        foreach ($validated['episode'] as $episode)
+        {
+            $episode['season_id'] = $season->id;
+            $episode = $season->episode()->create($episode);
+        }
+
+        foreach ($validated['actor'] as $actor)
+        {
+            $actorId = $actor['id'];
+            $role = $actor['role'];
+            $series->actors()->attach($actorId, ['role' => $role]);
+        }
         if($series->save())
         {
             $series->genres()->sync($request->genres);
-            $series->actors()->sync($request->actors);
             $series->creators()->sync($request->creators);
             $series->writers()->sync($request->writers);
 
@@ -72,6 +104,12 @@ class SerieController extends Controller
             return redirect()->route('dashboard')->with('error', 'Serie not found');
         }
 
+        $totalRatings = $serie->ratings->count();
+        $sumRatings = $serie->ratings->sum('rating');
+        $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+
+        $averageRating = max(1, min(10, $averageRating));
+
         $similarSeries = Serie::whereHas('genres', function ($query) use ($serie)
         {
             $query->whereIn('id', $serie->genres->pluck('id'));
@@ -79,11 +117,12 @@ class SerieController extends Controller
 
         $latestReview = $serie->review()->latest()->first();
 
-        return view('dashboard', 
+        return view('display', 
         [
             'serie' => $serie,
             'similarSeries' => $similarSeries,
             'latestReview' => $latestReview,
+            'averageRating' => $averageRating,
         ]);
     }
 
@@ -101,19 +140,37 @@ class SerieController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'sometimes|string',
-            'poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
-            'release' => 'sometimes|date_format:Y',
-            'runtime' => 'sometimes|string',
-            'description' => 'sometimes|string'
+            'series.name' => 'sometimes|string',
+            'series.poster' => 'sometimes|image|mimes:jpeg,png,jpg,gif,jfif',
+            'series.release' => 'sometimes|date_format:Y',
+            'series.end' => 'nullable|date_format:Y',
+            'series.runtime' => 'sometimes|string',
+            'series.description' => 'sometimes|text',
+            'series.trailer' => 'sometimes|string',
+            'series.seasons' => 'required|array|min:1',
+            'series.seasons.*.name' => 'required|string',
+            'series.seasons.*.number_of_episodes' => 'required|integer|min:1',
+            'series.seasons.*.episodes' => 'required|array|min:1',
+            'series.seasons.*.episodes.*.name' => 'required|string',
+            'series.seasons.*.episodes.*.episode_count' => 'required|string',
+            'series.seasons.*.episodes.*.runtime' => 'required|string',
+            'series.seasons.*.episodes.*.release_date' => 'required|string',
+            'actors' => 'sometimes|array',
+            'actors.*.id' => 'required_with:actors|exists:actors,id',
+            'actors.*.role' => 'required_with:actors|string',
+            'genres' => 'sometimes|array',
+            'genres.*' => 'required_with:genres|exists:genres,id',
+            'creators' => 'sometimes|array',
+            'creators.*' => 'required_with:creators|exists:directors,id',
+            'writers' => 'sometimes|array',
+            'writers.*' => 'required_with:writers|exists:writers,id',
         ]);
+        
     
         if(Serie::where('id', $id)->exists()){
-            $series = Serie::find($id);
-            $series->name = $request->input('name', $series->name);
-            $series->release = $request->input('release', $series->release);
-            $series->runtime = $request->input('runtime', $series->runtime);
-            $series->description = $request->input('description', $series->description);
+            $series = Serie::findOrFail($id);
+
+            $series->update($request->input['series']);
     
             if ($request->hasFile('poster')) {
                 $path = $request->file('poster')->store('posters', 'public');
@@ -129,6 +186,12 @@ class SerieController extends Controller
 
             if($request->has('actors'))
             {
+                $actors = [];
+
+                foreach ($request->input('actors') as $actorId)
+                {
+                    $actors[$actorId] = ['role' => $request->input('actor_roles.'.$actorId)];
+                }
                 $series->actors()->sync($request->actors);
             }
 
@@ -140,6 +203,35 @@ class SerieController extends Controller
             if($request->has('writers'))
             {
                 $series->writers()->sync($request->writers);
+            }
+
+            if($request->has('series.seasons'))
+            {
+                foreach ($request->input('series.seasons') as $seasons)
+                {
+                    if (isset($seasons['id']))
+                    {
+                        $season = Season::findOrFail($seasons['id']);
+                        $season->update($seasons);
+                    } else {
+                        $season = $series->seasons()->create($seasons);
+                    }   
+                
+
+                    if(isset($seasons['episodes']))
+                    {
+                        foreach ($seasons['episodes'] as $episodes)
+                        {
+                            if (isset($episodes['id']))
+                            {
+                                $episode = Episode::findOrFail($episodes['id']);
+                                $episode->update($episodes);
+                            } else {
+                                $episode = $season->episodes()->create($episodes);
+                            }   
+                        }
+                    }
+                }
             }
     
             return redirect()->route('series.dashboard', $series->id)->with('success', 'Serie updated successfully');

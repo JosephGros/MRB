@@ -1,21 +1,31 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "@tailwindcss/forms": "^0.5.2",
-        "alpinejs": "^3.4.2",
-        "autoprefixer": "^10.4.2",
-        "axios": "^1.6.4",
-        "laravel-vite-plugin": "^1.0.0",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.4.1",
-        "vite": "^5.0.0"
-    },
-    "dependencies": {
-        "bootstrap": "^5.3.2"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "alpinejs": "^3.13.5",
+    "autoprefixer": "^10.4.2",
+    "axios": "^1.6.4",
+    "laravel-vite-plugin": "^1.0.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  },
+  "name": "movieratingbase",
+  "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+  "version": "1.0.0",
+  "main": "postcss.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

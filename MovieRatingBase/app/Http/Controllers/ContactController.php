@@ -3,33 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\contact;
 class ContactController extends Controller
 {
-    public function index()
-    {
-        return view('contact');
-    }
-    // Visa kontaktformuläret
-    public function create()
-    {
-        return view('contact'); // contact.blade.php
-    }
-
-    // Hantera inskickat formulär
+    
     public function store(Request $request)
     {
-        // Validera och processa data här
-        // Exempel: Kontrollerar ifall rätt data är inmatad
-         $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
+        // Validera formuläret
+        $request->validate([
+            'name' => 'required',
             'email' => 'required|email',
             'message' => 'required',
         ]);
 
-        // Processa data (t.ex. spara i databasen, skicka e-post, etc.)
+        // Skapa en ny post i databasen med formulärdata
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
 
-        return redirect()->route('contact.create')->with('success', 'Ditt meddelande har skickats.');
+        // Redirecta användaren med ett framgångsmeddelande
+        return back()->with('success', 'Ditt meddelande har skickats.');
+    }
+    
+    public function index()
+    {
+        return view('contact');
     }
 }
