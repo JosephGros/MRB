@@ -57,12 +57,12 @@
             
         </main>
 
-        
-    </div>
-
-    <footer class="inset-x-0 bottom-0">
+        <footer class="inset-x-0 bottom-0">
             @include('layouts.footer')
         </footer>
+    </div>
+
+
 </body>
 
 </html>
