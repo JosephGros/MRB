@@ -15,7 +15,7 @@
                 <div class="w-1/2">
                         <div class="flex ml-2 mt-2 md:justify-center 2xl:-ml-2">
                             <x-primary-button class="mb-2">
-                                <a href="{{ route('watchlist.store', ['user' => Auth::id()]) }}">Watchlist +</a>
+                                <a href="{{ route('watchlist.store', ['id' => Auth::id()]) }}">Watchlist +</a>
                             </x-primary-button>
                             <x-primary-button>List +</x-primary-button>
                             <x-primary-button> 
@@ -32,13 +32,13 @@
 
         <!-- Hidden movies on smaller screen -->
         <div class="hidden md:contents">
-            <div class="md:flex md:justify-center md:items-center">
+            <div class="md:flex md:justify-center md:items-center fit-content">
 
                 <div class="md:mt-2 md:w-4/5">
-                    <div class="rounded-lg flex ml-2 mr-2 mb-4">
+                    <div class="rounded-lg flex justify center flex-row ml-2 mr-2 mb-4">
 
                         @foreach($randomContent as $randomItem)
-                            <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[200px] h-[300px]] ml-4">
+                            <img src="{{$randomItem->poster}}" alt="{{$randomItem->name}}" class="rounded-l-lg w-[175px] h-[255px]] ml-4">
 
                             <div class="bg-sky-700 rounded-r-lg">
 
@@ -114,15 +114,17 @@
                             <a href="{{ route('watchlist.index', ['id' => Auth::id()]) }}">
                             <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2>
                             </a>
-                            <div class="overflow-x-auto whitespace-nowrap py-4 px-2 md:px-4 scrollbar-thin scrollbar-thumb-sky-800 scrollbar-track-sky-700">
+                            <div class="overflow-x-auto whitespace-nowrap py-4 px-2 md:px-4">
                             <!-- <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2"> -->
                                 @foreach($limit as $movie)
                                     @if(empty($limit))
                                     <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
                                     @else
-                                    <div class="inline-block w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 p-4 mx-1.5">
+                                    <div class="inline-block w-[180px] h-[255px] p-1">
                                     <div class="relative h-[250px] w-[175px]">
-                                    <img class="w-full h-auto rounded-lg border-solid border-4 border-sky-800/50 object-cover" src="{{ $movie->poster }}" alt="{{ $movie->name }}">
+                                    <a href="{{ route('movie.show', ['id' => $movie->id]) }}">
+                                        <img class="w-full h-auto rounded-lg border-solid border-4 border-sky-800/50 object-cover" src="{{ $movie->poster }}" alt="{{ $movie->name }}">
+                                    </a>
                                     @if(auth()->user()->watchlist->contains('media_id', $movie->id))
                                         <form method="POST" action="{{ route('watchlist.destroy', ['id' => $movie->id]) }}">
                                             @csrf
@@ -160,16 +162,18 @@
                     
                         
                     <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
-                        <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
+                        <h2 class="text-sky-50 ml-2 font-extrabold pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
                     </a>
                         <!-- Unique IDs for genre container and carousel -->
-                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
+                        <div id="genreContainer_{{ $genre['id'] }}" class="overflow-x-auto whitespace-nowrap mb-4 max-w-full relative" data-carousel="slide">
                             <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
                                 <div class="flex">
                                     @foreach($genre['items'] as $item)
-                                        <div class="inline-block w-[50%] md:w-[25%] lg:w-[20%] xl:w-[15%] h-auto p-4 mx-1.5">
-                                            <div class="relative h-[250px] w-[175px]">
-                                            <img class="w-[175px] h-[250px] rounded-lg border-solid border-4 border-sky-800/50 object-fit" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                        <div class="inline-block w-[180px] h-[300px] mx-[10px] p-1 flex justify-center items-center">
+                                            <div class="relative h-[250px] w-[175px] rounded-lg shadow-md shadow-sky-950">
+                                            <a href="{{ route('movie.show', ['id' => $item->id]) }}">
+                                                <img class="h-[250px] w-[175px] rounded-lg border-solid border-4 border-sky-800/50 object-cover" src="{{ $item->poster }}" alt="{{ $item->name }}">
+                                            </a>
                                             @if(auth()->user()->watchlist->contains('media_id', $item->id))
                                                 <form method="POST" action="{{ route('watchlist.destroy', ['id' => $item->id]) }}">
                                                     @csrf
@@ -256,6 +260,43 @@
                 behavior: 'smooth'
             });
         }
+
+        const carousel = document.getElementById('genreCarousel_{{ $genre["id"] }}');
+
+        let startX = null;
+        let startY = null;
+        let scrolling = false;
+
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            scrolling = false;
+        });
+
+        carousel.addEventListener('touchmove', (e) => {
+            if(!startX || !startY) return;
+
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+
+            if(Math.abs(deltaX) > Math.abs(deltaY)) {
+                e.preventDefault();
+                scrolling = true;
+            }
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            if(!startX || !startY || scrolling) return;
+
+            const deltaX = e.changedTouches[0].clientX - startX;
+            if(Math.abs(deltaX) > 50) {
+                if(deltaX > 0){
+                    carousel.scrollLeft -= carousel.offsetWidth;
+                } else {
+                    carousel.scrollLeft += carousel.offsetWidth;
+                }
+            }
+        });
 </script>
 
 
