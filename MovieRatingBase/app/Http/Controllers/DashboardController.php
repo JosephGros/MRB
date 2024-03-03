@@ -30,6 +30,7 @@ class DashboardController extends Controller
 
             return view('welcome', compact('latestInGenre', 'randomContent'));
         }
+        $randomContent = $this->randomDashboard();
     }
     
     public function indexGuest(Request $request)
@@ -39,6 +40,7 @@ class DashboardController extends Controller
 
         return view('welcome', compact('latestInGenre', 'randomContent'));
     }
+    
     
 
     public function getGenres(Request $request)

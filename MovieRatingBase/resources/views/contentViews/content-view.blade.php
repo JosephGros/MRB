@@ -1,8 +1,11 @@
 <x-app-layout>
 @section ('content')
-        <div>
-            <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
-                @if(!$media)
+<div>
+    <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
+                @php
+                $media = $media ?? false; // $media to false if it's not already defined
+                @endphp
+                @if(isset($media) && !$media)
                     <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
                         <h2 class="text-sky-50 ml-2 font-extrabold pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
                     </a>
