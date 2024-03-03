@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'indexGuest'])->name('welcome');
+Route::get('/', [DashboardController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -134,7 +134,7 @@ Route::middleware(['admin', 'moderator'])->group(function () {
     //Watchlist
     Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
     Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
-    Route::post('/watchlist/add/{id}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
+    Route::post('/watchlist/add', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
     Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
     //User Lists
     Route::get('/userlists/{id}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
@@ -179,14 +179,14 @@ Route::middleware(['auth'])->group(function () {
 
     //Everything for user lists and watchlist
     //Watchlist 
-    Route::get('/watchlist/all/{user}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
-    Route::get('/watchlist/{user}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
-    Route::post('/watchlist/add/{user}', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
-    Route::delete('/watchlist/delete/{user}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
+    Route::get('/watchlist/all/{id}', [WatchlistController::class, 'index'])->name('watchlist.index'); //To se everything in watchlist
+    Route::get('/watchlist/{id}', [WatchlistController::class, 'dashboardWatchlist'])->name('watchlist.dashboardWatchlist'); //Watchlist for Dashboard
+    Route::post('/watchlist/add', [WatchlistController::class, 'store'])->name('watchlist.store'); //Watchlist+ button
+    Route::delete('/watchlist/delete/{id}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy'); //Watchlist- button
     //User Lists
     Route::get('/userlists/{user}', [UserListController::class, 'index'])->name('userlists.index'); //To get all the users lists with content for profile
     Route::get('/userlists/list/{user}', [UserListController::class, 'show'])->name('userlists.show'); //Views that list with all content
-    Route::post('/userlists/create/{user}', [UserListController::class, 'store'])->name('userlists.store'); //Create new list button
+    Route::post('/userlists/create/{user}', [UserListController::class, 'store'])->name('userlists.add'); //Create new list button
     Route::patch('/userlists/update/{user}', [UserListController::class, 'update'])->name('userlists.update'); //Update list name
     Route::delete('/userlists/delete/{user}', [UserListController::class, 'destroy'])->name('userlists.destroy'); //Userlists- button
     //UserListContent

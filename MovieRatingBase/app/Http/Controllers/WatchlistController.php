@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Models\Serie;
+use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,43 +20,33 @@ class WatchlistController extends Controller
         return view('contentViews.content-view', compact('media'));
     }
 
-    public function dashboardWatchlist()
-    {
-        $media = $this->fetchWatchlist();
-        $limit = array_slice($media, 0, 20);
+    // public function dashboardWatchlist()
+    // {
+    //     $media = $this->fetchWatchlist();
+    //     $limit = array_slice($media, 0, 20);
 
-        return view('dashboard', compact('limit'));
-    }
+    //     return view('dashboard', compact('limit'));
+    // }
 
-    private function fetchFullWatchlist()
+    private function fetchAllWatchlist()
     {
         $user = Auth::user();
         $watchlist = $user->watchlist;
         $media = [];
 
-        foreach ($watchlist as $content)
-        {
-            if ($content->media_type === 'movie') {
-                $movie = Movie::find($content->media_id);
-                if ($movie !== null) { // Kontrollera om $movie inte är null
-                    $movie->added = $content->created_at;
+        
+            foreach ($watchlist as $content)
+            {
+                if(!'media_type' === 'movie')
+                {
+                    $movie = Movie::find($content->media_id);
+        
                     $media[] = $movie;
+                }else {
+                    continue;
                 }
-            } elseif ($content->media_type === 'serie') {
-                $serie = Serie::find($content->media_id);
-                if ($serie !== null) { // Kontrollera om $serie inte är null
-                    $serie->added = $content->created_at;
-                    $media[] = $serie;
-                }
-            } else {
-                continue;
             }
-        }
-
-        usort($media, function ($a, $b) 
-        {
-            return $b->added <=> $a->added;
-        });
+        
 
         return view('contentView.content-view', compact('media'));
     }
@@ -65,30 +56,42 @@ class WatchlistController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(
-            [
-                'media_id' => 'required|exists:movies,id|exists:series,id',
-            ]
-        );
+        $validated = $request->validate([
+            'movie_id' => 'required|exists:movies,id',
+        ]);
 
         $user = Auth::user();
-        $watchlist = $user->watchlist;
+        $watchlist = $user->watchlist->first();
 
-        $watchlist->media()->attach($validated['media_id']);
+        if ($watchlist->media_id === $validated['movie_id'] && $watchlist->media_type === 'movie') {
+            return back()->with('error', 'This movie is already in your watchlist.');
+        }
 
-        return back()->with('success', 'Added to watchlist!');
+        $watchlist->create([
+            'user_id' => $user->id,
+            'media_id' => $validated['movie_id'],
+            'media_type' => 'movie',
+        ]);
+
+        return back()->with('success', 'Movie added to watchlist!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($mediaId)
+    public function destroy($id)
     {
-        $user = Auth::user();
-        $watchlist = $user->watchlist;
+        $user = auth()->user();
+        $watchlist = Watchlist::where('user_id', $user->id)
+                            ->where('media_id', $id)
+                            ->first();
 
-        $watchlist->media()->detach($mediaId);
+        if ($watchlist) {
+            $watchlist->delete();
+            return back()->with('success', 'Movie removed from watchlist.');
+        }
 
-        return back()->with('success', 'Removed from watchlist!');
+        return back()->with('error', 'Movie not found in your watchlist.');
     }
 }

@@ -13,7 +13,7 @@ class Movie extends Model
 
     public function watchlists()
     {
-        return $this->morphMany(Watchlist::class, 'media');
+        return $this->hasMany(Watchlist::class, 'movie_id');
     }
 
     public function genres()

@@ -17,11 +17,11 @@
                             <div class="bg-nav mt-6 rounded-md shadow-2xl md:w-[1100px]">
 
                                 <!-- Here is where Trailer and Image is displayed -->
-                                <div class="grid grid-cols-3 gap-2 pt-2 pl-2 pr-2 md:pl-0 md:pt-0">
+                                <div class="flex flex-row justify-between">
 
                                     <!-- Img for movie -->
-                                    <div class="col-span-1">
-                                        <img class="h-[120px] w-auto rounded-lg md:rounded-t-lg md:h-[450px] shadow-xl" src="{{ $movie->poster }}" alt="{{$movie->name}}">
+                                    <div>
+                                        <img class="h-[200px] w-[100px] rounded-lg md:rounded-t-lg md:h-[450px] md:w-[280px] shadow-xl" src="{{ $movie->poster }}" alt="{{$movie->name}}">
                                     </div>
                             
                                     <!-- Trailer for movie -->
