@@ -53,21 +53,18 @@ class AdminController extends Controller
             switch ($type)
             {
                 case 'movies':
-                    $items = Movie::all();
+                    $items = Movie::all()->sortByDesc('created_at');
                     break;
                 case 'series':
-                    $items = Serie::all();
+                    $items = Serie::all()->sortByDesc('created_at');
                     break;
                 case 'genres':
                     $items = Genre::all();
                     foreach ($items as $item)
                     {
-                        $genre = Genre::findOrFail($item->id);
-                
-                        $movieCount = Movie_Genre::where('genre_id', $genre->id)->count();
-                        $serieCount = Serie_Genre::where('genre_id', $genre->id)->count();
+                        $movieCount = Movie_Genre::where('genre_id', $item->id)->count();
+                        $serieCount = Serie_Genre::where('genre_id', $item->id)->count();
                         $item->totalCount = $movieCount + $serieCount;
-                        
                         $totalCount += $item->totalCount;
                     }
                     break;
@@ -90,7 +87,6 @@ class AdminController extends Controller
                     
             }
 
-            $items = $items->sortByDesc('created_at');
             return view('admin.adminIndex', compact('items', 'type', 'totalCount'));
 
         }

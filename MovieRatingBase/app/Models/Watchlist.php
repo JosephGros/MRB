@@ -18,8 +18,8 @@ class Watchlist extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function media()
+    public function movie()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Movie::class, 'movie_id');
     }
 }

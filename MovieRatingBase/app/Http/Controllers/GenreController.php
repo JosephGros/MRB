@@ -111,7 +111,7 @@ class GenreController extends Controller
 
         if($genre->save())
         {
-            return redirect()->route('dashboard')->with('success', 'Genre created successfully!');
+            return redirect()->route('admin.index', ['type' => 'genres'])->with('success', 'Genre created successfully!');
         } else 
         {
             return redirect()->back()->with('Error', 'Something went wrong.');
