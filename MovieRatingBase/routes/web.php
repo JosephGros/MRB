@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\ActorController;
@@ -118,18 +119,14 @@ Route::middleware(['admin', 'moderator'])->group(function () {
 
 
     //CRUD Rating Routes
-    Route::post('display/ratings', [RatingController::class, 'store'])->name('ratings.store');
-    Route::get('/display/ratings/create', [RatingController::class, 'create'])->name('ratings.create');
-    Route::get('/display/ratings/{id}', [RatingController::class, 'show'])->name('ratings.show');
-    Route::post('/display/ratings/{id}/edit', [RatingController::class, 'edit'])->name('ratings.edit');
+    Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
     Route::patch('/display/ratings/{id}/update', [RatingController::class, 'update'])->name('ratings.update');
     Route::delete('/display/ratings/{id}/delete', [RatingController::class, 'destroy'])->name('ratings.destroy');
 
     //CRUD Review Routes
-    Route::post('display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-    Route::get('/display/reviews/{id}', [ReviewController::class, 'show'])->name('reviews.show');
-    Route::post('/display/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::get('/display/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
     Route::patch('/display/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/display/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
@@ -164,8 +161,17 @@ Route::middleware(['admin', 'moderator'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
+    //CRUD Rating Routes
+    Route::post('/display/ratings', [RatingController::class, 'store'])->name('ratings.store');
+    Route::patch('/display/ratings/{rating}/update', [RatingController::class, 'update'])->name('ratings.update');
+    Route::delete('/display/ratings/{rating}/delete', [RatingController::class, 'destroy'])->name('ratings.destroy');
+
     //CRUD Review Routes
-    // Route::get('/display/reviews', [MovieController::class, 'showReview'])->name('movie.showReview');
+    Route::post('/display/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/display/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::get('/display/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::patch('/display/reviews/{review}/update', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/display/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     //Everything for user lists and watchlist
     //Watchlist 
@@ -188,6 +194,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.updatePicture');
+
 
     //User profile
     Route::get('/user-profile', [UserProfileIndexController::class, 'index'])->name('user.profile');
