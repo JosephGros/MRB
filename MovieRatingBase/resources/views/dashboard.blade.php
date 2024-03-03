@@ -133,15 +133,14 @@
        
             <div class="bg-sky-700 border-solid border-y-4 border-sky-800/50 md:rounded-lg">          
                 <div>
-                    <!-- <a href="{{ route('watchlist.index', ['id' => Auth::id()]) }}"> <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2></a> -->
                 
                     <div id="watchlistContainer" class="relative">
                         <div id="watchlistCarousel">
                             <a href="{{ route('watchlist.index', ['id' => Auth::id()]) }}">
                             <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">Watchlist</h2>
                             </a>
-                            <div class="overflow-x-auto whitespace-nowrap py-4 px-2 md:px-4">
-                            <!-- <div class="grid grid-cols-3 gap-4 mb-4 md:grid-cols-7 2xl:grid-cols-10 2xl:gap-2"> -->
+                            <div class="overflow-x-hidden whitespace-nowrap py-4 px-2 md:px-4">
+                            <div class="flex">
                                 @foreach($limit as $movie)
                                     @if(empty($limit))
                                     <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Movies/ Series in your watchlist</p>
@@ -176,6 +175,7 @@
                     </div>
 
                 </div>
+            </div>
             </div>
         </div>
     </x-slot>
