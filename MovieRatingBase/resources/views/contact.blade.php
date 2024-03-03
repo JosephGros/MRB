@@ -9,20 +9,20 @@
         <div class=" bg-opacity-75 bg-sky-800 p-8 rounded-lg shadow-lg w-full lg:w-1/2 max-w-md">
             <div class="text-center">
                 <img src="{{ asset('/images/LogoMRB.png') }}" alt="logo" class="mb-6 w-50 h-50 ">
-                <h2 class="text-4xl text-sky-950 font-bold mb-6">Contact us</h2>
+                <h2 class="text-4xl text-sky-50 font-bold mb-6">Contact us</h2>
             </div>
             <form action="{{ route('contact.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="name" class="text-lg mb-2 block">Name</label>
+                    <label for="name" class="text-lg text-50 mb-2 block">Name</label>
                     <input type="text" id="name" name="name" placeholder="First and last name" class="w-full p-4 rounded-md border-2 border-sky-200 ">
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="text-lg mb-2 block">Email</label>
+                    <label for="email" class="text-lg text-50 mb-2 block">Email</label>
                     <input type="email" id="email" name="email" placeholder="Your email here..." class="w-full p-4 rounded-md border-2 border-sky-200">
                 </div>
                 <div class="mb-8">
-                    <label for="message" class="text-lg mb-2 block">Description</label>
+                    <label for="message" class="text-lg text-50 mb-2 block">Description</label>
                     <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." class="w-full p-4 rounded-md border-2 border-sky-200"></textarea>
                 </div>
                 <button type="submit" class="bg-sky-600 text-white p-4 rounded-lg w-full">Send Message</button>

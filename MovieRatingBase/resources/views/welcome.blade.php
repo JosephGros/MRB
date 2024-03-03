@@ -11,21 +11,23 @@
                 </div>
 
 
-                <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
-                <div class="w-1/2">
-                        <div class="flex ml-2 mt-2 md:justify-center 2xl:-ml-2">
-                            <x-primary-button class="mb-2">
-                                <a href="{{ route('login') }}">Watchlist +</a>
-                            </x-primary-button>
-                            <x-primary-button>List +</x-primary-button>
-                            <x-primary-button> 
-                                <a href="">
-                                    <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                                </a>
+            <!-- buttons for add to watchlist, create new list, rating, share movie, Cast and Find more movies like this -->
+            <div class="w-1/2">
+                    <div class="flex ml-2 mt-2 md:justify-center 2xl:-ml-2">
+                        <x-primary-button class="mb-2">
+                            <a href="{{ route('login') }}">Watchlist +</a>
                         </x-primary-button>
-                        </div>
-                </div>
-                @break
+                        <x-primary-button>
+                            <a href="{{ route('login') }}">List +</a>
+                        </x-primary-button>
+                        <x-primary-button> 
+                            <a href="{{ route('login') }}">
+                                <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            </a>
+                        </x-primary-button>
+                    </div>
+            </div>
+            @break
             @endforeach
         </div>
 
@@ -119,7 +121,7 @@
                         <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
                     </a>
                         <!-- Unique IDs for genre container and carousel -->
-                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
+                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="static">
                             <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
                                 <div class="flex">
                                     @foreach($genre['items'] as $item)
@@ -231,7 +233,9 @@
                     </div>
                         <div class="flex">
                             <div class="text-xs text-sky-50 font-inter font-light mt-1 ml-4 md:text-lg md:font-light md:ml-4">{{$randomItem->release}} | {{$randomItem->runtime }}| {{$randomItem->rating}}</div>
-                            <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            <a href="{{ route('login') }}">
+                                <img class="h-6 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                            </a>
                         </div>
                 </div>
     
