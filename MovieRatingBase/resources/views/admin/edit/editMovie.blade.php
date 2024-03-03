@@ -55,32 +55,36 @@
                             <input type="text" name="trailer" id="trailer" value="{{ isset($movie) ? $movie->trailer : '' }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                         </div>
                         <div>
-                            <label for="actors" class="block text-sky-50 font-semibold text-base">Actors</label>
-                            <select name="actors[]" id="actors" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                @foreach($actors as $actor)
-                                    <option value="{{ $actor->id }}">{{ $actor->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
                             <label for="selectedActors">Selected Actors:</label>
-                            <ul id="selectedActorsList"></ul>
+                            <ul id="selectedActors"></ul>
                         </div>
-                        <div>
-                            <label for="genres" class="block text-sky-50 font-semibold text-base">Genres</label>
-                            <select name="genres[]" id="genres" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                @foreach($genres as $genre)
-                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        
                         <div>
                             <label for="selectedGenres">Selected Genres:</label>
-                            <ul id="selectedGenresList"></ul>
+                            <ul id="selectedGenres"></ul>
                         </div>
 
                             <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
+
+                    <div>
+                        <label for="actors" class="block text-sky-50 font-semibold text-base">Actors</label>
+                        <select name="actors[]" id="actors" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                            @foreach($actors as $actor)
+                                <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label for="genres" class="block text-sky-50 font-semibold text-base">Genres</label>
+                        <select name="genres[]" id="genres" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                            @foreach($genres as $genre)
+                                <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button id="addToForm">Add</button>
                 </div>
             </div>
         </div>
@@ -88,24 +92,84 @@
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const actorsDropdown = document.getElementById('actors');
-            const selectedActors = document.getElementById('selectedActorsList');
+        document.getElementById('addToForm').addEventListener('click', function() {
+            const selectedActors = Array.from(document.querySelectorAll('#actors option:checked')).map(option => option.value);
+            const selectedGenres = Array.from(document.querySelectorAll('#genres option:checked')).map(option => option.value);
 
-            actorsDropdown.addEventListener('channge', function() {
-                const selected = Array.from(this.selected);
+            const actorsContainer = document.getElementById('selectedActors');
+            const genresContainer = document.getElementById('selectedGenres');
 
-                selectedActors.innerHTML = '';
+            actorsContainer.innerHTML = '';
+            genresContainer.innerHTML = '';
 
-                selected.forEach(option => {
-                    const actorId = option.value;
-                    const actorName = option.text;
+            selectedActors.forEach(actor => {
+                const actorAdded = document.createElement('input');
+                actorAdded.type = 'hidden';
+                actorAdded.name = 'actors[]';
+                actorAdded.value = actor;
+                actorsContainer.appendChild(actorAdded);
+            });
 
-                    const listItem = document.createElement('li');
-                    listItem.textContent = actorName;
-                })
-            })
+            selectedActors.forEach(genre => {
+                const genreAdded = document.createElement('input');
+                genreAdded.type = 'hidden';
+                genreAdded.name = 'genres[]';
+                genreAdded.value = genre;
+                genresContainer.appendChild(genreAdded);
+            });
         })
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const actorsDropdown = document.getElementById('actors');
+        //     const selectedActors = document.getElementById('selectedActorsList');
+
+        //     actorsDropdown.addEventListener('channge', function() {
+        //         const selected = Array.from(this.selected);
+
+        //         selectedActors.innerHTML = '';
+
+        //         selected.forEach(option => {
+        //             const actorId = option.value;
+        //             const actorName = option.text;
+
+        //             const listItem = document.createElement('li');
+        //             listItem.textContent = actorName;
+        //             listItem.dataset.actorId = actorId;
+
+        //             listItem.addEventListener('click', function() {
+        //                 this.remove();
+        //             });
+
+        //             selectedActors.appendChild(listItem);
+        //         });
+        //     });
+        // });
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const genresDropdown = document.getElementById('genres');
+        //     const selectedGenres = document.getElementById('selectedGenresList');
+
+        //     actorsDropdown.addEventListener('channge', function() {
+        //         const selected = Array.from(this.selected);
+
+        //         selectedGenres.innerHTML = '';
+
+        //         selected.forEach(option => {
+        //             const genreId = option.value;
+        //             const genreName = option.text;
+
+        //             const listItem = document.createElement('li');
+        //             listItem.textContent = genreName;
+        //             listItem.dataset.genreId = genreId;
+
+        //             listItem.addEventListener('click', function() {
+        //                 this.remove();
+        //             });
+
+        //             selectedGenres.appendChild(listItem);
+        //         });
+        //     });
+        // });
 
 //         <!-- let currentPage = 'editMovies';
 
