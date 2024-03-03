@@ -121,7 +121,7 @@
                         <h2 class="text-sky-50 ml-2 font-medium pt-2 md:text-2xl">{{ $genre['name'] }}</h2>
                     </a>
                         <!-- Unique IDs for genre container and carousel -->
-                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="slide">
+                        <div id="genreContainer_{{ $genre['id'] }}" class="relative" data-carousel="static">
                             <div id="genreCarousel_{{ $genre['id'] }}" class="overflow-x-hidden whitespace-nowrap mb-4 max-w-full relative">
                                 <div class="flex">
                                     @foreach($genre['items'] as $item)

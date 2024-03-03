@@ -56,11 +56,13 @@
             @yield('content')
             
         </main>
-        <footer class="inset-x-0 bottom-0">
-            @include('layouts.footer')
-        </footer>
+
         
     </div>
+
+    <footer class="inset-x-0 bottom-0">
+            @include('layouts.footer')
+        </footer>
 </body>
 
 </html>

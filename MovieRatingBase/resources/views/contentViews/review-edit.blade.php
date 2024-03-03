@@ -7,7 +7,7 @@
                 </div>
             @endif
         <div class="flex justify-center item-center mb-[155px]">
-            <div class="bg-nav p-8 md:m-20 md:w-[800px] md:h-auto rounded-lg">
+            <div class="bg-nav w-full md:p-8 md:m-20 md:w-1/3 md:h-auto rounded-lg">
                 <h1 class="text-center text-50 text-2xl font-bold my-10">Review</h1>
                 <div class="dropdown flex justify-center">
 
@@ -32,7 +32,7 @@
                                 <textarea class="form-control" id="review" name="review" rows="3"></textarea>
                             </div>
                             <div class="flex justify-center">
-                                <x-primary-button type="submit" class="btn btn-primary">Submit Review</x-primary-button>
+                                <x-button-dark type="submit" class="btn btn-primary mb-4 md:mt-2">Submit Review</x-button-dark>
                             </div>
                             
                         </form>
