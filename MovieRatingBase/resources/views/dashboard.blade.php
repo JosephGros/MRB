@@ -19,10 +19,24 @@
                             </x-primary-button>
                             <x-primary-button>List +</x-primary-button>
                             <x-primary-button> 
-                                <a href="">
-                                    <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                                </a>
-                        </x-primary-button>
+                                <x-dropdown width="48">
+                                    <x-slot name="trigger">
+                                        <div>
+                                        <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                        </div>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('ratings.create') }} ">
+                                            {{ __('Rating') }}
+                                        </x-dropdown-link>
+                                        <x-dropdown-link href="{{ route('reviews.create') }} ">
+                                            {{ __('Review') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
+                                  
+                                
+                            </x-primary-button>
                         </div>
                 </div>
                 @break
@@ -48,7 +62,7 @@
                                         {{$randomItem->description}}</p>
                                 <!-- Genre, Time, Year and Rating -->
                                 <div class="flex justify-center">
-                                    <div class="text-sm text-sky-50 font-inter mt-2">{{$randomItem->release}} | {{$randomItem->runtime}} | 9.0/10</div>
+                                    <div class="text-sm text-sky-50 font-inter mt-2">{{$randomItem->release}} | {{$randomItem->runtime}} | <!--{{$randomItem->averageRating}} --></div>
                                     <img class="h-4 w-auto md:h-8" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                                 </div> 
                                 @foreach($randomItem->genres as $genre)
@@ -65,9 +79,21 @@
                                         <a href=" {{ route('watchlist.index', ['id' => Auth::id()]) }}">Watchlist +</a>
                                     </x-button-dark>
                                     <x-button-dark>
-                                        <a href="{{ route('reviews.create') }}">
-                                            <img class="md:h-8 md:w-auto 2xl:h-12 2xl:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                                        </a>
+                                    <x-dropdown width="48">
+                                    <x-slot name="trigger">
+                                        <div>
+                                        <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                        </div>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('ratings.create') }} ">
+                                            {{ __('Rating') }}
+                                        </x-dropdown-link>
+                                        <x-dropdown-link href="{{ route('reviews.create') }} ">
+                                            {{ __('Review') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
                                     </x-button-dark>
                                 </div>
 

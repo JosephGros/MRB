@@ -8,6 +8,7 @@ use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
@@ -98,6 +99,8 @@ class DashboardController extends Controller
             $mixContent = $movies->merge($series);
             $mixContent = $mixContent->shuffle();
 
+            // $this->addAverageRatings($mixContent);
+
             $randomContent = $mixContent->take(3);
 
             Cache::put('random_content', $randomContent, 24 * 60);
@@ -106,6 +109,27 @@ class DashboardController extends Controller
 
         return $randomContent;
     }
+    // private function addAverageRatings($content)
+    // {
+    //     foreach ($content as $item) {
+    //         if ($item instanceof Movie) {
+    //             $averageRating = $this->averageRating($item->id);
+    //             $item->averageRating = $averageRating;
+    //         }
+    //     }
+    // }
+
+    // private function averageRating($id)
+    // {
+    //     $response = Http::timeout(60)->get(url('/movies/' . $id . '/average-rating'));
+        
+    //     if ($response->successful()) {
+    //         return $response->json('averageRating');
+    //     }
+
+        // Handle error response or timeout
+    //     return null;
+    // }
 
     public function dashboardWatchlist()
     {
