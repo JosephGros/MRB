@@ -39,12 +39,14 @@
                         <x-primary-button class="mb-2">
                             <a href="{{ route('login') }}">Watchlist +</a>
                         </x-primary-button>
-                        <x-primary-button>List +</x-primary-button>
+                        <x-primary-button>
+                            <a href="{{ route('login') }}">List +</a>
+                        </x-primary-button>
                         <x-primary-button> 
-                            <a href="">
+                            <a href="{{ route('login') }}">
                                 <img class="h-6 w-auto md:h-12 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
                             </a>
-                       </x-primary-button>
+                        </x-primary-button>
                     </div>
             </div>
             @break
