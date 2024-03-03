@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actor;
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -28,7 +30,9 @@ class MovieController extends Controller
     {
         if (Auth::user()->role === 0 || Auth::user()->role === 1)
         {
-            return view('admin.edit.editMovie');
+            $actors = Actor::all();
+            $genres = Genre::all();
+            return view('admin.edit.editMovie', compact('actors', 'genres'));
         }
 
         return back()->with('error', 'You are not authorized to do this.');
