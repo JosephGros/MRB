@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-center">
             <h1 class="text-4xl font-bold text-sky-50">@if(isset($type)) Edit $type @else Add New Person @endif</h1>
-        </div>
+        </div> 
     </x-slot>
 
 @section('content')
