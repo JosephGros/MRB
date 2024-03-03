@@ -24,11 +24,11 @@ class DashboardController extends Controller
 
             return view('dashboard', compact('latestInGenre', 'randomContent', 'limit'));
         } else {
-            
+
             $latestInGenre = $this->getGenres($request);
             $randomContent = $this->randomDashboard();
 
-            return view('dashboard', compact('latestInGenre', 'randomContent'));
+            return view('welcome', compact('latestInGenre', 'randomContent'));
         }
     }
     
