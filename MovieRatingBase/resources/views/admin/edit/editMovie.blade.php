@@ -54,44 +54,30 @@
                             <label for="trailer" class="block text-sky-50 font-semibold text-base ">Trailer</label>
                             <input type="text" name="trailer" id="trailer" value="{{ isset($movie) ? $movie->trailer : '' }}" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
                         </div>
-
-                        <!-- <div>
-                                <label for="search" class="block text-sky-50 font-semibold text-base">Search Actors</label>
-                                <input type="text" name="search" id="search" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
-                        </div>
-
-                        <div id="selected-actors" class="mt-4">
-
-                        </div> -->
-
-                        <!-- <div>
-                                <label for="searchGenres" class="block text-sky-50 font-semibold text-base">Search Genres</label>
-                                <input type="text" name="searchGenres" id="searchGenres" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
-                        </div>
-
-                        <div id="selected-genres" class="mt-4">
-
+                        <div>
+                            <label for="actors" class="block text-sky-50 font-semibold text-base">Actors</label>
+                            <select name="actors[]" id="actors" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                @foreach($actors as $actor)
+                                    <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div>
-                                <label for="searchDirectors" class="block text-sky-50 font-semibold text-base">Search Directors</label>
-                                <input type="text" name="searchDirectors" id="searchDirectors" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
-                        </div>
-
-                        <div id="selected-directors" class="mt-4">
-
+                            <label for="selectedActors">Selected Actors:</label>
+                            <ul id="selectedActorsList"></ul>
                         </div>
                         <div>
-                                <label for="searchWriters" class="block text-sky-50 font-semibold text-base">Search Writers</label>
-                                <input type="text" name="searchWriters" id="searchWriters" class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
-                                <ul id="search-results" class="border border-sky-900 p-3 rounded-md mb-2"></ul>
+                            <label for="genres" class="block text-sky-50 font-semibold text-base">Genres</label>
+                            <select name="genres[]" id="genres" multiple class="block mt-1 w-full border-sky-900 shadow-sm rounded-md sm:text-sm focus:ring-sky-500 focus:border-sky-500">
+                                @foreach($genres as $genre)
+                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-
-                        <div id="selected-writers" class="mt-4">
-
-                        </div> -->
+                        <div>
+                            <label for="selectedActors">Selected Actors:</label>
+                            <ul id="selectedActorsList"></ul>
+                        </div>
 
                             <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
