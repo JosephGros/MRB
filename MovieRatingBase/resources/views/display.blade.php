@@ -60,7 +60,23 @@
                                                     <a href=" {{ route('login') }}">Watchlist +</a>
                                                 </x-primary-button>
                                                 <x-primary-button>List +</x-primary-button>
-                                                <x-primary-button class="flex justify-center"><img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-primary-button>
+                                                <x-primary-button class="flex justify-center">
+                                                    <x-dropdown width="48">
+                                                        <x-slot name="trigger">
+                                                            <div>
+                                                            <img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                                            </div>
+                                                        </x-slot>
+                                                        <x-slot name="content">
+                                                            <x-dropdown-link href="{{ route('ratings.create') }} ">
+                                                                {{ __('Rating') }}
+                                                            </x-dropdown-link>
+                                                            <x-dropdown-link href="{{ route('reviews.create') }} ">
+                                                                {{ __('Review') }}
+                                                            </x-dropdown-link>
+                                                        </x-slot>
+                                                    </x-dropdown>
+                                                </x-primary-button>
                                                 <x-primary-button><i class="fa-solid fa-share-nodes fa-xl" style="color: #f0f9ff;"></i></x-primary-button>
                                                 <x-primary-button class="md:hidden">
                                                     <a href="{{ route('actors') }}">Cast</a>
@@ -81,7 +97,7 @@
                                                     <div class="grid grid-cols-3 gap-2 p-2">
                                                         @foreach($movie->actors as $actor)
                                                             <div class="pl-1">
-                                                                <img class="h-[100px] w-[100px] rounded-full border-solid border-2 border-400 md:h-[180px] md:w-[180px]" src="{{ $actor->profile_pcture }}" alt="Elijah Wood">
+                                                                <img class="h-[100px] w-[100px] rounded-full border-solid border-2 border-400 md:h-[180px] md:w-[180px]" src="{{ $actor->profile_pcture }}" alt="{{$actor->name}}">
                                                                 <p class="text-center text-50 text-xs font-medium font-inter pt-2 md:text-base">{{ $actor->name }} <br> <span class="text-xs font-light md:text-sm md:font-light">{{$actor->role}}</span></p>
                                                             </div>
                                                         
@@ -113,7 +129,7 @@
                                                     </div>
                                                     <!-- review from costumer -->
                                                     @if(empty($similarMovie->review))
-                                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Reviews on {{ $movie->name }} yet</p>  
+                                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">Be the first to review {{ $movie->name }}</p>  
                                                     @else
                                                         @foreach($movie->reviews as $review)
                                                             <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4 ">
@@ -175,24 +191,23 @@
                                                 <!-- review from costumer -->
                                                 @if(empty($similarMovie->review))
                                                 <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Reviews on {{ $movie->name }} yet</p>
-                
                                                 @else
-                                                @foreach($similarMovie->reviews as $review)
-                                                    <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4">
-                                                                <p class="text-50 text-xs font-inter ml-2">
-                                                                <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2">Joseph
-                                                                </p>
+                                                    @foreach($movie->reviews as $review)
+                                                        <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4">
+                                                                    <!-- <p class="text-50 text-xs font-inter ml-2">
+                                                                    <img src="{{ asset('/images/profil.jpg') }}" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2">Joseph
+                                                                    </p> -->
 
-                                                            <div class="bg-sky-300/50 rounded-r-lg ml-2">
-                                                                <div class=" flex">
-                                                                    <img class="h-8 w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                                                                <p class=" text-50 font-inter font-medium pt-1"> 10/10</p>
+                                                                <div class="bg-sky-300/50 rounded-r-lg ml-2">
+                                                                    <div class=" flex">
+                                                                        <img class="h-8 w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                                                    <p class=" text-50 font-inter font-medium pt-1"> 10/10</p>
+                                                                    </div>
+                                                                    
+                                                                    <p class="text-xs text-50 font-inter p-2 ">{{ $review->review }}</p>
                                                                 </div>
-                                                                
-                                                                <p class="text-xs text-50 font-inter p-2 ">{{ $review->review }}</p>
-                                                            </div>
-                                                    </div>
-                                                @endforeach
+                                                        </div>
+                                                    @endforeach
                                                 @endif
                                         </section>
 
@@ -275,7 +290,11 @@
                                                 <x-primary-button>
                                                     <a href="{{ route('login') }}">List +</a>
                                                 </x-primary-button>
-                                                <x-primary-button class="flex justify-center"><img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo"></x-primary-button>
+                                                <x-primary-button class="flex justify-center">
+                                                    <a href="{{ route('login') }}">   
+                                                        <img class="h-8 w-auto md:h-14 md:w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                                    </a>
+                                                </x-primary-button>
                                                 <x-primary-button><i class="fa-solid fa-share-nodes fa-xl" style="color: #f0f9ff;"></i></x-primary-button>
                                                 <x-primary-button class="md:hidden">
                                                     <a href="{{ route('actors') }}">Cast</a>
@@ -296,7 +315,7 @@
                                                     <div class="grid grid-cols-3 gap-2 p-2">
                                                         @foreach($movie->actors as $actor)
                                                             <div class="pl-1">
-                                                                <img class="h-[100px] w-[100px] rounded-full border-solid border-2 border-400 md:h-[180px] md:w-[180px]" src="{{ $actor->profile_pcture }}" alt="Elijah Wood">
+                                                                <img class="h-[100px] w-[100px] rounded-full border-solid border-2 border-400 md:h-[180px] md:w-[180px]" src="{{ $actor->profile_pcture }}" alt="{{$actor->name}}">
                                                                 <p class="text-center text-50 text-xs font-medium font-inter pt-2 md:text-base">{{ $actor->name }} <br> <span class="text-xs font-light md:text-sm md:font-light">{{$actor->role}}</span></p>
                                                             </div>
                                                         
@@ -327,14 +346,14 @@
 
                                                     </div>
                                                     <!-- review from costumer -->
-                                                    @if(empty($similarMovie->review))
-                                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Reviews on {{ $movie->name }} yet</p>
+                                                    @if(empty($movie->reviews))
+                                                        <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">Be the first to review {{ $movie->name }}</p>
                                                     @else
                                                         @foreach($movie->reviews as $review)
                                                             <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4 ">
-                                                                        <p class="text-50 text-xs font-inter ml-2">
-                                                                        <img src="" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2 md:text-base">Joseph
-                                                                        </p>
+                                                                        <!-- <p class="text-50 text-xs font-inter ml-2">
+                                                                        <img src="" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2 md:text-base">{{$review->name}}
+                                                                        </p> -->
 
                                                                     <div class="bg-sky-300/50 rounded-r-lg ml-2 ">
                                                                         <div class=" flex">
@@ -387,25 +406,25 @@
                                                     <p class="text-50 font-inter font-medium mt-2">User reviews</p>
                                                 </div>
                                                 @if(empty($similarMovie->review))
-                                                <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">No Reviews on {{ $movie->name }} yet</p>
-                                                <!-- review from costumer -->
+                                                <p class="text-sky-50 ml-2 font-medium pt-2 md:text-xl">Be the first to review {{ $movie->name }}</p>
                                                 @else
-                                                @foreach($similarMovie->reviews as $review)
-                                                    <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4">
-                                                                <p class="text-50 text-xs font-inter ml-2">
-                                                                <img src="{{ $review->profile_picture }}" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2">{{$review->user_name}}
-                                                                </p>
+                                                 <!-- review from costumer -->
+                                                    @foreach($movie->reviews as $review)
+                                                        <div class="bg-sky-600 rounded-lg flex ml-16 mr-2 mb-4">
+                                                                    <!-- <p class="text-50 text-xs font-inter ml-2">
+                                                                    <img src="{{ $review->profile_picture }}" alt="Profil bild" class="rounded-lg w-auto h-10 border-solid border-4 border-sky-400 mt-2">{{$review->user_name}}
+                                                                    </p> -->
 
-                                                            <div class="bg-sky-300/50 rounded-r-lg ml-2">
-                                                                <div class=" flex">
-                                                                    <img class="h-8 w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
-                                                                <p class=" text-50 font-inter font-medium pt-1"> 10/10</p>
+                                                                <div class="bg-sky-300/50 rounded-r-lg ml-2">
+                                                                    <div class=" flex">
+                                                                        <img class="h-8 w-auto" src="{{ asset('/images/astro-like-removebg.png') }}" alt="Rating logo">
+                                                                    <p class=" text-50 font-inter font-medium pt-1"> 10/10</p>
+                                                                    </div>
+                                                                    
+                                                                    <p class="text-xs text-50 font-inter p-2 ">{{ $review->review }}</p>
                                                                 </div>
-                                                                
-                                                                <p class="text-xs text-50 font-inter p-2 ">{{ $review->review }}</p>
-                                                            </div>
-                                                    </div>
-                                                @endforeach
+                                                        </div>
+                                                    @endforeach
                                                 @endif
                                         </section>
 
@@ -417,7 +436,7 @@
                     @endif
                 @endforeach
 
-        @break
+            @break
 
         @php
             $displayedMovies->push($similarMovie->id ?? $movie->id); // Add the movie ID to the collection of displayed movies
