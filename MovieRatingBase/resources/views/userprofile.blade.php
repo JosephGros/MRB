@@ -19,24 +19,25 @@
                 </div>
                 <!-- Right side -->
                 <div class="flex-grow text-white pl-5">
-                    <div class="mb-3">
-                        <div class="text-lg font-bold">
-                            <h3>Username:</h3>
-                        </div>
-                        <p>Joseph</p>
-                    </div>
-                    <div class="mb-3">
-                        <div class="text-lg font-bold">
-                            <h3>Email:</h3>
-                        </div>
-                        <p>wiley.joseph.gros@gmail.com</p>
-                    </div>
-                    <div class="mb-3">
-                        <div class="text-lg font-bold">
-                            <h3>Member since:</h3>
-                        </div>
-                        <p>06 - 02 - 2024</p>
-                    </div>
+    <div class="mb-3">
+        <div class="text-lg font-bold">
+            <h3>Username:</h3>
+        </div>
+        <p>{{ Auth::user()->username }}</p> 
+    </div>
+    <div class="mb-3">
+        <div class="text-lg font-bold">
+            <h3>Email:</h3>
+        </div>
+        <p>{{ Auth::user()->email }}</p> 
+    </div>
+    <div class="mb-3">
+        <div class="text-lg font-bold">
+            <h3>Member since:</h3>
+        </div>
+        <p>{{ Auth::user()->created_at->format('d - m - Y') }}</p>
+    </div>
+</div>
 
                     <!-- Buttons -->
                     <div class="flex flex-wrap justify-center md:justify-start space-x-0 md:space-x-3 mt-3">
