@@ -7,6 +7,9 @@
 
 @section('content')
     <div class="py-8 w-full">
+        <x-admin-edit-btn>
+            <a href="{{ route('admin.index', ['type' => $type]) }}">Back</a>
+        </x-admin-edit-btn>
         <div class="w-4/5 mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center content-center bg-sky-700 sm:rounded-lg overflow-hidden shadow-sm">
                 <div class="w-4/5">

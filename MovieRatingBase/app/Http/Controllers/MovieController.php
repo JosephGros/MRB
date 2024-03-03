@@ -79,6 +79,9 @@ class MovieController extends Controller
         ]);
         $movie->save();
 
+        $movie->actors()->sync($request->input('actors', []));
+        $movie->genres()->sync($request->input('genres', []));
+        
         return redirect()->route('admin.index', ['type' => 'movies'])->with('success', 'Movie created successfully'); // Behöver ändras när vi har en sida som den ska redirect till!
     
     }catch (\Exception $e) {
