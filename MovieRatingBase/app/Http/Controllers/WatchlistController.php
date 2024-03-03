@@ -34,6 +34,7 @@ class WatchlistController extends Controller
         $watchlist = $user->watchlist;
         $media = [];
 
+
         
             foreach ($watchlist as $content)
             {
@@ -46,11 +47,9 @@ class WatchlistController extends Controller
                     continue;
                 }
             }
-        
 
-        return view('contentView.content-view', compact('media'));
+        return $media;
     }
-
     /**
      * Store a newly created resource in storage.
      */
