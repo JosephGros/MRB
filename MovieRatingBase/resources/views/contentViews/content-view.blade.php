@@ -3,7 +3,7 @@
 <div>
     <div class="bg-sky-700 mb-8 mt-8 border-solid border-y-4 border-sky-800/50 md:rounded-lg">
                 @php
-                $media = $media ?? false; // $media to false if it's not already defined
+                $media = $media ?? false; // $media to false if it's not  defined
                 @endphp
                 @if(isset($media) && !$media)
                     <a href="{{ route('genres.show', ['id' => $genre['id']]) }}">
