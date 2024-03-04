@@ -11,12 +11,17 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function show(Request $request): View
-{
-    return view('profile.show', [
-        'user' => $request->user(),
-    ]);
-}
+    public function updatePicture(Request $request)
+    {
+        $user = Auth::user();
+        $imagePath = $request->input('imagePath');
+        
+        // Antag att användarmodellen har en kolumn som heter 'profile_picture'
+        $user->profile_picture = $imagePath;
+        $user->save();
+    
+        return response()->json(['message' => 'Profilbild uppdaterad!']);
+    }
     /**
      * Display the user's profile form.
      */

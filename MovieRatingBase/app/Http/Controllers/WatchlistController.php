@@ -34,21 +34,18 @@ class WatchlistController extends Controller
         $watchlist = $user->watchlist;
         $media = [];
 
-        
-            foreach ($watchlist as $content)
-            {
-                if('media_type' === 'movie')
-                {
-                    $movie = Movie::find($content->media_id);
-        
+        foreach ($watchlist as $content) {
+            // Rättad till kontroll för 'media_type'
+            if ($content->media_type === 'movie') {
+                $movie = Movie::find($content->media_id);
+                if ($movie) {
                     $media[] = $movie;
-                }else {
-                    continue;
                 }
             }
-        
+        }
 
-        return view('contentView.content-view', compact('media'));
+        // Returnera $media istället för $watchlist
+        return $media;
     }
 
     /**
